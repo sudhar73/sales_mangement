@@ -2,6 +2,7 @@
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/datepicker.dart';
@@ -188,84 +189,159 @@ Row(
   ],),
   
 Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   Card(
-  elevation: 5,
-  shadowColor: Colors.grey,
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    child:   Container(
-      width: Get.width,
-      child: Center(
-        child: SfDataGridTheme(
-          data: SfDataGridThemeData(
-            
-            // rowHoverColor: HexColor("#7C8EB2"),
-            // rowHoverTextStyle: TextStyle(
-            // color: Colors.white,
-            // fontSize: 14,),
-            sortIconColor: Colors.white,
-            headerHoverColor: Colors.blue[50],
-            headerColor: HexColor("#023781"),),
-          child: SfDataGrid(
-            
-              selectionMode: SelectionMode.multiple,
-           frozenColumnsCount: 2,
-            allowSorting: true,
-            allowEditing: true,
-            allowPullToRefresh: true,
-            showCheckboxColumn: true,
-            gridLinesVisibility: GridLinesVisibility.vertical,
-            headerGridLinesVisibility: GridLinesVisibility.vertical,
-                  source: employeeDataSource,
-                  columns: <GridColumn>[
-                    GridColumn(
-                        columnName: 'name',
-                        label: Container(
-                          color: HexColor("#023781"),
-                            padding: EdgeInsets.all(8.0),
-                            alignment: Alignment.center,
-                            child: Text('Lead ID',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-                    GridColumn(
-                        columnName: 'designation',
-                        label: Container(
-                          color: HexColor("#023781"),
-                            padding: EdgeInsets.all(1.0),
-                            alignment: Alignment.center,
-                            child: Text('Lead Owner',style:Texts.whit1e(),
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,))),
-                    GridColumn(
-                        columnName: 'salary',
-                        label: Container( 
-                          padding: EdgeInsets.all(8.0),
-                            alignment: Alignment.center,
-                            child: Text('Service Category',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-                     GridColumn(
-                        columnName: 'servicedescription',
-                        label: Container( 
-                          padding: EdgeInsets.all(8.0),
-                            alignment: Alignment.center,
-                            child: Text('Service Description',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-              
- GridColumn(
-                        columnName: 'department',
-                        label: Container( 
-                          padding: EdgeInsets.all(8.0),
-                            alignment: Alignment.center,
-                            child: Text('Division/ Department',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-              GridColumn(
-                        columnName: 'action',
-                        label: Container( 
-                          padding: EdgeInsets.all(8.0),
-                            alignment: Alignment.center,
-                            child: Text('Action',style:Texts.whit1e(),textAlign: TextAlign.center,)))
-                  ],  
-                ),
-        ),
-      ),
+    
+      padding: const EdgeInsets.all(8.0),
+    
+      child:   Card(
+
+    
+      elevation: 5,
+    
+      shadowColor: Colors.grey,
+    
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft:Radius.circular(35),topRight: Radius.circular(35)),),
+    
+child:   Container(
+     width: Get.width,
+    
+  child: Center(
+    
+    child: SfDataGridTheme(
+      data: SfDataGridThemeData(
+    
+        // rowHoverColor: HexColor("#7C8EB2"),
+    
+        // rowHoverTextStyle: TextStyle(
+    
+        // color: Colors.white,
+    
+        // fontSize: 14,),
+    
+        sortIconColor: Colors.white,
+    
+        headerHoverColor: Colors.blue[50],
+    
+        headerColor: HexColor("#023781"),),
+    
+      child: SfDataGrid(
+    
+        
+    
+          selectionMode: SelectionMode.multiple,
+    
+       frozenColumnsCount: 2,
+    
+        allowSorting: true,
+    
+        allowEditing: true,
+    
+        allowPullToRefresh: true,
+    
+        showCheckboxColumn: true,
+    
+        gridLinesVisibility: GridLinesVisibility.vertical,
+    
+        headerGridLinesVisibility: GridLinesVisibility.vertical,
+    
+              source: employeeDataSource,
+    
+              columns: <GridColumn>[
+    
+                GridColumn(
+    
+                    columnName: 'name',
+    
+                    label: Container(
+    
+                      color: HexColor("#023781"),
+    
+                        padding: EdgeInsets.all(8.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Lead ID',style:Texts.whit1e(),textAlign: TextAlign.center,))),
+    
+                GridColumn(
+    
+                    columnName: 'designation',
+    
+                    label: Container(
+    
+                      color: HexColor("#023781"),
+    
+                        padding: EdgeInsets.all(1.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Lead Owner',style:Texts.whit1e(),
+    
+                          textAlign: TextAlign.center,
+    
+                          overflow: TextOverflow.ellipsis,))),
+    
+                GridColumn(
+    
+                    columnName: 'salary',
+    
+                    label: Container( 
+    
+                      padding: EdgeInsets.all(8.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Service Category',style:Texts.whit1e(),textAlign: TextAlign.center,))),
+    
+                 GridColumn(
+    
+                    columnName: 'servicedescription',
+    
+                    label: Container( 
+    
+                      padding: EdgeInsets.all(8.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Service Description',style:Texts.whit1e(),textAlign: TextAlign.center,))),
+    
+          
+    
+     GridColumn(
+    
+                    columnName: 'department',
+    
+                    label: Container( 
+    
+                      padding: EdgeInsets.all(8.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Division/ Department',style:Texts.whit1e(),textAlign: TextAlign.center,))),
+    
+          GridColumn(
+    
+                    columnName: 'action',
+    
+                    label: Container( 
+    
+                      padding: EdgeInsets.all(8.0),
+    
+                        alignment: Alignment.center,
+    
+                        child: Text('Action',style:Texts.whit1e(),textAlign: TextAlign.center,)))
+    
+              ],  
+    
+            ),
+    
     ),
+    
   ),
+    
 ),
+    
+      ),
+    
+    ),
 SizedBox(height:10),
  Row(
    mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -645,335 +721,516 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
+  final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
+   final TextEditingController textcontroler = TextEditingController();
+  final TextEditingController textcontroler1 = TextEditingController();
+  static const country = [
+
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Barbuda",
+             "Bahamas",
+             "Bahrain",
+             "Bangladesh",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "China",
+            "Colombia",
+            "Comoros",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+    "Fiji",
+        "Finland",
+        "France",
+  ];
 
 
   @override
   Widget build(BuildContext context) {
-   return  Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-                padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Enquiry Date",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100));
-        dateController.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
-                  
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Branch",style:Texts.primary2a()),
-                      ),
-              
-
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Company Name",style:Texts.primary2a()),
-                      ),
+   return  Form( 
+     key:formGlobalKey,
+     child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+                  padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Enquiry Date",style:Texts.primary2a()),
+                        ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Customer Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextField(
+           readOnly: true,
+           controller: dateController,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController.text = date.toString().substring(0,10);      
+         },),
+                            )),
+                        ),
+                    
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Branch",style:Texts.primary2a()),
+                        ),
+                
+   
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "Branch is required";
+                                }
+                                else{
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Company Name",style:Texts.primary2a()),
+                        ),
                         Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Mobile Number",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Email Id",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Street 1",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ), 
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "Company Name is required";
+                                }
+                                else{
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Customer Name",style:Texts.primary2a()),
+                        ),
                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Street 2",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("City",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("State",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Pincode",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "Customer Name is required";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Mobile Number",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                                 validator: (value){
+                                if(value!.isEmpty){
+                                  return "Mobile Number is required	";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Email Id",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Street 1",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ), 
                         Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Country",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Mode of Enquiry",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Lead Owner",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Service Location",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Service Category",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Service Description",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Business Sector",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Division/ Department",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("UOM",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Unit Value",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Quanity",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Other Cost",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Quote Value",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Comments/ remarks",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                 SizedBox(height:15),
-                       Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-             Container(
-          height:45,width:Get.width/3.8,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color:HexColor("#023781"),
-          onPressed: (){
-            Get.to(Salefollowup());
-          },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
-          Container(  height:45,width:Get.width/3.9,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(
-              side: BorderSide(color:HexColor("#172B4D"),width: 1),
-              borderRadius: BorderRadius.circular(10)),
-         color: Colors.white,
-          onPressed: (){
-            Get.back();
-          },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
-          ])
-    ],);
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Street 2",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("City",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "City is required	";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),  
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Pincode",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "Pin Code is required	";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("State",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                             
+                               validator: (value){
+                                if(value!.isEmpty){
+                                  return "State is required	";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Country",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Mode of Enquiry",style:Texts.primary2a()),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                  suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.textcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    
+                    
+                    decoration:InputDecoration(
+                          hintText: "Select Lead ID",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                    controller: this.textcontroler,
+                  ),
+                ),))),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Lead Owner",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Service Location",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                               validator: (value){
+                                if(value!.isEmpty){
+                                  return " Service Location is required";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Service Category",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                                validator: (value){
+                                if(value!.isEmpty){
+                                  return "Service Category is required";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Service Description",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Business Sector",style:Texts.primary2a()),
+                        ),  Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                  suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.textcontroler1.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration:InputDecoration(
+                          hintText: "Select Lead ID",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                    controller: this.textcontroler1,
+                  ),
+                ),))),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Division/ Department",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("UOM",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Unit Value",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Quanity",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Other Cost",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Quote Value",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Comments/ remarks",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                   SizedBox(height:15),
+                         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Container(
+            height:45,width:Get.width/3.8,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color:HexColor("#023781"),
+            onPressed: (){
+              if(formGlobalKey.currentState!.validate()) {
+ Get.to(Salefollowup());
+              }
+            },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
+            Container(  height:45,width:Get.width/3.9,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                side: BorderSide(color:HexColor("#172B4D"),width: 1),
+                borderRadius: BorderRadius.circular(10)),
+           color: Colors.white,
+            onPressed: (){
+              Get.back();
+            },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
+            ])
+      ],),
+   );
   }
 }

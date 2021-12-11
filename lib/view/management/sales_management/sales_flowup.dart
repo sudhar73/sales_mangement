@@ -700,6 +700,9 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+    DateTime _date = DateTime.now();
+  final dateController = TextEditingController();
+   final dateController1 = TextEditingController();
   @override
   Widget build(BuildContext context) {
    return  Column(
@@ -750,13 +753,22 @@ class _SaveexitState extends State<Saveexit> {
                         child: Text("Customer Name",style:Texts.primary2a()),
                       ),
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return "Customer Name is required";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              decoration: Texts.Textfeild1(),))),
+                        ),
                         Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Email Id",style:Texts.primary2a()),
@@ -778,18 +790,49 @@ class _SaveexitState extends State<Saveexit> {
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(child:TextFormField(
+                             validator: (value){
+                                if(value!.isEmpty){
+                                  return "Phone Number is required";    
+                                            }
+                                else {
+                                  return null;
+                                }
+                              },
+                            decoration: Texts.Textfeild1(),))),
                       ),  Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Date",style:Texts.primary2a()),
-                      ), Padding(
+                      ),  Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
+                          child: Container(child: TextField(
+         readOnly: true,
+         controller: dateController,
+         decoration: InputDecoration(
+      hintStyle: TextStyle(color: HexColor("#172B4D")),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color:Colors.transparent))
+      ),
+         onTap: () async {
+        var date =  await showDatePicker(
+              context: context, 
+              initialDate:DateTime.now(),
+              firstDate:DateTime(2000),
+              lastDate: DateTime(2100),
+              currentDate: DateTime.now()
+              );
+              
+        dateController.text = date.toString().substring(0,10);      
+       },),
+                          )),
+                      ),
+                        Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Time",style:Texts.primary2a()),
                       ), Padding(
@@ -808,7 +851,16 @@ class _SaveexitState extends State<Saveexit> {
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(child:TextFormField(
+                            validator: (value){
+                                if(value!.isEmpty){
+                                  return "Product/Service Name is required";    
+                                            }
+                                else {
+                                  return null;
+                                }
+                              },
+                            decoration: Texts.Textfeild1(),))),
                       ),  Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Call Details",style:Texts.primary2a()),
@@ -843,13 +895,35 @@ class _SaveexitState extends State<Saveexit> {
                        Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Follow Up Date",style:Texts.primary2a()),
-                      ), Padding(
+                      ),
+                        Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(child: TextField(
+         readOnly: true,
+         controller: dateController1,
+         decoration: InputDecoration(
+      hintStyle: TextStyle(color: HexColor("#172B4D")),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color:Colors.transparent))
+      ),
+         onTap: () async {
+        var date =  await showDatePicker(
+              context: context, 
+              initialDate:DateTime.now(),
+              firstDate:DateTime(2000),
+              lastDate: DateTime(2100),
+              currentDate: DateTime.now()
+              );
+              
+        dateController1.text = date.toString().substring(0,10);      
+       },),
+                          )),
                       ),
                       
                       SizedBox(height:15),
@@ -863,6 +937,7 @@ class _SaveexitState extends State<Saveexit> {
              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color:HexColor("#023781"),
           onPressed: (){
+            
             Get.to(Productservice());
           },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
           Container(  height:45,width:Get.width/3.9,

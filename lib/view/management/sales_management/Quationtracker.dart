@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
@@ -648,6 +649,43 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
+  DateTime _date = DateTime.now();
+  final dateController = TextEditingController();
+   final dateController1 = TextEditingController();
+  final TextEditingController textcontroler = TextEditingController();
+  final TextEditingController textcontroler1 = TextEditingController();
+  static const country = [
+
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Barbuda",
+             "Bahamas",
+             "Bahrain",
+             "Bangladesh",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "China",
+            "Colombia",
+            "Comoros",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+    "Fiji",
+        "Finland",
+        "France",
+  ];
   @override
   Widget build(BuildContext context) {
    return  Column(
@@ -658,26 +696,77 @@ class _SaveexitState extends State<Saveexit> {
                 padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Sales Owner",style:Texts.primary2a()),
                       ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
+                  Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(
+                                 margin:EdgeInsets.only( left: 10, right: 10),
+                            child :TypeAheadFormField(
+                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+
+                ),
+                itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                onSuggestionSelected: (String val) {
+                  this.textcontroler.text = val;
+                  print(val);
+                },
+                getImmediateSuggestions: true,
+                hideSuggestionsOnKeyboardHide: false,
+                hideOnEmpty: false,
+                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                child: Text('No Items Found'),),
+                textFieldConfiguration: TextFieldConfiguration(
+                  decoration:InputDecoration(
+                        hintText: "Select Sales Owner",
+                        
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
                       ),
+                  controller: this.textcontroler,
+                ),
+              ),))),
+         
                        Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Lead ID",style:Texts.primary2a()),
                       ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
+                   Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(
+                                 margin:EdgeInsets.only( left: 10, right: 10),
+                            child :TypeAheadFormField(
+                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+
+                ),
+                itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                onSuggestionSelected: (String val) {
+                  this.textcontroler1.text = val;
+                  print(val);
+                },
+                getImmediateSuggestions: true,
+                hideSuggestionsOnKeyboardHide: false,
+                hideOnEmpty: false,
+                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                child: Text('No Items Found'),),
+                textFieldConfiguration: TextFieldConfiguration(
+                  decoration:InputDecoration(
+                        hintText: "Select Lead ID",
+                        
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
                       ),
+                  controller: this.textcontroler1,
+                ),
+              ),))),
                        Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Company Name",style:Texts.primary2a()),
@@ -727,24 +816,70 @@ class _SaveexitState extends State<Saveexit> {
                       ),  Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Order Date",style:Texts.primary2a()),
-                      ), Padding(
+                      ),
+                                 Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
+                          child: Container(child: TextField(
+         readOnly: true,
+         controller: dateController,
+         decoration: InputDecoration(
+      hintStyle: TextStyle(color: HexColor("#172B4D")),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color:Colors.transparent))
+      ),
+         onTap: () async {
+        var date =  await showDatePicker(
+              context: context, 
+              initialDate:DateTime.now(),
+              firstDate:DateTime(2000),
+              lastDate: DateTime(2100),
+              currentDate: DateTime.now()
+              );
+              
+        dateController.text = date.toString().substring(0,10);      
+       },),
+                          )),
+                      ),
+                       Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Delivery Date",style:Texts.primary2a()),
-                      ), Padding(
+                      ),
+                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
+                          child: Container(child: TextField(
+         readOnly: true,
+         controller: dateController1,
+         decoration: InputDecoration(
+      hintStyle: TextStyle(color: HexColor("#172B4D")),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color:Colors.transparent))
+      ),
+         onTap: () async {
+        var date =  await showDatePicker(
+              context: context, 
+              initialDate:DateTime.now(),
+              firstDate:DateTime(2000),
+              lastDate: DateTime(2100),
+              currentDate: DateTime.now()
+              );
+              
+        dateController1.text = date.toString().substring(0,10);      
+       },),
+                          )),
+                      ),
+           
                         Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Billing Address",style:Texts.primary2a()),

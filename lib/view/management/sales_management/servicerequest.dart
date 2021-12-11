@@ -422,6 +422,8 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+  DateTime _date = DateTime.now();
+  final dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
    return  Column(
@@ -473,11 +475,11 @@ class _SaveexitState extends State<Saveexit> {
                               child: DropdownSearch<String>(
                                 mode: Mode.MENU,
                                 items: [
-                                  "Active","Disable",
+                                  "Active","pending","Disable"
                         
                                 ],
                                dropdownSearchDecoration: InputDecoration(
-                        hintText: "Select a request",
+                        hintText: "Select a request status",
                         
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent),
@@ -497,13 +499,34 @@ class _SaveexitState extends State<Saveexit> {
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
                         child: Text("Request End Date",style:Texts.primary2a()),
                       ),
-                    Padding(
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: Card(
                           shadowColor: Colors.grey,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                          child: Container(child: TextField(
+         readOnly: true,
+         controller: dateController,
+         decoration: InputDecoration(
+      hintStyle: TextStyle(color: HexColor("#172B4D")),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+      borderSide: BorderSide(color:Colors.transparent))
+      ),
+         onTap: () async {
+        var date =  await showDatePicker(
+              context: context, 
+              initialDate:DateTime.now(),
+              firstDate:DateTime(2000),
+              lastDate: DateTime(2100),
+              currentDate: DateTime.now()
+              );
+              
+        dateController.text = date.toString().substring(0,10);      
+       },),
+                          )),
                       ),
                        Padding(
                         padding: const EdgeInsets.only(left:8,right:8,top:10),
