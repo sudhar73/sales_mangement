@@ -422,148 +422,189 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+   final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-   return  Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
- 
-                      
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Order ID",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                     
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Customer Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Request Status",style:Texts.primary2a()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:5.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        
-        borderRadius: BorderRadius.circular(15)),
-                          child:  Container(
-                              
-                              margin: EdgeInsets.only( left: 10, right: 10),
-                              child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                                items: [
-                                  "Active","pending","Disable"
+   return  Form( 
+     key: formGlobalKey,
+     child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+    
                         
-                                ],
-                               dropdownSearchDecoration: InputDecoration(
-                        hintText: "Select a request status",
-                        
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Order ID",style:Texts.primary2a()),
                         ),
-                      ),
-                      popupItemDisabled: (String s) =>
-                                    s.startsWith('I'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    // signupmodel.graduted = value;
-                                    print(value);
-                                  });
-                                },
-                              ),
-                            ),)),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Request End Date",style:Texts.primary2a()),
-                      ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100),
-              currentDate: DateTime.now()
-              );
-              
-        dateController.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("detail of Request",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                        
-                      SizedBox(height:15),
-                       Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-             Container(
-          height:45,width:Get.width/3.8,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color:HexColor("#023781"),
-          onPressed: (){
-            Get.to(Mainsettings());
-          },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
-          Container(  height:45,width:Get.width/3.9,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(
-              side: BorderSide(color:HexColor("#172B4D"),width: 1),
-              borderRadius: BorderRadius.circular(10)),
-         color: Colors.white,
-          onPressed: (){
-            Get.back();
-          },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
-          ])
-    ],);
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Order ID is required";
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                            ))),
+                        ),
+                       
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Customer Name",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Customer Name is required";
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                            ))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Request Status",style:Texts.primary2a()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:5.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          
+          borderRadius: BorderRadius.circular(15)),
+                            child:  Container(
+                                
+                                margin: EdgeInsets.only( left: 10, right: 10),
+                                child: DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                                  items: [
+                                    "Active","pending","Disable"
+                          
+                                  ],
+                                 dropdownSearchDecoration: InputDecoration(
+                          hintText: "Select a request status",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                        popupItemDisabled: (String s) =>
+                                      s.startsWith('I'),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      // signupmodel.graduted = value;
+                                      print(value);
+                                    });
+                                  },
+                                  validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Request Status is required";
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                                ),
+                              ),)),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Request End Date",style:Texts.primary2a()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextFormField(
+           readOnly: true,
+           controller: dateController,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController.text = date.toString().substring(0,10);      
+         },
+         validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Request End Date is required";
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                },
+         ),
+                            )),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("detail of Request",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                          
+                        SizedBox(height:15),
+                         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Container(
+            height:45,width:Get.width/3.8,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color:HexColor("#023781"),
+            onPressed: (){
+              if(formGlobalKey.currentState!.validate()){
+                  Get.to(Mainsettings());
+              }
+            },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
+            Container(  height:45,width:Get.width/3.9,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                side: BorderSide(color:HexColor("#172B4D"),width: 1),
+                borderRadius: BorderRadius.circular(10)),
+           color: Colors.white,
+            onPressed: (){
+              Get.back();
+            },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
+            ])
+      ],),
+   );
   }
 }

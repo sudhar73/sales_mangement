@@ -700,256 +700,262 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+  final formGlobalKey = GlobalKey < FormState > ();
     DateTime _date = DateTime.now();
   final dateController = TextEditingController();
    final dateController1 = TextEditingController();
   @override
   Widget build(BuildContext context) {
-   return  Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
- 
-                      
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Lead ID",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                     
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Employee Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Employee ID",style:Texts.primary2a()),
-                      ),
+   return  Form( 
+     key:formGlobalKey,
+     child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+    
+                        
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Lead ID",style:Texts.primary2a()),
+                        ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Customer Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                       
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Employee Name",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Employee ID",style:Texts.primary2a()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Customer Name",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                            padding: const EdgeInsets.symmetric(horizontal:8.0),
+                            child: Card(
+                              shadowColor: Colors.grey,
+          elevation: 5,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                              child: Container(child:TextFormField(
+                                validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Customer Name is required";
+                                  }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                                decoration: Texts.Textfeild1(),))),
+                          ),
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Email Id",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Phone Number",style:Texts.primary2a()),
+                        ), Padding(
                           padding: const EdgeInsets.symmetric(horizontal:8.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
-                              validator: (value){
-                                if(value!.isEmpty){
-                                  return "Customer Name is required";
-                                }
-                                else {
-                                  return null;
-                                }
-                              },
+                               validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Phone Number is required";    
+                                              }
+                                  else {
+                                    return null;
+                                  }
+                                },
                               decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Date",style:Texts.primary2a()),
+                        ),  Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextField(
+           readOnly: true,
+           controller: dateController,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController.text = date.toString().substring(0,10);      
+         },),
+                            )),
                         ),
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Email Id",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Phone Number",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextFormField(
-                             validator: (value){
-                                if(value!.isEmpty){
-                                  return "Phone Number is required";    
-                                            }
-                                else {
-                                  return null;
-                                }
-                              },
-                            decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Date",style:Texts.primary2a()),
-                      ),  Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100),
-              currentDate: DateTime.now()
-              );
-              
-        dateController.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Time",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Product/Service Name",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextFormField(
-                            validator: (value){
-                                if(value!.isEmpty){
-                                  return "Product/Service Name is required";    
-                                            }
-                                else {
-                                  return null;
-                                }
-                              },
-                            decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Call Details",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Call Result",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Next Follow Up date/ time",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Follow Up Date",style:Texts.primary2a()),
-                      ),
-                        Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController1,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100),
-              currentDate: DateTime.now()
-              );
-              
-        dateController1.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
-                      
-                      SizedBox(height:15),
-                       Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-             Container(
-          height:45,width:Get.width/3.8,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color:HexColor("#023781"),
-          onPressed: (){
-            
-            Get.to(Productservice());
-          },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
-          Container(  height:45,width:Get.width/3.9,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(
-              side: BorderSide(color:HexColor("#172B4D"),width: 1),
-              borderRadius: BorderRadius.circular(10)),
-         color: Colors.white,
-          onPressed: (){
-            Get.back();
-          },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
-          ])
-    ],);
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Time",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Product/Service Name",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(
+                              validator: (String? value){
+                                  if(value!.isEmpty){
+                                    return "Product/Service Name is required";    
+                                              }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                              decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Call Details",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Call Result",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Next Follow Up date/ time",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Follow Up Date",style:Texts.primary2a()),
+                        ),
+                          Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextField(
+           readOnly: true,
+           controller: dateController1,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController1.text = date.toString().substring(0,10);      
+         },),
+                            )),
+                        ),
+                        
+                        SizedBox(height:15),
+                         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Container(
+            height:45,width:Get.width/3.8,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color:HexColor("#023781"),
+            onPressed: (){
+              if(formGlobalKey.currentState!.validate()){
+ Get.to(Productservice());
+              }
+             
+            },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
+            Container(  height:45,width:Get.width/3.9,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                side: BorderSide(color:HexColor("#172B4D"),width: 1),
+                borderRadius: BorderRadius.circular(10)),
+           color: Colors.white,
+            onPressed: (){
+              Get.back();
+            },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
+            ])
+      ],),
+   );
   }
 }

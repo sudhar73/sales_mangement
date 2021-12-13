@@ -648,127 +648,192 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
+   final formGlobalKey = GlobalKey < FormState > ();
   @override
   Widget build(BuildContext context) {
-   return  Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-                padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Employee Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Employee ID",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Email",style:Texts.primary2a()),
-                      ),
+   return  Form(
+     key:formGlobalKey,
+     child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+                  padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Employee Name",style:Texts.primary2a()),
+                        ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Phone Number",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return "Employee Name is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Employee ID",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                              if(value!.isEmpty){
+                                return "Employee ID is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Email",style:Texts.primary2a()),
+                        ),
                         Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Image",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Department",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Designation",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Product Name",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                 SizedBox(height:15),
-                       Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-             Container(
-          height:45,width:Get.width/3.8,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color:HexColor("#023781"),
-          onPressed: (){
-            Get.to(Quationtracker());
-          },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
-          Container(  height:45,width:Get.width/3.9,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(
-              side: BorderSide(color:HexColor("#172B4D"),width: 1),
-              borderRadius: BorderRadius.circular(10)),
-         color: Colors.white,
-          onPressed: (){
-            Get.back();
-          },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
-          ])
-    ],);
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return "Email Id is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Phone Number",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                              if(value!.isEmpty){
+                                return "Phone Number is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+
+                        ),
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Image",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                              if(value!.isEmpty){
+                                return "Image is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Department",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (String? value){
+                              if(value!.isEmpty){
+                                return "Department is required";
+                              }else{
+                                return null;
+                              }
+                            },
+                            ))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Designation",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Designation is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
+                            ))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Product Name",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                   SizedBox(height:15),
+                         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Container(
+            height:45,width:Get.width/3.8,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color:HexColor("#023781"),
+            onPressed: (){
+              if(formGlobalKey.currentState!.validate()){
+                Get.to(Quationtracker());
+              }
+            },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
+            Container(  height:45,width:Get.width/3.9,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                side: BorderSide(color:HexColor("#172B4D"),width: 1),
+                borderRadius: BorderRadius.circular(10)),
+           color: Colors.white,
+            onPressed: (){
+              Get.back();
+            },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
+            ])
+      ],),
+   );
   }
 
   Salefollowup() {}

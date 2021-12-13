@@ -780,6 +780,15 @@ class _SaveexitState extends State<Saveexit> {
                           child: Container(
                                  margin:EdgeInsets.only( left: 10, right: 10),
                             child :TypeAheadFormField(
+                              validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Services Group is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
                 suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
 
                 ),
@@ -817,7 +826,7 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
                             validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return "Please enter product name";
+                                      return "Product Name is required";
                                     }
                                     return null;
                                   },
@@ -838,7 +847,7 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
                             validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return "Please enter product code";
+                                      return "Product Code is required";
                                     }
                                     return null;
                                   },
@@ -857,15 +866,16 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter UOM";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                   // signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter UOM";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //        // signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -878,15 +888,16 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter unit price";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                    //signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter unit price";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //         //signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                           Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -901,15 +912,16 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(child:TextFormField(
                               maxLength: 5,
                               decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter the description";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                    //signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter the description";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //         //signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                         SizedBox(height:15),
                          Row(

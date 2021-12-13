@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
@@ -725,6 +726,40 @@ class Saveexit extends StatefulWidget {
 
 class _SaveexitState extends State<Saveexit> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+   final TextEditingController textcontroler = TextEditingController();
+
+  static const country = [
+
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Andorra",
+        "Angola",
+        "Antigua and Barbuda",
+             "Bahamas",
+             "Bahrain",
+             "Bangladesh",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "China",
+            "Colombia",
+            "Comoros",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+    "Fiji",
+        "Finland",
+        "France",
+  ];
   @override
   Widget build(BuildContext context) {
    return  Form( 
@@ -739,42 +774,39 @@ class _SaveexitState extends State<Saveexit> {
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Services Group",style:Texts.primary2a()),
                         ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:5.0),
-                          child: Card(
-                            shadowColor: Colors.grey,
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          
-          borderRadius: BorderRadius.circular(15)),
-                            child:  Container(
-                                
-                                margin:
-                                    EdgeInsets.only( left: 10, right: 10),
-                                child: DropdownSearch<String>(
-                                  mode: Mode.MENU,
-                             
-                                  items: [
-                                    "product","service","model","cill","dik",
-                          
-                                  ],
-                                 dropdownSearchDecoration: InputDecoration(
-                          hintText: "Select a group",
-                          
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                        child: Card(
+                          shadowColor: Colors.grey,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          child: Container(
+                                 margin:EdgeInsets.only( left: 10, right: 10),
+                            child :TypeAheadFormField(
+                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+
+                ),
+                itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                onSuggestionSelected: (String val) {
+                  this.textcontroler.text = val;
+                  print(val);
+                },
+                getImmediateSuggestions: true,
+                hideSuggestionsOnKeyboardHide: false,
+                hideOnEmpty: false,
+                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                child: Text('No Items Found'),),
+                textFieldConfiguration: TextFieldConfiguration(
+                  decoration:InputDecoration(
+                        hintText: "Select Lead ID",
+                        
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
                         ),
-                        popupItemDisabled: (String s) =>
-                                      s.startsWith('I'),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      // signupmodel.graduted = value;
-                                      print(value);
-                                    });
-                                  },
-                                ),
-                              ),)),
+                      ),
+                  controller: this.textcontroler,
+                ),
+              ),))),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Services Name",style:Texts.primary2a()),
@@ -788,7 +820,7 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
                             validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return "Please enter Service name";
+                                      return "Services Name is required";
                                     }
                                     return null;
                                   },
@@ -809,7 +841,7 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
                             validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return "Please enter Service code";
+                                      return "Services Code is required";
                                     }
                                     return null;
                                   },
@@ -828,15 +860,16 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter UOM";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                    //signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter UOM";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //         //signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -849,15 +882,16 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter Price";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                    //signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter Price";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //         //signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                           Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -870,15 +904,16 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Please enter words";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (String? address) {
-                                   // signupmodel.address = address;
-                                  },))),
+                            // validator: (String? value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Please enter words";
+                            //         }
+                            //         return null;
+                            //       },
+                            //       onSaved: (String? address) {
+                            //        // signupmodel.address = address;
+                            //       },
+                                  ))),
                         ),
                         SizedBox(height:15),
                          Row(

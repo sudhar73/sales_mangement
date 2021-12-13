@@ -649,6 +649,7 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
+   final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
    final dateController1 = TextEditingController();
@@ -688,393 +689,426 @@ class _SaveexitState extends State<Saveexit> {
   ];
   @override
   Widget build(BuildContext context) {
-   return  Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-                padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Sales Owner",style:Texts.primary2a()),
-                      ),
-                  Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(
-                                 margin:EdgeInsets.only( left: 10, right: 10),
-                            child :TypeAheadFormField(
-                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
-
-                ),
-                itemBuilder: (_,String item) => ListTile(title: Text(item),),
-                onSuggestionSelected: (String val) {
-                  this.textcontroler.text = val;
-                  print(val);
-                },
-                getImmediateSuggestions: true,
-                hideSuggestionsOnKeyboardHide: false,
-                hideOnEmpty: false,
-                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
-                child: Text('No Items Found'),),
-                textFieldConfiguration: TextFieldConfiguration(
-                  decoration:InputDecoration(
-                        hintText: "Select Sales Owner",
-                        
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
+   return  Form(
+ key:formGlobalKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+                  padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Sales Owner",style:Texts.primary2a()),
                         ),
-                      ),
-                  controller: this.textcontroler,
-                ),
-              ),))),
-         
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Lead ID",style:Texts.primary2a()),
-                      ),
-                   Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(
-                                 margin:EdgeInsets.only( left: 10, right: 10),
-                            child :TypeAheadFormField(
-                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
-
-                ),
-                itemBuilder: (_,String item) => ListTile(title: Text(item),),
-                onSuggestionSelected: (String val) {
-                  this.textcontroler1.text = val;
-                  print(val);
-                },
-                getImmediateSuggestions: true,
-                hideSuggestionsOnKeyboardHide: false,
-                hideOnEmpty: false,
-                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
-                child: Text('No Items Found'),),
-                textFieldConfiguration: TextFieldConfiguration(
-                  decoration:InputDecoration(
-                        hintText: "Select Lead ID",
-                        
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
+                    Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                  suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.textcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration:InputDecoration(
+                          hintText: "Select Sales Owner",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
                         ),
-                      ),
-                  controller: this.textcontroler1,
-                ),
-              ),))),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Company Name",style:Texts.primary2a()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Customer Name",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Email Id",style:Texts.primary2a()),
-                      ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Phone Number",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Order Date",style:Texts.primary2a()),
-                      ),
-                                 Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100),
-              currentDate: DateTime.now()
-              );
-              
-        dateController.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Delivery Date",style:Texts.primary2a()),
-                      ),
-                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child: TextField(
-         readOnly: true,
-         controller: dateController1,
-         decoration: InputDecoration(
-      hintStyle: TextStyle(color: HexColor("#172B4D")),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color:Colors.transparent))
-      ),
-         onTap: () async {
-        var date =  await showDatePicker(
-              context: context, 
-              initialDate:DateTime.now(),
-              firstDate:DateTime(2000),
-              lastDate: DateTime(2100),
-              currentDate: DateTime.now()
-              );
-              
-        dateController1.text = date.toString().substring(0,10);      
-       },),
-                          )),
-                      ),
+                    controller: this.textcontroler,
+                  ),
+                ),))),
            
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Billing Address",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Shipping Address",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Product/Service ID",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Product/Service Name",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Unit Value",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                        Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Quantity",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ), 
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Quote Value",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Other Cost",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Sub Total",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Discount",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Tax",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                      Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Grand Total",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                      ),  
-                       Padding(
-                        padding: const EdgeInsets.only(left:8,right:8,top:10),
-                        child: Text("Quote Status",style:Texts.primary2a()),
-                      ), Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:5.0),
-                        child: Card(
-                          shadowColor: Colors.grey,
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        
-        borderRadius: BorderRadius.circular(15)),
-                          child:  Container(
-                              
-                              margin:
-                                  EdgeInsets.only( left: 10, right: 10),
-                              child: DropdownSearch<String>(
-                                mode: Mode.MENU,
-                           
-                                items: [
-                                  "Hot","warm","Cold","Hold","Cancelled","Sold"
-                        
-                                ],
-                               dropdownSearchDecoration: InputDecoration(
-                        hintText: "Select a status",
-                        
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Lead ID",style:Texts.primary2a()),
                         ),
-                      ),
-                      popupItemDisabled: (String s) =>
-                                    s.startsWith('I'),
-                                onChanged: (value) {
-                                  setState(() {
-                                    // signupmodel.graduted = value;
-                                    print(value);
-                                  });
+                     Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                  suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.textcontroler1.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration:InputDecoration(
+                          hintText: "Select Lead ID",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                    controller: this.textcontroler1,
+                  ),
+                ),))),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Company Name",style:Texts.primary2a()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Customer Name",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Customer Name is required";    
+                                              }
+                                  else {
+                                    return null;
+                                  }
                                 },
-                              ),
-                            ),)),
-                 SizedBox(height:15),
-                       Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-             Container(
-          height:45,width:Get.width/3.8,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color:HexColor("#023781"),
-          onPressed: (){
-            Get.to(AllSalesorder());
-          },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
-          Container(  height:45,width:Get.width/3.9,
-          child:RaisedButton(
-             shape: RoundedRectangleBorder(
-              side: BorderSide(color:HexColor("#172B4D"),width: 1),
-              borderRadius: BorderRadius.circular(10)),
-         color: Colors.white,
-          onPressed: (){
-            Get.back();
-          },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
-          ])
-    ],);
+                            ))),
+                        ),
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Email Id",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Phone Number",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             validator: (value){
+                                  if(value!.isEmpty){
+                                    return "Phone Number is required";    
+                                              }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                            ))),
+                        ),  Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Order Date",style:Texts.primary2a()),
+                        ),
+                                   Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextField(
+           readOnly: true,
+           controller: dateController,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController.text = date.toString().substring(0,10);      
+         },),
+                            )),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Delivery Date",style:Texts.primary2a()),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextField(
+           readOnly: true,
+           controller: dateController1,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController1.text = date.toString().substring(0,10);      
+         },),
+                            )),
+                        ),
+             
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Billing Address",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Shipping Address",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Product/Service ID",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Product/Service Name",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                            validator: (String? value){
+                                  if(value!.isEmpty){
+                                    return "Product/Service Name is required";    
+                                       }
+                                  else {
+                                    return null;
+                                  }
+                                },
+                            ))),
+                        ),  
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Unit Value",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                          Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Quantity",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ), 
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Quote Value",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Other Cost",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Sub Total",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Discount",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Tax",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Grand Total",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),  
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Quote Status",style:Texts.primary2a()),
+                        ), Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:5.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          
+          borderRadius: BorderRadius.circular(15)),
+                            child:  Container(
+                                
+                                margin:
+                                    EdgeInsets.only( left: 10, right: 10),
+                                child: DropdownSearch<String>(
+                                  mode: Mode.MENU,
+                             
+                                  items: [
+                                    "Hot","warm","Cold","Hold","Cancelled","Sold"
+                          
+                                  ],
+                                 dropdownSearchDecoration: InputDecoration(
+                          hintText: "Select a status",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                        popupItemDisabled: (String s) =>
+                                      s.startsWith('I'),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      // signupmodel.graduted = value;
+                                      print(value);
+                                    });
+                                  },
+                                ),
+                              ),)),
+                   SizedBox(height:15),
+                         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Container(
+            height:45,width:Get.width/3.8,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color:HexColor("#023781"),
+            onPressed: (){
+              if(formGlobalKey.currentState!.validate()){
+                         Get.to(AllSalesorder());
+              }
+         
+            },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
+            Container(  height:45,width:Get.width/3.9,
+            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                side: BorderSide(color:HexColor("#172B4D"),width: 1),
+                borderRadius: BorderRadius.circular(10)),
+           color: Colors.white,
+            onPressed: (){
+              Get.back();
+            },child:Text("Cancel",style:TextStyle(color:HexColor("#023781"),fontSize:16)))),
+            ])
+      ],),
+   );
   }
 
   Salefollowup() {}
