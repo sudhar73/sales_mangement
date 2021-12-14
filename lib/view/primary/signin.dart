@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
+import 'package:sales/view/primary/forgotpassword.dart';
+import 'package:sales/view/primary/signup.dart';
 import 'package:sales/view/secondary/dashboard.dart';
 
 class Signin extends StatefulWidget {
@@ -68,9 +70,14 @@ class _SigninState extends State<Signin> {
           
                  Padding(
                    padding: const EdgeInsets.symmetric(horizontal:8.0),
-                   child: Align(
-                     alignment: Alignment.centerRight,
-                     child: Text("Forgot Password?",style:TextStyle(color:HexColor("#7C8EB2"),fontSize:16,fontWeight: FontWeight.normal))),
+                   child: InkWell( 
+                     onTap: (){
+                       Get.to(Forgotpassword());
+                     },
+                     child: Align(
+                       alignment: Alignment.centerRight,
+                       child: Text("Forgot Password?",style:TextStyle(color:HexColor("#7C8EB2"),fontSize:16,fontWeight: FontWeight.normal))),
+                   ),
                  ),
                 SizedBox(height:10),         
               Padding(
@@ -95,13 +102,18 @@ class _SigninState extends State<Signin> {
                    ),
                    Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Container(child:Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       crossAxisAlignment: CrossAxisAlignment.center,
-                       children: [
-                       Text("Don't have account?",style:Texts.primary1b()),
-                        Text("Register Now",style:Texts.primary1bold()),
-                     ],)),
+                     child: InkWell(
+                       onTap:(){
+                         Get.to(Signup());
+                       },
+                       child: Container(child:Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         crossAxisAlignment: CrossAxisAlignment.center,
+                         children: [
+                         Text("Don't have account?",style:Texts.primary1b()),
+                          Text("Register Now",style:Texts.primary1bold()),
+                       ],)),
+                     ),
                    )
           ],),
         ),),

@@ -556,12 +556,12 @@ class _SaveexitState extends State<Saveexit> {
           dateController.text = date.toString().substring(0,10);      
          },
          validator: (value){
-                                  if(value!.isEmpty){
-                                    return "Request End Date is required";
-                                  }
-                                  else {
-                                    return null;
-                                  }
+           if(value!.isEmpty){
+              return "Request End Date is required";
+                }
+           else {
+              return null;
+                }
                                 },
          ),
                             )),
@@ -578,7 +578,6 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
                         ),
-                          
                         SizedBox(height:15),
                          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

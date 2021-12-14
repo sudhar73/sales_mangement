@@ -1206,7 +1206,7 @@ class _SaveexitState extends State<Saveexit> {
                         ),  
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
-                          child: Text("order Status",style:Texts.primary2a()),
+                          child: Text("Order Status",style:Texts.primary2a()),
                         ), Padding(
                           padding: const EdgeInsets.symmetric(horizontal:5.0),
                           child: Card(

@@ -778,7 +778,7 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child: TextField(
+                            child: Container(child: TextFormField(
            readOnly: true,
            controller: dateController,
            decoration: InputDecoration(
@@ -798,7 +798,15 @@ class _SaveexitState extends State<Saveexit> {
                 );
                 
           dateController.text = date.toString().substring(0,10);      
-         },),
+         },  validator: (value){
+                                if(value!.isEmpty){
+                                  return "Enquiry date is required";
+                                }
+                                else{
+                                  return null;
+                                }
+                              },
+         ),
                             )),
                         ),
                     
@@ -1004,6 +1012,15 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Mode of Enquiry is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),

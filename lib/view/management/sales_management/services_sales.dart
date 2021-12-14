@@ -783,6 +783,15 @@ class _SaveexitState extends State<Saveexit> {
                           child: Container(
                                  margin:EdgeInsets.only( left: 10, right: 10),
                             child :TypeAheadFormField(
+                               validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Services Group is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
                 suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
 
                 ),

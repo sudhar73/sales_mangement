@@ -704,6 +704,7 @@ class _SaveexitState extends State<Saveexit> {
     DateTime _date = DateTime.now();
   final dateController = TextEditingController();
    final dateController1 = TextEditingController();
+     final timeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
    return  Form( 
@@ -812,7 +813,7 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child: TextField(
+                            child: Container(child: TextFormField(
            readOnly: true,
            controller: dateController,
            decoration: InputDecoration(
@@ -832,7 +833,16 @@ class _SaveexitState extends State<Saveexit> {
                 );
                 
           dateController.text = date.toString().substring(0,10);      
-         },),
+         },
+         validator: (String? value){
+                                  if(value!.isEmpty){
+                                    return "Date is required";    
+                                              }
+                                  else {
+                                    return null;
+                                  }
+                                },
+         ),
                             )),
                         ),
                           Padding(
@@ -844,8 +854,20 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                        ),  Padding(
+                            child: Container(child:TextField(
+         readOnly: true,
+         controller: timeController,
+         decoration: InputDecoration(
+            hintText: 'Pick your Time'
+  ),
+         onTap: () async {
+        var time =  await showTimePicker(
+              initialTime: TimeOfDay.now(),
+              context: context,);
+        timeController.text = time!.format(context);      
+       },)),
+                            )),
+                         Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Product/Service Name",style:Texts.primary2a()),
                         ), Padding(

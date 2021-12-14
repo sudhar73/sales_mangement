@@ -708,6 +708,15 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                 validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Sales Owner is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),
@@ -723,7 +732,7 @@ class _SaveexitState extends State<Saveexit> {
                   child: Text('No Items Found'),),
                   textFieldConfiguration: TextFieldConfiguration(
                     decoration:InputDecoration(
-                          hintText: "Select Sales Owner",
+                          hintText: "Sales Owner is required",
                           
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
@@ -746,6 +755,15 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                 validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "Lead ID is required";
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (String? address) {
+                                    //signupmodel.address = address;
+                                  },
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),
