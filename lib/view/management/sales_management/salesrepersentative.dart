@@ -146,37 +146,7 @@ Row(
                            )),
                      ),
                    ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      onPressed:(){
-                  
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-              
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-  ],),
+                    ],),
 
 // Padding(
 //   padding: const EdgeInsets.all(10.0),
@@ -267,52 +237,7 @@ Padding(
   ),
 ),
 SizedBox(height:10),
- Row(
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-   children: [
-     Padding(
-             padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                             
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                           children: [
-                             Icon(Icons.arrow_left,color:Colors.white),
-                             Text("Previous",style:TextStyle(color:Colors.white,fontSize:15)),
-                           ],
-                         ) )),
-                     ),
-                   ),
-                    Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                            
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text("Next",style:TextStyle(color:Colors.white,fontSize:16)),
-                             Icon(Icons.arrow_right,color:Colors.white),
-                           ],) 
-                           )),
-                     ),
-                   ),
-               ],),
+ 
       ],)
       )), drawer:  Drawer(
        

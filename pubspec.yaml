@@ -51,6 +51,7 @@ dependencies:
   flutter_local_notifications:
   dropdown_search: ^2.0.1
   flutter_typeahead: ^3.2.4
+  syncfusion_flutter_datagrid_export:
 
 dev_dependencies:
   flutter_test:

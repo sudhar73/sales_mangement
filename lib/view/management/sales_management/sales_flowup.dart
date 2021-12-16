@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/utils.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -155,38 +156,38 @@ Row(
                            )),
                      ),
                    ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //                 Padding(padding: const EdgeInsets.all(3.0),
+    //                  child: Center(
+    //                    child: Container(
+    //                      height:50,
+    //                       width:Get.width/4.5,
+    //                      child: RaisedButton(
+    //                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     
-                           onPressed:(){
+    //                        onPressed:(){
                            
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //                        },
+    //                      color:HexColor("#7D7D7D"),
+    // child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
+    //                        )),
+    //                  ),
+    //                ),
+    //                 Padding(padding: const EdgeInsets.all(3.0),
+    //                  child: Center(
+    //                    child: Container(
+    //                      height:50,
+    //                       width:Get.width/4.5,
+    //                      child: RaisedButton(
+    //                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     
-                           onPressed:(){
+    //                        onPressed:(){
                            
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
+    //                        },
+    //                      color:HexColor("#7D7D7D"),
+    // child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
+    //                        )),
+    //                  ),
+    //                ),
   ],
 ),
 // Padding(
@@ -305,56 +306,6 @@ Padding(
 SizedBox(height:10),
 
 
-
- Row(
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-   children: [
-     Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                          
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                           children: [
-                             Icon(Icons.arrow_left,color:Colors.white),
-                             Text("Previous",style:TextStyle(color:Colors.white,fontSize:15)),
-                           ],
-                         ) )),
-                     ),
-                   ),
-                    Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                           
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text("Next",style:TextStyle(color:Colors.white,fontSize:16)),
-                             
-                             Icon(Icons.arrow_right,color:Colors.white),
-                           ],
-                         ) )),
-                     ),
-                   ),
-   ],
- ),
       ],)
       )),
        drawer:  Drawer(
@@ -698,13 +649,43 @@ class Saveexit extends StatefulWidget {
   @override
   _SaveexitState createState() => _SaveexitState();
 }
-
+enum secondary { yes, no }
 class _SaveexitState extends State<Saveexit> {
+  bool isVisible = false;
+  secondary? inital = secondary.yes;
   final formGlobalKey = GlobalKey < FormState > ();
-    DateTime _date = DateTime.now();
+  DateTime _date = DateTime.now();
   final dateController = TextEditingController();
-   final dateController1 = TextEditingController();
-     final timeController = TextEditingController();
+  final dateController1 = TextEditingController();
+  final timeController = TextEditingController();
+  final TextEditingController textcontroler = TextEditingController();
+  final TextEditingController textcontroler1 = TextEditingController();
+
+  static const country = [
+        "EMP001",
+        "EMP002",
+          "EMP003",
+            "EMP004",
+              "EMP005",
+                "EMP006",
+                  "EMP007",
+                    "EMP008",
+                      "EMP009",
+                       "EMP002",
+  ];
+  static const country1 = [
+        "call result",
+        "call result",
+          "call result",
+            "call result",
+              "call result",
+  ];
+  
+  // void visibility(){
+  //   setState(() {
+  //   isVisible != isVisible;
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
    return  Form( 
@@ -745,13 +726,38 @@ class _SaveexitState extends State<Saveexit> {
                           child: Text("Employee ID",style:Texts.primary2a()),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
-                          child: Card(
-                            shadowColor: Colors.grey,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                        child: Card(
+                          shadowColor: Colors.grey,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          child: Container(
+                                 margin:EdgeInsets.only( left: 10, right: 10),
+                            child :TypeAheadFormField(
+                suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+
+                ),
+                itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                onSuggestionSelected: (String val) {
+                  this.textcontroler.text = val;
+                  print(val);
+                },
+                getImmediateSuggestions: true,
+                hideSuggestionsOnKeyboardHide: false,
+                hideOnEmpty: false,
+                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                child: Text('No Items Found'),),
+                textFieldConfiguration: TextFieldConfiguration(
+                  decoration:InputDecoration(
+                        hintText: "Select Employee ID",
+                        
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
                         ),
+                      ),
+                  controller: this.textcontroler,
+                ),
+              ),))),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Customer Name",style:Texts.primary2a()),
@@ -899,57 +905,140 @@ class _SaveexitState extends State<Saveexit> {
                         ),  Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Call Result",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
-                          child: Card(
-                            shadowColor: Colors.grey,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                        ),  Padding(
+                        ), 
+                           Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
+                        child: Card(
+                          shadowColor: Colors.grey,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          child: Container(
+                                 margin:EdgeInsets.only( left: 10, right: 10),
+                            child :TypeAheadFormField(
+                suggestionsCallback: (pattern) => country1.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+
+                ),
+                itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                onSuggestionSelected: (String val) {
+                  this.textcontroler.text = val;
+                  print(val);
+                },
+                getImmediateSuggestions: true,
+                hideSuggestionsOnKeyboardHide: false,
+                hideOnEmpty: false,
+                noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                child: Text('No Items Found'),),
+                textFieldConfiguration: TextFieldConfiguration(
+                  decoration:InputDecoration(
+                        hintText: "Select Call Result",
+                        
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                      ),
+                  controller: this.textcontroler,
+                ),
+              ),))), Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Next Follow Up date/ time",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
-                          child: Card(
-                            shadowColor: Colors.grey,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                        ),
-                         Padding(
-                          padding: const EdgeInsets.only(left:8,right:8,top:10),
-                          child: Text("Follow Up Date",style:Texts.primary2a()),
-                        ),
-                          Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
-                          child: Card(
-                            shadowColor: Colors.grey,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child: TextField(
-           readOnly: true,
-           controller: dateController1,
-           decoration: InputDecoration(
-        hintStyle: TextStyle(color: HexColor("#172B4D")),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: Colors.transparent)),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color:Colors.transparent))
-        ),
-           onTap: () async {
-          var date =  await showDatePicker(
-                context: context, 
-                initialDate:DateTime.now(),
-                firstDate:DateTime(2000),
-                lastDate: DateTime(2100),
-                currentDate: DateTime.now()
-                );
-                
-          dateController1.text = date.toString().substring(0,10);      
-         },),
-                            )),
-                        ),
+                        ), 
+
+                          Container(
+                                    margin: EdgeInsets.only(
+                                      left: 13,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Row(children: <Widget>[
+                                          Radio<secondary>(
+                                            activeColor: Colors.black,
+                                            value: secondary.yes,
+                                            groupValue: inital,
+                                            onChanged: (secondary? value) {
+                                              setState(() {
+                                                inital = value;
+                                               // signupmodel.postinistion =
+                                                    "yes";
+                                                isVisible = true;
+                                              });
+                                            },
+                                          ),
+                                          const Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17),
+                                          ),
+                                        ]),
+                                        Row(
+                                          children: <Widget>[
+                                            Radio<secondary>(
+                                              activeColor: Colors.black,
+                                              value: secondary.no,
+                                              groupValue: inital,
+                                              onChanged: (secondary? value) {
+                                                setState(() {
+                                                  inital = value;
+                                                //  signupmodel.postinistion =
+                                                      "no";
+                                                  isVisible = false;
+                                                });
+                                              },
+                                            ),
+                                            const Text(
+                                              'No',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                         Visibility( 
+                            visible: isVisible,
+                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.start, 
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Padding(
+                                padding: const EdgeInsets.only(left:8,right:8,top:10),
+                                child: Text("Follow Up Date",style:Texts.primary2a()),
+                                                 ),
+                             Padding(
+                            padding: const EdgeInsets.symmetric(horizontal:8.0),
+                            child: Card(
+                              shadowColor: Colors.grey,
+                                 elevation: 5,
+                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                              child: Container(child: TextField(
+                                    readOnly: true,
+                                    controller: dateController1,
+                                    decoration: InputDecoration(
+                                 hintStyle: TextStyle(color: HexColor("#172B4D")),
+                                 focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+                                 borderSide: BorderSide(color: Colors.transparent)),
+                                 enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+                                 borderSide: BorderSide(color:Colors.transparent))
+                                 ),
+                                    onTap: () async {
+                                   var date =  await showDatePicker(
+                                         context: context, 
+                                         initialDate:DateTime.now(),
+                                         firstDate:DateTime(2000),
+                                         lastDate: DateTime(2100),
+                                         currentDate: DateTime.now()
+                                         );
+                                         
+                                   dateController1.text = date.toString().substring(0,10);      
+                                  },),
+                              )),
+                                                 ),
+                             ],
+                           ),
+                         ),
+                       
                         
                         SizedBox(height:15),
                          Row(

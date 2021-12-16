@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
-import 'package:dropdown_search/dropdown_search.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -15,9 +16,19 @@ import 'package:sales/view/management/sales_management/productservices.dart';
 import 'package:sales/view/management/sales_management/sales_flowup.dart';
 import 'package:sales/view/management/sales_management/salesrepersentative.dart';
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
-import 'package:sales/view/management/sales_management/settings/productgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_datagrid_export/export.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart'hide Alignment, Column, Row;
+import 'package:syncfusion_flutter_datagrid_export/export.dart';
+
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+
+
+
+
+
 
 class Lead_genaration extends StatefulWidget {
   const Lead_genaration({ Key? key }) : super(key: key);
@@ -30,6 +41,7 @@ class _Lead_genarationState extends State<Lead_genaration> {
   List<Employee> employees = <Employee>[];
   late EmployeeDataSource employeeDataSource;
   DateTime _date = DateTime.now();
+  final GlobalKey<SfDataGridState> _key =GlobalKey<SfDataGridState>();
 
   @override
   void initState() {
@@ -37,6 +49,7 @@ class _Lead_genarationState extends State<Lead_genaration> {
     employees = getEmployeeData();
     employeeDataSource = EmployeeDataSource(employeeData: employees);
   }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -123,64 +136,62 @@ Center(
 ),
 SizedBox(height:15),
 Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  mainAxisAlignment: MainAxisAlignment.end,
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
-        Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      onPressed:(){
+    //     Padding(padding: const EdgeInsets.all(3.0),
+    //                  child: Center(
+    //                    child: Container(
+    //                      height:50,
+    //                      width:Get.width/4.5,
+    //                      child: RaisedButton(
+    //                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //                   onPressed:(){
                          
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("Copy",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-                    Padding(padding: const EdgeInsets.all(3.0),
+    //                        },
+    //                      color:HexColor("#7D7D7D"),
+    // child: Text("Copy",style:TextStyle(color:Colors.white,fontSize:16)),
+    //                        )),
+    //                  ),
+    //                ),
+         
+                    Padding(padding: const EdgeInsets.only(left:8.0),
                      child: Center(
                        child: Container(
+                          
                          height:50,
                          width:Get.width/4.5,
                          child: RaisedButton(
                            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                        onPressed:(){
-                      
-                           },
-                         color:HexColor("#7D7D7D"),
+                        onPressed: (){},
+                                             color:HexColor("#7D7D7D"),
     child: Text("Excel",style:TextStyle(color:Colors.white,fontSize:16)),
                            )),
                      ),
                    ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      onPressed:(){
+    //                 Padding(padding: const EdgeInsets.all(3.0),
+    //                  child: Center(
+    //                    child: Container(
+    //                      height:50,
+    //                       width:Get.width/4.5,
+    //                      child: RaisedButton(
+    //                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    //                   onPressed:(){
                              
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-                    Padding(padding: const EdgeInsets.all(3.0),
+    //                        },
+    //                      color:HexColor("#7D7D7D"),
+    // child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
+    //                        )),
+    //                  ),
+    //                ),
+                    Padding(padding: const EdgeInsets.only(right:8.0,left:8),
                      child: Center(
                        child: Container(
                          height:50,
                           width:Get.width/4.5,
                          child: RaisedButton(
                            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                           
-                           },
+                          onPressed:(){},
                          color:HexColor("#7D7D7D"),
     child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
                            )),
@@ -224,7 +235,7 @@ child:   Container(
         headerColor: HexColor("#023781"),),
     
       child: SfDataGrid(
-    
+    key: _key,
         
     
           selectionMode: SelectionMode.multiple,
@@ -343,49 +354,7 @@ child:   Container(
     
     ),
 SizedBox(height:10),
- Row(
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-   children: [
-     Padding(
-             padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                             
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                           children: [
-                             Icon(Icons.arrow_left,color:Colors.white),
-                             Text("Previous",style:TextStyle(color:Colors.white,fontSize:15)),
-                           ],
-                         ) )),
-                     ),
-                   ),
-                    Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){},
-                         color:HexColor("#023781"),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text("Next",style:TextStyle(color:Colors.white,fontSize:16)),
-                             Icon(Icons.arrow_right,color:Colors.white),
-                           ],) 
-                           )),),
-                   ),
-               ],),
+ 
       ],)
       )), 
 drawer:  Drawer(
@@ -726,8 +695,16 @@ class _SaveexitState extends State<Saveexit> {
   final dateController = TextEditingController();
    final TextEditingController textcontroler = TextEditingController();
   final TextEditingController textcontroler1 = TextEditingController();
+  final TextEditingController branchcontroler = TextEditingController();
+  final TextEditingController leadcontroler = TextEditingController();
+  final TextEditingController servicecontroler = TextEditingController();
+  final TextEditingController departmentcontroler = TextEditingController();
+ //final TextEditingController branchcontroler = TextEditingController();
+   static const branch = ["chennai","cuddalore","panurti"];
+   static const leadowner = ["ramesh","ramki","ryan","pulto"];
+   static const service = ["security","park","peat","coco"];
+   static const department = ["security","manger","developer","bot"];
   static const country = [
-
         "Afghanistan",
         "Albania",
         "Algeria",
@@ -744,17 +721,17 @@ class _SaveexitState extends State<Saveexit> {
             "China",
             "Colombia",
             "Comoros",
-        "Denmark",
-        "Djibouti",
-        "Dominica",
-        "Dominican Republic",
-        "Ecuador",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
         "Egypt",
         "El Salvador",
         "Equatorial Guinea",
         "Eritrea",
         "Estonia",
-    "Fiji",
+        "Fiji",
         "Finland",
         "France",
   ];
@@ -815,15 +792,16 @@ class _SaveexitState extends State<Saveexit> {
                           child: Text("Branch",style:Texts.primary2a()),
                         ),
                 
-   
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+    Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextFormField(
-                              validator: (value){
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                               validator: (value){
                                 if(value!.isEmpty){
                                   return "Branch is required";
                                 }
@@ -831,8 +809,33 @@ class _SaveexitState extends State<Saveexit> {
                                   return null;
                                 }
                               },
-                              decoration: Texts.Textfeild1(),))),
+                  suggestionsCallback: (pattern) => branch.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.branchcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    
+                    
+                    decoration:InputDecoration(
+                          hintText: "Select branch",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
                         ),
+                    controller: this.branchcontroler,
+                  ),
+                ),))),
+                     
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Company Name",style:Texts.primary2a()),
@@ -1038,7 +1041,7 @@ class _SaveexitState extends State<Saveexit> {
                     
                     
                     decoration:InputDecoration(
-                          hintText: "Select Lead ID",
+                          hintText: "Select Mode of Enquiry",
                           
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
@@ -1050,14 +1053,44 @@ class _SaveexitState extends State<Saveexit> {
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Lead Owner",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                        ), 
+                         Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
-                        ),  Padding(
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                             
+                  suggestionsCallback: (pattern) => leadowner.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.leadcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    
+                    
+                    decoration:InputDecoration(
+                          hintText: "Select Lead Owner",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                    controller: this.leadcontroler,
+                  ),
+                ),))),
+                         Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Service Location",style:Texts.primary2a()),
                         ), Padding(
@@ -1080,14 +1113,16 @@ class _SaveexitState extends State<Saveexit> {
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Service Category",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                        ),  Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextFormField(
-                                validator: (value){
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                               validator: (value){
                                 if(value!.isEmpty){
                                   return "Service Category is required";
                                 }
@@ -1095,8 +1130,32 @@ class _SaveexitState extends State<Saveexit> {
                                   return null;
                                 }
                               },
-                              decoration: Texts.Textfeild1(),))),
+                  suggestionsCallback: (pattern) => service.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.servicecontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    
+                    
+                    decoration:InputDecoration(
+                          hintText: "Select Lead Owner",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
                         ),
+                    controller: this.servicecontroler,
+                  ),
+                ),))),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Service Description",style:Texts.primary2a()),
@@ -1136,7 +1195,7 @@ class _SaveexitState extends State<Saveexit> {
                   child: Text('No Items Found'),),
                   textFieldConfiguration: TextFieldConfiguration(
                     decoration:InputDecoration(
-                          hintText: "Select Lead ID",
+                          hintText: "Select bussiness sector",
                           
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
@@ -1148,14 +1207,39 @@ class _SaveexitState extends State<Saveexit> {
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Division/ Department",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                        ), 
+                         Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                  suggestionsCallback: (pattern) => department.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.departmentcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration:InputDecoration(
+                          hintText: "Select division/department",
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
                         ),
+                    controller: this.departmentcontroler,
+                  ),
+                ),))),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("UOM",style:Texts.primary2a()),

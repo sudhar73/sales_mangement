@@ -161,21 +161,7 @@ Row(
                            )),
                      ),
                    ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                       
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
+                   
   ],),
 
 // Padding(
@@ -267,52 +253,7 @@ Padding(
   ),
 ),
 SizedBox(height:10),
- Row(
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-   children: [
-     Padding(
-             padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                             
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                           children: [
-                             Icon(Icons.arrow_left,color:Colors.white),
-                             Text("Previous",style:TextStyle(color:Colors.white,fontSize:15)),
-                           ],
-                         ) )),
-                     ),
-                   ),
-                    Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                            
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text("Next",style:TextStyle(color:Colors.white,fontSize:16)),
-                             Icon(Icons.arrow_right,color:Colors.white),
-                           ],) 
-                           )),
-                     ),
-                   ),
-               ],),
+ 
       ],)
       )), drawer:  Drawer(
        
@@ -654,6 +595,20 @@ class _SaveexitState extends State<Saveexit> {
    final dateController1 = TextEditingController();
   final TextEditingController textcontroler = TextEditingController();
   final TextEditingController textcontroler1 = TextEditingController();
+  final TextEditingController productidcontroler = TextEditingController();
+
+  static const product = [
+        "EMP001",
+        "EMP002",
+          "EMP003",
+            "EMP004",
+              "EMP005",
+                "EMP006",
+                  "EMP007",
+                    "EMP008",
+                      "EMP009",
+                       "EMP002",
+  ];
   static const country = [
 
         "Afghanistan",
@@ -997,24 +952,45 @@ class _SaveexitState extends State<Saveexit> {
                           Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Product/Service ID",style:Texts.primary2a()),
-                        ), Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:2.0,vertical: 2.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
-                            validator: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return "Product/Service ID is required";
-                                    }
-                                    return null;
-                                  },
+                            child: Container(
+                                   margin:EdgeInsets.only( left: 10, right: 10),
+                              child :TypeAheadFormField(
+                                 
                                   onSaved: (String? address) {
                                     //signupmodel.address = address;
                                   },
-                            ))),
-                        ),  
+                  suggestionsCallback: (pattern) => product.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
+   
+                  ),
+                  itemBuilder: (_,String item) => ListTile(title: Text(item),),
+                  onSuggestionSelected: (String val) {
+                    this.productidcontroler.text = val;
+                    print(val);
+                  },
+                  getImmediateSuggestions: true,
+                  hideSuggestionsOnKeyboardHide: false,
+                  hideOnEmpty: false,
+                  noItemsFoundBuilder: (context) => Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text('No Items Found'),),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration:InputDecoration(
+                          hintText: "select Product/Service ID",
+                          
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                    controller: this.productidcontroler,
+                  ),
+                ),))),
+           
                           Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Product/Service Name",style:Texts.primary2a()),

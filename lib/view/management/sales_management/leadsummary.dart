@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,6 +14,7 @@ import 'package:sales/view/management/sales_management/salesrepersentative.dart'
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_datagrid_export/export.dart';
 
 class Leadsummary extends StatefulWidget {
   const Leadsummary({ Key? key }) : super(key: key);
@@ -21,9 +24,15 @@ class Leadsummary extends StatefulWidget {
 }
 
 class _LeadsummaryState extends State<Leadsummary> {
+  final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
   List<Employee> employees = <Employee>[];
   late EmployeeDataSource employeeDataSource;
-
+ Future<void> exportDataGridToExcel() async {
+    final  workbook = _key.currentState!.exportToExcelWorkbook();
+    final List<int> bytes = workbook.saveAsStream();
+    File('DataGrid.xlsx').writeAsBytes(bytes);
+    workbook.dispose();
+  }
   @override
   void initState() {
     super.initState();
@@ -90,6 +99,7 @@ Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
+    
         Padding(padding: const EdgeInsets.all(3.0),
                      child: Center(
                        child: Container(
@@ -118,36 +128,7 @@ Row(
                            )),
                      ),
                    ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      onPressed:(){
- 
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("CSV",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
-                    Padding(padding: const EdgeInsets.all(3.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                          width:Get.width/4.5,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                    
-                           },
-                         color:HexColor("#7D7D7D"),
-    child: Text("Print",style:TextStyle(color:Colors.white,fontSize:16)),
-                           )),
-                     ),
-                   ),
+                   
   ],),
 
 // Padding(
@@ -186,6 +167,7 @@ Padding(
             headerHoverColor: Colors.yellow,
             headerColor: HexColor("#023781"),),
           child: SfDataGrid(
+             key: _key,
               selectionMode: SelectionMode.multiple,
            frozenColumnsCount: 2,
             allowSorting: true,
@@ -239,52 +221,7 @@ Padding(
   ),
 ),
 SizedBox(height:10),
- Row(
-   mainAxisAlignment: MainAxisAlignment.spaceAround,
-   children: [
-     Padding(
-             padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                             
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                           children: [
-                             Icon(Icons.arrow_left,color:Colors.white),
-                             Text("Previous",style:TextStyle(color:Colors.white,fontSize:15)),
-                           ],
-                         ) )),
-                     ),
-                   ),
-                    Padding(
-                     padding: const EdgeInsets.all(10.0),
-                     child: Center(
-                       child: Container(
-                         height:50,
-                         width:120,
-                         child: RaisedButton(
-                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                           onPressed:(){
-                            
-                           },
-                         color:HexColor("#023781"),
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                             Text("Next",style:TextStyle(color:Colors.white,fontSize:16)),
-                             Icon(Icons.arrow_right,color:Colors.white),
-                           ],) 
-                           )),
-                     ),
-                   ),
-               ],),
+ 
       ],)
       )),
        drawer:  Drawer(
@@ -527,7 +464,7 @@ SizedBox(height:10),
 )
     );
   }
- 
+  
     List<Employee> getEmployeeData() {
     return [
       Employee(1,'Rajesh','CEO','CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),

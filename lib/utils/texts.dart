@@ -64,7 +64,6 @@ return TextStyle(color:HexColor("#7C8EB2"),fontSize: 18,fontWeight: FontWeight.w
     return InputDecoration(
       prefixIcon:icon ,
       hintText: hint,
-  
       hintStyle: TextStyle(color: HexColor("#172B4D")),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15),
       borderSide: BorderSide(color: HexColor("#F7F8F9"))),

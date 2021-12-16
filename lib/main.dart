@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:sales/view/management/sales_management/lead_genration.dart';
+import 'package:sales/view/management/sales_management/sales_flowup.dart';
 import 'package:sales/view/primary/signup.dart';
 import 'package:sales/view/secondary/dashboard.dart';
 
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-  home:Signup()
+     home:Lead_genaration()
+    // home:Signup()
      //home:Dashboard()
     );
   }

@@ -211,7 +211,6 @@ class _SignupState extends State<Signup> {
                                    signupmodel.companyname,
                                    signupmodel.companywebsite
                                  );
-                                    Lead_genaration();
                                  print("successfull");
                                }
                                else {

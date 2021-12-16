@@ -24,7 +24,7 @@ class DatePicker extends StatelessWidget {
     return Row(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
       Expanded(
           child: InkWell(
-              onTap: () => _selectDate(context),
+              onTap:() => _selectDate(context),
               child: InputDecorator(
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -37,7 +37,6 @@ class DatePicker extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 16.0),
                             child: Text(
                               DateFormat.yMMMMEEEEd().format(selectedDate),
-                              
                             )),
                         Padding(
                           padding:

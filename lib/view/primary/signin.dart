@@ -1,10 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/signupmodel.dart';
+import 'package:sales/preference/preference.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
+import 'package:sales/view/management/sales_management/lead_genration.dart';
 import 'package:sales/view/primary/forgotpassword.dart';
 import 'package:sales/view/primary/signup.dart';
 import 'package:sales/view/secondary/dashboard.dart';
+import 'package:http/http.dart' as http;
 
 class Signin extends StatefulWidget {
   const Signin({ Key? key }) : super(key: key);
@@ -14,7 +22,9 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
+  AppSharedPreference preference = AppSharedPreference();
   final formGlobalKey = GlobalKey < FormState > ();
+  SignupModel signupmodel =SignupModel(name: '', email: '', password: '', phonenumber: '', companyname: '', companywebsite: '');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +38,7 @@ class _SigninState extends State<Signin> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height:Get.height/6),
+
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
@@ -42,14 +53,19 @@ class _SigninState extends State<Signin> {
                elevation: 5,
                shadowColor: Colors.grey,
                child: Container(child:TextFormField(
+                 keyboardType: TextInputType.phone,
                   validator: (value){
                    if(value!.isEmpty){ 
-                     return "plz enter the phone number";
-                   }else{
+                     return "plz enter the Email";
+                   }
+                   else{
                      return null;
                    }
                  },
-                 decoration: Texts.Textfeild2("Phone Number", "Enter Your Phone Number", Icon(Icons.mobile_friendly,color: Colors.grey,)),))),
+                 onSaved: (String? email){ 
+                  signupmodel.email=email;
+                 },
+                 decoration: Texts.Textfeild2("Email", "Enter Your Email", Icon(Icons.email,color: Colors.grey,)),))),
            ),
            SizedBox(height:10),
            Padding(
@@ -64,6 +80,9 @@ class _SigninState extends State<Signin> {
                    }else{
                      return null;
                    }
+                 },
+                 onSaved: (password){
+                   signupmodel.password=password;
                  },
                  decoration: Texts.Textfeild2("Password", "Your password", Icon(Icons.lock,color: Colors.grey,)),))),
            ),
@@ -90,9 +109,22 @@ class _SigninState extends State<Signin> {
                            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                            onPressed:(){
                              if(formGlobalKey.currentState!.validate()){
-                             Get.to(Dashboard());
+                               (formGlobalKey.currentState!.save());
+                             showAlertDialog(context); 
+                             _loginButtonaction();
+                          //  _loginbutonAction(email, password)
+                           //  Get.to(Dashboard());
+                             }else{
+                                Fluttertoast.showToast(
+                                              msg:
+                                                  "Please enter all the details",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 2,
+                                              backgroundColor:Colors.red,
+                                              textColor: Colors.black,
+                                              fontSize: 14.0);
                              }
-                             
                            },
                          color:HexColor("#023781"),
                           child:
@@ -119,5 +151,78 @@ class _SigninState extends State<Signin> {
         ),),
       )
     );
+  }
+  _loginButtonaction(){
+    logincheck(signupmodel.email!, signupmodel.password!);
+  }
+  logincheck(String email,String password) async{
+  
+  final url=APIConstants.login;
+  var bodyvalue ={'email':email,'password':password};
+  print(bodyvalue);
+  final response=await http.post(Uri.parse(url),body:bodyvalue);
+  final responsejson =json.decode(response.body);
+  print(responsejson);
+  var status = responsejson['status'];
+  var message = responsejson['message'];
+  if(status == 1){
+    print("test");
+    Navigator.pop(context);
+    var logindetails = responsejson['user_info']; 
+    preference.setUserLoggedIn(true);
+    preference.save("user",logindetails);
+       Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTodashboard(context, Homepage());
+
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Lead_genaration())); // replacePage(context, Homepage());
+    } else {
+      print("testfail");
+
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+  
+
+  
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future navigateTodashboard(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Lead_genaration()));
   }
 }
