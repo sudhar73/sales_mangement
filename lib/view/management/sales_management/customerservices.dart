@@ -80,40 +80,43 @@ title:Material(
               ],),
             ),
 // ignore: avoid_unnecessary_containers
+Center(
+  child:  Container(child:Text("Customer Services",style:Texts.primary1d())),
+),
 SizedBox(height:10),
- Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                    height: 60,
-                    width: 150,
-                    child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        color: HexColor("#023781"),
-                        onPressed: () {},
-                        child: Text("New Request",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 18)))),
-                SizedBox(width: 10),
-                Container(
-                    height: 60,
-                    width: 150,
-                    child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: HexColor("#172B4D"), width: 1),
-                            borderRadius: BorderRadius.circular(15)),
-                        color: Colors.white,
-                        onPressed: () {
-Get.to(Servicerequest());
-                        },
-                        child: Text("Service Request",
-                            style: TextStyle(
-                                color: HexColor("#023781"), fontSize: 16))))
-              ],
-            ),
+//  Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 Container(
+//                     height: 60,
+//                     width: 150,
+//                     child: RaisedButton(
+//                         shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(16)),
+//                         color: HexColor("#023781"),
+//                         onPressed: () {},
+//                         child: Text("New Request",
+//                             style:
+//                                 TextStyle(color: Colors.white, fontSize: 18)))),
+//                 SizedBox(width: 10),
+//                 Container(
+//                     height: 60,
+//                     width: 150,
+//                     child: RaisedButton(
+//                         shape: RoundedRectangleBorder(
+//                             side: BorderSide(
+//                                 color: HexColor("#172B4D"), width: 1),
+//                             borderRadius: BorderRadius.circular(15)),
+//                         color: Colors.white,
+//                         onPressed: () {
+// Get.to(Servicerequest());
+//                         },
+//                         child: Text("Service Request",
+//                             style: TextStyle(
+//                                 color: HexColor("#023781"), fontSize: 16))))
+//               ],
+//             ),
 Align(
   alignment: Alignment.centerRight,
   child:   Padding(
@@ -125,6 +128,8 @@ Align(
                           shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           onPressed:(){
                             Get.to(_addexit(context));
+Get.to(Servicerequest());
+
                           },
                         color:HexColor("#7C8EB2"),
                          child:Row(
@@ -137,6 +142,7 @@ Align(
                         ) )),
                     ),
 ),
+
 SizedBox(height:15),
 Row(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -213,12 +219,9 @@ Row(
 Padding(
   padding: const EdgeInsets.all(8.0),
   child:   Card(
-  
   elevation: 5,
-  
   shadowColor: Colors.grey,
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-  
     child:   Container(
       width: Get.width,
       child: Center(
@@ -232,10 +235,8 @@ Padding(
             headerHoverColor: Colors.yellow,
             headerColor: HexColor("#023781"),),
           child: SfDataGrid(
-            
               selectionMode: SelectionMode.multiple,
            frozenColumnsCount: 2,
-           
             allowSorting: true,
             allowEditing: true,
             allowPullToRefresh: true,

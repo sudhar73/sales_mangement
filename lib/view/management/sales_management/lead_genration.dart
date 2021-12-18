@@ -1,11 +1,16 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/leadgenrationmodel.dart';
+import 'package:sales/model/salesfollowupmodel.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/datepicker.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
@@ -22,7 +27,7 @@ import 'package:syncfusion_flutter_datagrid_export/export.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart'hide Alignment, Column, Row;
 import 'package:syncfusion_flutter_datagrid_export/export.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 
@@ -202,24 +207,16 @@ Row(
 Padding(
     
       padding: const EdgeInsets.all(8.0),
-    
       child:   Card(
-
-    
       elevation: 5,
-    
       shadowColor: Colors.grey,
-    
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft:Radius.circular(35),topRight: Radius.circular(35)),),
     
 child:   Container(
      width: Get.width,
-    
   child: Center(
-    
     child: SfDataGridTheme(
       data: SfDataGridThemeData(
-    
         // rowHoverColor: HexColor("#7C8EB2"),
     
         // rowHoverTextStyle: TextStyle(
@@ -229,109 +226,63 @@ child:   Container(
         // fontSize: 14,),
     
         sortIconColor: Colors.white,
-    
         headerHoverColor: Colors.blue[50],
-    
         headerColor: HexColor("#023781"),),
-    
       child: SfDataGrid(
     key: _key,
-        
-    
           selectionMode: SelectionMode.multiple,
-    
        frozenColumnsCount: 2,
-    
         allowSorting: true,
-    
         allowEditing: true,
-    
         allowPullToRefresh: true,
-    
         showCheckboxColumn: true,
-    
         gridLinesVisibility: GridLinesVisibility.vertical,
-    
         headerGridLinesVisibility: GridLinesVisibility.vertical,
-    
               source: employeeDataSource,
-    
               columns: <GridColumn>[
-    
                 GridColumn(
-    
                     columnName: 'name',
-    
                     label: Container(
-    
                       color: HexColor("#023781"),
-    
                         padding: EdgeInsets.all(8.0),
-    
                         alignment: Alignment.center,
     
                         child: Text('Lead ID',style:Texts.whit1e(),textAlign: TextAlign.center,))),
     
                 GridColumn(
-    
                     columnName: 'designation',
-    
                     label: Container(
-    
                       color: HexColor("#023781"),
-    
                         padding: EdgeInsets.all(1.0),
-    
                         alignment: Alignment.center,
-    
                         child: Text('Lead Owner',style:Texts.whit1e(),
-    
                           textAlign: TextAlign.center,
-    
                           overflow: TextOverflow.ellipsis,))),
     
                 GridColumn(
     
                     columnName: 'salary',
-    
                     label: Container( 
-    
                       padding: EdgeInsets.all(8.0),
-    
                         alignment: Alignment.center,
-    
                         child: Text('Service Category',style:Texts.whit1e(),textAlign: TextAlign.center,))),
     
                  GridColumn(
-    
                     columnName: 'servicedescription',
-    
                     label: Container( 
-    
                       padding: EdgeInsets.all(8.0),
-    
                         alignment: Alignment.center,
-    
                         child: Text('Service Description',style:Texts.whit1e(),textAlign: TextAlign.center,))),
     
-          
-    
-     GridColumn(
-    
-                    columnName: 'department',
-    
+     GridColumn( columnName: 'department',
                     label: Container( 
-    
                       padding: EdgeInsets.all(8.0),
-    
                         alignment: Alignment.center,
-    
                         child: Text('Division/ Department',style:Texts.whit1e(),textAlign: TextAlign.center,))),
     
           GridColumn(
     
                     columnName: 'action',
-    
                     label: Container( 
     
                       padding: EdgeInsets.all(8.0),
@@ -341,20 +292,11 @@ child:   Container(
                         child: Text('Action',style:Texts.whit1e(),textAlign: TextAlign.center,)))
     
               ],  
-    
-            ),
-    
-    ),
-    
+            ),),
   ),
-    
 ),
-    
-      ),
-    
-    ),
+      ), ),
 SizedBox(height:10),
- 
       ],)
       )), 
 drawer:  Drawer(
@@ -370,7 +312,6 @@ drawer:  Drawer(
           child: Image(image: AssetImage("assets/Logo.png"))
         ),
       ),
-     
        Padding(
               padding:EdgeInsets.only(top:1,),
               child: Container(
@@ -690,6 +631,7 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
+  LeadgenrationModel leadgenrationModel=LeadgenrationModel();
   final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
@@ -756,6 +698,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child: TextFormField(
+                              onSaved: (EnquiryDate){
+                                leadgenrationModel.EnquiryDate=EnquiryDate;
+                              },
            readOnly: true,
            controller: dateController,
            decoration: InputDecoration(
@@ -801,6 +746,9 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                 onSaved: (Branch){
+                                leadgenrationModel.Branch=Branch;
+                              },
                                validator: (value){
                                 if(value!.isEmpty){
                                   return "Branch is required";
@@ -847,6 +795,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                              onSaved: (CompanyName){
+                                leadgenrationModel.CompanyName=CompanyName;
+                              },
                               validator: (value){
                                 if(value!.isEmpty){
                                   return "Company Name is required";
@@ -868,6 +819,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                               onSaved: (CustomerName){
+                                leadgenrationModel.CustomerName=CustomerName;
+                              },
                               validator: (value){
                                 if(value!.isEmpty){
                                   return "Customer Name is required";
@@ -889,6 +843,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                               onSaved: (MobileNumber){
+                                leadgenrationModel.MobileNumber=MobileNumber;
+                              },
                                  validator: (value){
                                 if(value!.isEmpty){
                                   return "Mobile Number is required	";
@@ -902,13 +859,18 @@ class _SaveexitState extends State<Saveexit> {
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Email Id",style:Texts.primary2a()),
-                        ), Padding(
+                        ), 
+                        Padding(
                           padding: const EdgeInsets.symmetric(horizontal:8.0),
                           child: Card(
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                               onSaved: (EmailId){
+                                leadgenrationModel.EmailId=EmailId;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),  Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Street 1",style:Texts.primary2a()),
@@ -918,7 +880,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                              onSaved: (Street1){
+                                leadgenrationModel.Street1=Street1;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ), 
                         Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -929,7 +895,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                               onSaved: (Street2){
+                                leadgenrationModel.Street2=Street2;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),  Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("City",style:Texts.primary2a()),
@@ -940,6 +910,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                                onSaved: (City){
+                                leadgenrationModel.City=City;
+                              },
                               validator: (value){
                                 if(value!.isEmpty){
                                   return "City is required	";
@@ -960,6 +933,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                               onSaved: (Pincode){
+                                leadgenrationModel.Pincode=Pincode;
+                              },
                               validator: (value){
                                 if(value!.isEmpty){
                                   return "Pin Code is required	";
@@ -980,6 +956,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                              onSaved: (State){
+                                leadgenrationModel.State=State;
+                              },
                              
                                validator: (value){
                                 if(value!.isEmpty){
@@ -1000,7 +979,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                                onSaved: (Country){
+                                leadgenrationModel.Country=Country;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1015,15 +998,16 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                 onSaved: (ModeofEnquiry){
+                                leadgenrationModel.ModeofEnquiry=ModeofEnquiry;
+                              },
                                 validator: (String? value) {
                                     if (value!.isEmpty) {
                                       return "Mode of Enquiry is required";
                                     }
                                     return null;
                                   },
-                                  onSaved: (String? address) {
-                                    //signupmodel.address = address;
-                                  },
+                                  
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),
@@ -1063,6 +1047,9 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                  onSaved: (LeadOwner){
+                                leadgenrationModel.LeadOwner=LeadOwner;
+                              },
                              
                   suggestionsCallback: (pattern) => leadowner.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
@@ -1100,6 +1087,10 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                                onSaved: (ServiceLocation){
+                                leadgenrationModel.ServiceLocation=ServiceLocation;
+                              },
+                             
                                validator: (value){
                                 if(value!.isEmpty){
                                   return " Service Location is required";
@@ -1122,6 +1113,9 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                onSaved: (ServiceCategory){
+                                leadgenrationModel.ServiceCategory=ServiceCategory;
+                              },
                                validator: (value){
                                 if(value!.isEmpty){
                                   return "Service Category is required";
@@ -1166,6 +1160,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
+                               onSaved: (ServiceDescription){
+                                leadgenrationModel.ServiceDescription=ServiceDescription;
+                              },
                               decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
@@ -1180,6 +1177,9 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                 onSaved: (BusinessSector){
+                                leadgenrationModel.BusinessSector=BusinessSector;
+                              },
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),
@@ -1217,6 +1217,9 @@ class _SaveexitState extends State<Saveexit> {
                             child: Container(
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
+                                  onSaved: (DivisonDepartment){
+                                leadgenrationModel.DivisonDepartment=DivisonDepartment;
+                              },
                   suggestionsCallback: (pattern) => department.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
                   ),
@@ -1249,7 +1252,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                               onSaved: (UOM){
+                                leadgenrationModel.UOM=UOM;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1260,7 +1267,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                              onSaved: (UnitValue){
+                                leadgenrationModel.UnitValue=UnitValue;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1271,7 +1282,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                              onSaved: (Quantity){
+                                leadgenrationModel.Quantity=Quantity;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1282,7 +1297,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                              onSaved: (Othercost){
+                                leadgenrationModel.Othercost=Othercost;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1293,7 +1312,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                                onSaved: (QuoteValue){
+                                leadgenrationModel.QuoteValue=QuoteValue;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -1304,8 +1327,13 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                                 onSaved: (CommentsRemarks){
+                                leadgenrationModel.CommentsRemarks=CommentsRemarks;
+                              },
+                              decoration: Texts.Textfeild1(),))),
                         ),
+                         
                    SizedBox(height:15),
                          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1318,8 +1346,49 @@ class _SaveexitState extends State<Saveexit> {
             color:HexColor("#023781"),
             onPressed: (){
               if(formGlobalKey.currentState!.validate()) {
- Get.to(Salefollowup());
-              }
+                (formGlobalKey.currentState!.save());
+                 _ActionButton(
+                     leadgenrationModel.EnquiryDate,
+                        leadgenrationModel.Branch,
+                           leadgenrationModel.CompanyName,
+                              leadgenrationModel.CustomerName, 
+                                 leadgenrationModel.MobileNumber, 
+                                    leadgenrationModel.EmailId, 
+                                       leadgenrationModel.Street1, 
+                                          leadgenrationModel.Street2, 
+                                             leadgenrationModel.City, 
+                                                leadgenrationModel.Pincode, 
+                                                   leadgenrationModel.State, 
+                                                      leadgenrationModel.Country, 
+                                                         leadgenrationModel.ModeofEnquiry, 
+                                                            leadgenrationModel.LeadOwner, 
+                                                               leadgenrationModel.ServiceLocation, 
+                                                                  leadgenrationModel.ServiceCategory, 
+                                                                     leadgenrationModel.ServiceDescription, 
+                                                                        leadgenrationModel.BusinessSector, 
+                                                                           leadgenrationModel.DivisonDepartment, 
+                                                                              leadgenrationModel.UOM, 
+                                                                                 leadgenrationModel.UnitValue, 
+                                                                                    leadgenrationModel.Quantity, 
+                                                                                       leadgenrationModel.Othercost, 
+                                                                                          leadgenrationModel.QuoteValue, 
+                                                                                             leadgenrationModel.CommentsRemarks,
+                                                                                            );
+                                                                                                 print("Successful");
+ 
+              }else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  }        
+                                   
+                                    
+
             },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
             Container(  height:45,width:Get.width/3.9,
             child:RaisedButton(
@@ -1334,4 +1403,98 @@ class _SaveexitState extends State<Saveexit> {
       ],),
    );
   }
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void _ActionButton(String? EnquiryDate,Branch,CompanyName,CustomerName,MobileNumber,EmailId,
+         Street1,Street2,City,
+     Pincode,State,Country,ModeofEnquiry,LeadOwner,ServiceLocation,ServiceCategory,ServiceDescription,BusinessSector,
+  DivisonDepartment,UOM,UnitValue,Quantity,Othercost,QuoteValue,
+  CommentsRemarks,)async {
+    final  url=APIConstants.leadGeneration;
+    var bodyvalue={
+    'EnquiryDate':EnquiryDate,
+    'Branch':Branch,
+    'CompanyName':CompanyName,
+    'CustomerName':CustomerName,
+    'MobileNumber':MobileNumber,
+    'EmailId':EmailId,
+    'Street1':Street1,
+    'Street2':Street2,
+    'City':City,
+    'Pincode':Pincode,
+    'State':State,
+    'Country':Country,
+    'ModeofEnquiry':ModeofEnquiry,
+    'LeadOwner':LeadOwner,
+    'ServiceLocation':ServiceLocation,
+    'ServiceCategory':ServiceCategory,
+    'ServiceDescription':ServiceDescription,
+    'BusinessSector':BusinessSector,
+    'DivisonDepartment':DivisonDepartment,
+    'UOM':UOM,
+    'UnitValue':UnitValue,
+    'Quantity':Quantity,
+    'Othercost':Othercost,
+    'QuoteValue':QuoteValue,
+    'CommentsRemarks':CommentsRemarks,
+    
+    };
+print (bodyvalue); 
+final response=await http.post(Uri.parse(url),body: bodyvalue);
+print(response);
+var responseJson = json.decode(response.body);
+print(responseJson);
+var status =responseJson['status'];
+var message=responseJson['message']; 
+print(status);
+if(status==1){
+    Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Salefollowup()));
+}else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+   Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Quationtracker()));
+  }
+
 }

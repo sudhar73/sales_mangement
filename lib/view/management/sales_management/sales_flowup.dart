@@ -652,7 +652,7 @@ class Saveexit extends StatefulWidget {
 enum secondary { yes, no }
 class _SaveexitState extends State<Saveexit> {
   bool isVisible = false;
-  secondary? inital = secondary.yes;
+  secondary? inital = secondary.no;
   final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
@@ -959,7 +959,7 @@ class _SaveexitState extends State<Saveexit> {
                                                 inital = value;
                                                // signupmodel.postinistion =
                                                     "yes";
-                                                isVisible = true;
+                                                isVisible = false;
                                               });
                                             },
                                           ),
@@ -981,7 +981,7 @@ class _SaveexitState extends State<Saveexit> {
                                                   inital = value;
                                                 //  signupmodel.postinistion =
                                                       "no";
-                                                  isVisible = false;
+                                                  isVisible = true;
                                                 });
                                               },
                                             ),

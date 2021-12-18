@@ -325,7 +325,7 @@ SizedBox(height:10),
     // ignore: unnecessary_new
     return new AlertDialog(
       insetPadding: EdgeInsets.symmetric(horizontal:12,vertical: 25),
-      title:  Center(child: Text('Service Request',style:Texts.primary1bigbold())),
+      title:  Center(child: Text('Edit Request',style:Texts.primary1bigbold())),
       content: SingleChildScrollView(
         child: Container(   
           width:Get.width,
@@ -478,6 +478,99 @@ class _SaveexitState extends State<Saveexit> {
                                 },
                             ))),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Email",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Phone number",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                         Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("product Name",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Service Request",style:Texts.primary2a()),
+                        ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                        ),
+                           Padding(
+                          padding: const EdgeInsets.only(left:8,right:8,top:10),
+                          child: Text("Request End Date",style:Texts.primary2a()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:8.0),
+                          child: Card(
+                            shadowColor: Colors.grey,
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Container(child: TextFormField(
+           readOnly: true,
+           controller: dateController,
+           decoration: InputDecoration(
+        hintStyle: TextStyle(color: HexColor("#172B4D")),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color: Colors.transparent)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide(color:Colors.transparent))
+        ),
+           onTap: () async {
+          var date =  await showDatePicker(
+                context: context, 
+                initialDate:DateTime.now(),
+                firstDate:DateTime(2000),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now()
+                );
+                
+          dateController.text = date.toString().substring(0,10);      
+         },
+         validator: (value){
+           if(value!.isEmpty){
+              return "Request End Date is required";
+                }
+           else {
+              return null;
+                }
+                                },
+         ),
+                            )),
+                        ),
+                        SizedBox(height:10),
+                        Divider(),
+                        SizedBox(height:10),
                          Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
                           child: Text("Request Status",style:Texts.primary2a()),

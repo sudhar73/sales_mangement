@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-     home:Lead_genaration()
-    // home:Signup()
+    home:Lead_genaration()
+       //home:Signup()
      //home:Dashboard()
     );
   }
