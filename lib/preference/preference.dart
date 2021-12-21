@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class AppSharedPreference {
   static Future<SharedPreferences> getInstance() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -18,7 +17,7 @@ class AppSharedPreference {
     return prefs.setBool(UserLog.IS_USER_LOGGED_IN, isLoggedIn);
   }
 
-  static Future<bool?> isUserLoggedIn() async {
+  static Future<bool> isUserLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(UserLog.IS_USER_LOGGED_IN);
   }
@@ -31,7 +30,7 @@ class AppSharedPreference {
 
   read(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return json.decode(prefs.getString(key)!);
+    return json.decode(prefs.getString(key));
   }
 
   remove(String key) async {

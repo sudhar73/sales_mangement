@@ -9,23 +9,21 @@ import 'package:sales/view/secondary/dashboard.dart';
 void main() {
   @override
   void initState() {
-     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-    home:Lead_genaration()
-       //home:Signup()
-     //home:Dashboard()
-    );
+        debugShowCheckedModeBanner: false, home: Lead_genaration()
+        //home:Signup()
+        //home:Dashboard()
+        );
   }
 }
-
-
