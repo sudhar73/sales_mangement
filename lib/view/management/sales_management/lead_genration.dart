@@ -4,9 +4,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/model/leadgenrationmodel.dart';
 import 'package:sales/model/salesfollowupmodel.dart';
@@ -43,18 +46,32 @@ class Lead_genaration extends StatefulWidget {
 }
 
 class _Lead_genarationState extends State<Lead_genaration> {
+  Future<Map<String,dynamic >> leadData() async{
+    final url=APIConstants.leadGeneration;
+    final response= await http.get(Uri.parse(url));
+    print(response.body); 
+    
+    if(response.statusCode ==200){
+      return json.decode(response.body);
+    }else{
+      throw Exception('failed data');
+      
+    }
+  }
+  late Future<Map<String, dynamic>> futurealbum=leadData();
+  @override
+  void initState() {
+    super.initState();
+  futurealbum=leadData();
+    employees = getEmployeeData();
+    employeeDataSource = EmployeeDataSource(employeeData: employees);
+  }
   List<Employee> employees = <Employee>[];
   late EmployeeDataSource employeeDataSource;
   DateTime _date = DateTime.now();
   final GlobalKey<SfDataGridState> _key =GlobalKey<SfDataGridState>();
 
-  @override
-  void initState() {
-    super.initState();
-    employees = getEmployeeData();
-    employeeDataSource = EmployeeDataSource(employeeData: employees);
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -70,10 +87,9 @@ class _Lead_genarationState extends State<Lead_genaration> {
             child: CircleAvatar(
                backgroundColor:HexColor("#7C8EB2"),
             radius: 30,
-            child: Icon(Icons.people_sharp,color:Colors.white) )
+            child: Icon(Icons.people_sharp,color:Colors.white)), 
           )
         ],
-        
 title:Material(
                 elevation: 3,
                     shadowColor: Colors.grey,
@@ -93,6 +109,20 @@ title:Material(
         child:SingleChildScrollView(
           child:Column(
             children: [
+              FutureBuilder<Leadmodel>(
+  future: futurealbum,
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      // ignore: empty_statements
+      return Text(snapshot.data!.pincode);
+      
+    } else if (snapshot.hasError) {
+      return Text('${snapshot.error}');
+    }
+    // By default, show a loading spinner.
+    return const CircularProgressIndicator();
+  },
+),
                 Padding(
               padding: const EdgeInsets.all(6.0),
               child: Row(children: [
@@ -111,8 +141,7 @@ Center(
     children: [
    Container(child:Text("All Lead's",style:Texts.primary1d())),
    Container(
- 
-     width:Get.width/2,color:Colors.transparent,
+  width:Get.width/2,color:Colors.transparent,
      child: Padding(
                padding: const EdgeInsets.all(10.0),
                          child: Align( 
@@ -240,62 +269,308 @@ child:   Container(
         headerGridLinesVisibility: GridLinesVisibility.vertical,
               source: employeeDataSource,
               columns: <GridColumn>[
-                GridColumn(
-                    columnName: 'name',
-                    label: Container(
-                      color: HexColor("#023781"),
-                        padding: EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-    
-                        child: Text('Lead ID',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-    
-                GridColumn(
-                    columnName: 'designation',
-                    label: Container(
-                      color: HexColor("#023781"),
-                        padding: EdgeInsets.all(1.0),
-                        alignment: Alignment.center,
-                        child: Text('Lead Owner',style:Texts.whit1e(),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,))),
-    
-                GridColumn(
-    
-                    columnName: 'salary',
-                    label: Container( 
-                      padding: EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text('Service Category',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-    
-                 GridColumn(
-                    columnName: 'servicedescription',
-                    label: Container( 
-                      padding: EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text('Service Description',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-    
-     GridColumn( columnName: 'department',
-                    label: Container( 
-                      padding: EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text('Division/ Department',style:Texts.whit1e(),textAlign: TextAlign.center,))),
-    
-          GridColumn(
-    
-                    columnName: 'action',
-                    label: Container( 
-    
-                      padding: EdgeInsets.all(8.0),
-    
-                        alignment: Alignment.center,
-    
-                        child: Text('Action',style:Texts.whit1e(),textAlign: TextAlign.center,)))
-    
-              ],  
-            ),),
-  ),
-),
-      ), ),
+              GridColumn(
+ columnName: 'name',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Lead ID',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ 
+ GridColumn(
+ columnName: 'date',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Enquiry Date',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'branch',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Branch',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'company',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Company Name',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'customer',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Customer Name',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'number',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Mobile Number',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'mail',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Email ID',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'Street',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Street 1',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'address',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Street 2',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'country',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Country',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'city',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'City',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'state',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'State',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'pincode',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Pincode',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'enquiry',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Mode of Enquiry',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'designation',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(1.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Lead Owner',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ overflow: TextOverflow.ellipsis,
+ ))),
+ GridColumn(
+ columnName: 'location',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Service Location',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'salary',
+ label: Container(
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Service Category',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'servicedescription',
+ label: Container(
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Service Description',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'sector',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Business Sector',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'department',
+ label: Container(
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Division/Department',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'uom',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'UOM',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'value',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Unit Value',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'quantity',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Quantity',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'cost',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Other Cost',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'quote',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Quote Value',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'comments',
+ label: Container(
+ color: HexColor("#023781"),
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Comments/Remarks',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ ))),
+ GridColumn(
+ columnName: 'action',
+ label: Container(
+ padding: EdgeInsets.all(8.0),
+ alignment: Alignment.center,
+ child: Text(
+ 'Action',
+ style: Texts.whit1e(),
+ textAlign: TextAlign.center,
+ )))
+ ],
+ ),
+ ),
+ ),
+ ),
+ ),
+ ),
 SizedBox(height:10),
       ],)
       )), 
@@ -555,74 +830,128 @@ drawer:  Drawer(
     );
 }
     List<Employee> getEmployeeData() {
-    return [
-      Employee('ld001','Suresh','Product','Description','Quality','edit'),
-      Employee('ld001','Suresh','Product','Description','Quality','edit'),
-      Employee('ld001','Suresh','Product','Description','Quality','edit'),
-      Employee('ld001','Suresh','Product','Description','Quality','edit'),
-      Employee('ld001','Suresh','Product','Description','Quality','edit'),
-      ];
-  }
+ return [
+ Employee('LD001',12-12-2020,'Chennai','Ocean','Prakash',9566275901,'kani@gmail.com','Address','Address','India','Chennai','Tamil Nadu',600070,'Cleaning','Karthik','Chennai','Cleaning','To clean','Quality','Maintanence','Set',50,2,420,50,'Good Product','Edit Delete') 
+ 
+ ];
+ }
 }
+
 class Employee {
-  /// Creates the employee class with required details.
-  Employee( this.name, this.designation, this.salary,this.servicedescription,this.department,this.action);
+ /// Creates the employee class with required details.
+ Employee(this.name,this.date,this.branch,this.company,this.customer,this.number,this.mail,this.street,this.address,this.country,this.city,this.state,this.pincode, 
+ this.enquiry, this.designation,this.location, this.salary, this.servicedescription, this.sector,this.department,this.uom,this.value,this.quantity,this.cost,this.quote,this.comments, this.action);
 
-  /// Id of an employee.
-  /// Name of an employee.
-  final String name;
+ /// Id of an employee.
+ /// Name of an employee.
+ final String name;
 
-  /// Designation of an employee.
-  final String designation;
+ /// Enquiry Date
+ final int date;
+ /// Branch
+ final String branch;
+ /// Company Name
+ final String company;
+ /// Customer Name
+ final String customer;
 
-  /// Salary of an employee.
-  final String salary;
-   final String servicedescription;
-    final String department;
-     final String action;
+ final int number;
+ final String mail;
+ final String street;
+ final String address;
+ final String country;
+ final String city;
+ final String state;
+ final int pincode;
+ final String enquiry;
 
+ /// Designation of an employee.
+ final String designation;
+ final String location;
+
+ /// Salary of an employee.
+ final String salary;
+
+ /// Description
+ final String servicedescription;
+ final String sector;
+
+ /// Department
+ final String department;
+ final String uom;
+ final int value;
+ final int quantity;
+ final int cost;
+ final int quote;
+ final String comments;
+
+
+ /// Action
+ final String action;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
 /// is used to map the employee data to the datagrid widget.
 class EmployeeDataSource extends DataGridSource {
-  /// Creates the employee data source class with required details.
-  EmployeeDataSource({required List<Employee> employeeData}) {
-    _employeeData = employeeData
-        .map<DataGridRow>((e) => DataGridRow(cells: [
-              // DataGridCell<int>(columnName: 'id', value: e.id),
-              DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(columnName: 'designation', value: e.designation),
-              DataGridCell<String>(columnName: 'salary', value: e.salary),
-              DataGridCell<String>(columnName: 'servicedescription', value: e.salary),
-              DataGridCell<String>(columnName: 'department', value: e.salary),
-              DataGridCell<String>(columnName: 'action', value: e.salary),
-            ]))
-        .toList();
-  }
-  List<DataGridRow> _employeeData = [];
-  @override
-  List<DataGridRow> get rows => _employeeData;
-  @override
-  DataGridRowAdapter buildRow(DataGridRow row) {
-  Color backgroundcolor(){
-  int index =effectiveRows.indexOf(row);
-  if (index %2 ==0) {
-    return Colors.white;
-  } else {
-    return Colors.grey[100]!;
-  }
-}
-  return DataGridRowAdapter(
-    color: backgroundcolor(),
-        cells: row.getCells().map<Widget>((e) {
-    return Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(8.0),
-        child: Text(e.value.toString()),
-      );
-    }).toList());
-  }
+ /// Creates the employee data source class with required details.
+ EmployeeDataSource({required List<Employee> employeeData}) {
+ _employeeData = employeeData
+ .map<DataGridRow>((e) => DataGridRow(cells: [
+ // DataGridCell<int>(columnName: 'id', value: e.id),
+ DataGridCell<String>(columnName: 'name', value: e.name),
+ DataGridCell<int>(columnName: 'date', value: e.date),
+ DataGridCell<String>(columnName: 'branch', value: e.branch),
+ DataGridCell<String>(columnName: 'company', value: e.company),
+ DataGridCell<String>(columnName: 'customer', value: e.customer),
+ DataGridCell<int>(columnName: 'number', value: e.number),
+ DataGridCell<String>(columnName: 'mail', value: e.mail),
+ DataGridCell<String>(columnName: 'street', value: e.street),
+ DataGridCell<String>(columnName: 'address', value: e.address),
+ DataGridCell<String>(columnName: 'country', value: e.country),
+ DataGridCell<String>(columnName: 'city', value: e.city),
+ DataGridCell<String>(columnName: 'state', value: e.state),
+ DataGridCell<int>(columnName: 'pincode', value: e.pincode),
+ DataGridCell<String>(columnName: 'enquiry', value: e.enquiry),
+ DataGridCell<String>(columnName: 'designation', value: e.designation),
+ DataGridCell<String>(columnName: 'location', value: e.location),
+ DataGridCell<String>(columnName: 'salary', value: e.salary),
+ DataGridCell<String>(columnName: 'servicedescription',value: e.servicedescription),
+ DataGridCell<String>(columnName: 'sector', value: e.sector),
+ DataGridCell<String>(columnName: 'department', value: e.department),
+ DataGridCell<String>(columnName: 'uom', value: e.uom),
+ DataGridCell<int>(columnName: 'value', value: e.value),
+ DataGridCell<int>(columnName: 'quantity', value: e.quantity),
+ DataGridCell<int>(columnName: 'cost', value: e.cost),
+ DataGridCell<int>(columnName: 'quote', value: e.quote),
+ DataGridCell<String>(columnName: 'comments', value: e.comments),
+ DataGridCell<String>(columnName: 'action', value: e.action),
+ ]))
+ .toList();
+ }
+ List<DataGridRow> _employeeData = [];
+ @override
+ List<DataGridRow> get rows => _employeeData;
+ @override
+ DataGridRowAdapter buildRow(DataGridRow row) {
+ Color backgroundcolor() {
+ int index = effectiveRows.indexOf(row);
+ if (index % 2 == 0) {
+ return Colors.white;
+ } else {
+ return Colors.grey[100]!;
+ }
+ }
+
+ return DataGridRowAdapter(
+ color: backgroundcolor(),
+ cells: row.getCells().map<Widget>((e) {
+ return Container(
+ alignment: Alignment.center,
+ padding: EdgeInsets.all(8.0),
+ child: Text(e.value.toString()),
+ );
+ }).toList());
+ }
 }
 
 class Saveexit extends StatefulWidget {
@@ -631,7 +960,8 @@ class Saveexit extends StatefulWidget {
   _SaveexitState createState() => _SaveexitState();
 }
 class _SaveexitState extends State<Saveexit> {
-  LeadgenrationModel leadgenrationModel=LeadgenrationModel();
+  Leadmodel leadgenrationModel=Leadmodel(id: '',  branch: '', companyName: '', customerName: '', mobileNumber: '', emailId: '', street1: '', businessSector: '', street2: '', modeofEnquiry: '', leadOwner: '', serviceLocation: '', city: '', state: '', pincode: '', country: '', serviceCategory: '', serviceDescription: '', divisonDepartment: '', uom: '', unitValue: '', quantity: '', othercost: '', quoteValue: '', commentsRemarks: '', isActive: true, v: '', enquiryDate: '', created: '',
+  );
   final formGlobalKey = GlobalKey < FormState > ();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
@@ -699,8 +1029,9 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child: TextFormField(
                               onSaved: (EnquiryDate){
-                                leadgenrationModel.EnquiryDate=EnquiryDate;
+                                leadgenrationModel.enquiryDate=EnquiryDate! ;
                               },
+                             
            readOnly: true,
            controller: dateController,
            decoration: InputDecoration(
@@ -747,7 +1078,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                  onSaved: (Branch){
-                                leadgenrationModel.Branch=Branch;
+                                leadgenrationModel.branch=Branch!;
                               },
                                validator: (value){
                                 if(value!.isEmpty){
@@ -796,7 +1127,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (CompanyName){
-                                leadgenrationModel.CompanyName=CompanyName;
+                                leadgenrationModel.companyName=CompanyName!;
                               },
                               validator: (value){
                                 if(value!.isEmpty){
@@ -820,7 +1151,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (CustomerName){
-                                leadgenrationModel.CustomerName=CustomerName;
+                                leadgenrationModel.customerName=CustomerName!;
                               },
                               validator: (value){
                                 if(value!.isEmpty){
@@ -844,7 +1175,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (MobileNumber){
-                                leadgenrationModel.MobileNumber=MobileNumber;
+                                leadgenrationModel.mobileNumber=MobileNumber! ;
                               },
                                  validator: (value){
                                 if(value!.isEmpty){
@@ -868,7 +1199,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (EmailId){
-                                leadgenrationModel.EmailId=EmailId;
+                                leadgenrationModel.emailId=EmailId!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),  Padding(
@@ -882,7 +1213,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (Street1){
-                                leadgenrationModel.Street1=Street1;
+                                leadgenrationModel.street1=Street1!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ), 
@@ -897,7 +1228,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (Street2){
-                                leadgenrationModel.Street2=Street2;
+                                leadgenrationModel.street2=Street2!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),  Padding(
@@ -911,7 +1242,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                 onSaved: (City){
-                                leadgenrationModel.City=City;
+                                leadgenrationModel.city=City!;
                               },
                               validator: (value){
                                 if(value!.isEmpty){
@@ -934,7 +1265,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (Pincode){
-                                leadgenrationModel.Pincode=Pincode;
+                                leadgenrationModel.pincode=Pincode!;
                               },
                               validator: (value){
                                 if(value!.isEmpty){
@@ -957,7 +1288,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (State){
-                                leadgenrationModel.State=State;
+                                leadgenrationModel.state=State!;
                               },
                              
                                validator: (value){
@@ -981,7 +1312,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                 onSaved: (Country){
-                                leadgenrationModel.Country=Country;
+                                leadgenrationModel.country=Country!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -999,7 +1330,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                  onSaved: (ModeofEnquiry){
-                                leadgenrationModel.ModeofEnquiry=ModeofEnquiry;
+                                leadgenrationModel.modeofEnquiry=ModeofEnquiry!;
                               },
                                 validator: (String? value) {
                                     if (value!.isEmpty) {
@@ -1048,7 +1379,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                   onSaved: (LeadOwner){
-                                leadgenrationModel.LeadOwner=LeadOwner;
+                                leadgenrationModel.leadOwner=LeadOwner!;
                               },
                              
                   suggestionsCallback: (pattern) => leadowner.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
@@ -1088,7 +1419,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                 onSaved: (ServiceLocation){
-                                leadgenrationModel.ServiceLocation=ServiceLocation;
+                                leadgenrationModel.serviceLocation=ServiceLocation!;
                               },
                              
                                validator: (value){
@@ -1114,7 +1445,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                 onSaved: (ServiceCategory){
-                                leadgenrationModel.ServiceCategory=ServiceCategory;
+                                leadgenrationModel.serviceCategory=ServiceCategory!;
                               },
                                validator: (value){
                                 if(value!.isEmpty){
@@ -1161,7 +1492,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (ServiceDescription){
-                                leadgenrationModel.ServiceDescription=ServiceDescription;
+                                leadgenrationModel.serviceDescription=ServiceDescription!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1178,7 +1509,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                  onSaved: (BusinessSector){
-                                leadgenrationModel.BusinessSector=BusinessSector;
+                                leadgenrationModel.businessSector=BusinessSector!;
                               },
                   suggestionsCallback: (pattern) => country.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
@@ -1218,7 +1549,7 @@ class _SaveexitState extends State<Saveexit> {
                                    margin:EdgeInsets.only( left: 10, right: 10),
                               child :TypeAheadFormField(
                                   onSaved: (DivisonDepartment){
-                                leadgenrationModel.DivisonDepartment=DivisonDepartment;
+                                leadgenrationModel.divisonDepartment=DivisonDepartment!;
                               },
                   suggestionsCallback: (pattern) => department.where((item) => item.toLowerCase().contains(pattern.toLowerCase()),
    
@@ -1254,7 +1585,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                onSaved: (UOM){
-                                leadgenrationModel.UOM=UOM;
+                                leadgenrationModel.uom=UOM!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1269,7 +1600,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (UnitValue){
-                                leadgenrationModel.UnitValue=UnitValue;
+                                leadgenrationModel.unitValue=UnitValue!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1284,7 +1615,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (Quantity){
-                                leadgenrationModel.Quantity=Quantity;
+                                leadgenrationModel.quantity=Quantity!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1299,7 +1630,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                               onSaved: (Othercost){
-                                leadgenrationModel.Othercost=Othercost;
+                                leadgenrationModel.othercost=Othercost!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1314,7 +1645,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                 onSaved: (QuoteValue){
-                                leadgenrationModel.QuoteValue=QuoteValue;
+                                leadgenrationModel.quoteValue=QuoteValue!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1329,7 +1660,7 @@ class _SaveexitState extends State<Saveexit> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(
                                  onSaved: (CommentsRemarks){
-                                leadgenrationModel.CommentsRemarks=CommentsRemarks;
+                                leadgenrationModel.commentsRemarks=CommentsRemarks!;
                               },
                               decoration: Texts.Textfeild1(),))),
                         ),
@@ -1348,31 +1679,31 @@ class _SaveexitState extends State<Saveexit> {
               if(formGlobalKey.currentState!.validate()) {
                 (formGlobalKey.currentState!.save());
                  _ActionButton(
-                     leadgenrationModel.EnquiryDate,
-                        leadgenrationModel.Branch,
-                           leadgenrationModel.CompanyName,
-                              leadgenrationModel.CustomerName, 
-                                 leadgenrationModel.MobileNumber, 
-                                    leadgenrationModel.EmailId, 
-                                       leadgenrationModel.Street1, 
-                                          leadgenrationModel.Street2, 
-                                             leadgenrationModel.City, 
-                                                leadgenrationModel.Pincode, 
-                                                   leadgenrationModel.State, 
-                                                      leadgenrationModel.Country, 
-                                                         leadgenrationModel.ModeofEnquiry, 
-                                                            leadgenrationModel.LeadOwner, 
-                                                               leadgenrationModel.ServiceLocation, 
-                                                                  leadgenrationModel.ServiceCategory, 
-                                                                     leadgenrationModel.ServiceDescription, 
-                                                                        leadgenrationModel.BusinessSector, 
-                                                                           leadgenrationModel.DivisonDepartment, 
-                                                                              leadgenrationModel.UOM, 
-                                                                                 leadgenrationModel.UnitValue, 
-                                                                                    leadgenrationModel.Quantity, 
-                                                                                       leadgenrationModel.Othercost, 
-                                                                                          leadgenrationModel.QuoteValue, 
-                                                                                             leadgenrationModel.CommentsRemarks,
+                     leadgenrationModel.enquiryDate,
+                        leadgenrationModel.branch,
+                           leadgenrationModel.companyName,
+                              leadgenrationModel.customerName, 
+                                 leadgenrationModel.mobileNumber, 
+                                    leadgenrationModel.emailId, 
+                                       leadgenrationModel.street1, 
+                                          leadgenrationModel.street2, 
+                                             leadgenrationModel.city, 
+                                                leadgenrationModel.pincode, 
+                                                   leadgenrationModel.state, 
+                                                      leadgenrationModel.country, 
+                                                         leadgenrationModel.modeofEnquiry, 
+                                                            leadgenrationModel.leadOwner, 
+                                                               leadgenrationModel.serviceLocation, 
+                                                                  leadgenrationModel.serviceCategory, 
+                                                                     leadgenrationModel.serviceDescription, 
+                                                                        leadgenrationModel.businessSector, 
+                                                                           leadgenrationModel.divisonDepartment, 
+                                                                              leadgenrationModel.uom, 
+                                                                                 leadgenrationModel.unitValue, 
+                                                                                    leadgenrationModel.quantity, 
+                                                                                       leadgenrationModel.othercost, 
+                                                                                          leadgenrationModel.quoteValue, 
+                                                                                             leadgenrationModel.commentsRemarks,
                                                                                             );
                                                                                                  print("Successful");
  
@@ -1497,4 +1828,7 @@ if(status==1){
         context, MaterialPageRoute(builder: (context) => Quationtracker()));
   }
 
+}
+
+class UOM {
 }

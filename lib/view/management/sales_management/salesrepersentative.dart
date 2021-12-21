@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/salesrepersentative.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -12,6 +17,7 @@ import 'package:sales/view/management/sales_management/sales_flowup.dart';
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:http/http.dart' as http;
 
 class Salesreperstative extends StatefulWidget {
   const Salesreperstative({ Key? key }) : super(key: key);
@@ -574,6 +580,7 @@ class Saveexit extends StatefulWidget {
 }
 class _SaveexitState extends State<Saveexit> {
    final formGlobalKey = GlobalKey < FormState > ();
+   Salesrespensentativemodel salesrespersentativemodel = Salesrespensentativemodel();
   @override
   Widget build(BuildContext context) {
    return  Form(
@@ -593,6 +600,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                           onSaved: (EmployeeName){
+                             salesrespersentativemodel.EmployeeName=EmployeeName;
+                           },
                             validator: (value){
                               if(value!.isEmpty){
                                 return "Employee Name is required";
@@ -613,6 +623,10 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                            
+                             onSaved: (EmployeeId){
+                             salesrespersentativemodel.EmployeeId=EmployeeId;
+                           },
                              validator: (value){
                               if(value!.isEmpty){
                                 return "Employee ID is required";
@@ -633,6 +647,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                           onSaved: (EmailId){
+                             salesrespersentativemodel.EmailId=EmailId;
+                           },
                             validator: (value){
                               if(value!.isEmpty){
                                 return "Email Id is required";
@@ -653,6 +670,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             onSaved: (PhoneNumber){
+                             salesrespersentativemodel.PhoneNumber=PhoneNumber;
+                           },
                              validator: (value){
                               if(value!.isEmpty){
                                 return "Phone Number is required";
@@ -674,6 +694,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                           onSaved: (Image){
+                             salesrespersentativemodel.Image=Image;
+                           },
                              validator: (value){
                               if(value!.isEmpty){
                                 return "Image is required";
@@ -693,6 +716,9 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                             onSaved: (Department){
+                             salesrespersentativemodel.Department=Department;
+                           },
                              validator: (String? value){
                               if(value!.isEmpty){
                                 return "Department is required";
@@ -711,15 +737,18 @@ class _SaveexitState extends State<Saveexit> {
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                             child: Container(child:TextFormField(decoration: Texts.Textfeild1(),
+                              onSaved: (Designation){
+                             salesrespersentativemodel.Designation=Designation;
+                           },
                              validator: (String? value) {
                                     if (value!.isEmpty) {
                                       return "Designation is required";
                                     }
                                     return null;
                                   },
-                                  onSaved: (String? address) {
+                                 // onSaved: (String? address) {
                                     //signupmodel.address = address;
-                                  },
+                                  //},
                             ))),
                         ),  Padding(
                           padding: const EdgeInsets.only(left:8,right:8,top:10),
@@ -730,7 +759,11 @@ class _SaveexitState extends State<Saveexit> {
                             shadowColor: Colors.grey,
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            child: Container(child:TextField(decoration: Texts.Textfeild1(),))),
+                            child: Container(child:TextFormField(
+                               onSaved: (ProductName){
+                             salesrespersentativemodel.ProductName=ProductName;
+                           },
+                              decoration: Texts.Textfeild1(),))),
                         ),  
                    SizedBox(height:15),
                          Row(
@@ -744,8 +777,31 @@ class _SaveexitState extends State<Saveexit> {
             color:HexColor("#023781"),
             onPressed: (){
               if(formGlobalKey.currentState!.validate()){
-                Get.to(Quationtracker());
-              }
+                formGlobalKey.currentState!.save();
+                showAlertDialog(context);
+                                    _loginButtonAction(
+                                       salesrespersentativemodel.EmployeeName!,
+                                       salesrespersentativemodel.EmployeeId!,
+                                        salesrespersentativemodel.EmailId!,
+                                         salesrespersentativemodel.PhoneNumber!,
+                                          salesrespersentativemodel.Image!,
+                                           salesrespersentativemodel.Department!,
+                                            salesrespersentativemodel.Designation!,
+                                             salesrespersentativemodel.ProductName!,
+
+                                       );
+                                    print("Successful");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  }
+
             },child:Text("SUBMIT",style:TextStyle(color:Colors.white,fontSize:16)))),
             Container(  height:45,width:Get.width/3.9,
             child:RaisedButton(
@@ -760,6 +816,83 @@ class _SaveexitState extends State<Saveexit> {
       ],),
    );
   }
+ showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
-  Salefollowup() {}
+  void  _loginButtonAction( String? EmployeeName,EmployeeId,EmailId,PhoneNumber,Department,Designation,
+         ProductName,Image) async {
+    final url = APIConstants.salesrepesntative;
+
+    var bodyvalue =
+        // json.encode(
+        {
+          'EmployeeName':EmployeeName,
+          'EmployeeId':EmployeeId,
+          'EmailId':EmailId,
+      'PhoneNumber':PhoneNumber,
+     'Image':Image,
+     'Department':Department,
+     'Designation':Designation,
+     'ProductName':ProductName
+      //'devicetoken': fcmToken
+    };
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Lead_genaration()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Lead_genaration()));
+  }
 }
+
