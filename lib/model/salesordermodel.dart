@@ -1,12 +1,12 @@
-
 import 'dart:convert';
 
-Quationtrackermodel quationtrackermodelFromJson(String str) => Quationtrackermodel.fromJson(json.decode(str));
+List<Salesordermodel> salesordermodelFromJson(String str) => List<Salesordermodel>.from(json.decode(str).map((x) => Salesordermodel.fromJson(x)));
 
-String quationtrackermodelToJson(Quationtrackermodel data) => json.encode(data.toJson());
+String salesordermodelToJson(List<Salesordermodel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Quationtrackermodel {
-    Quationtrackermodel({
+class Salesordermodel {
+    Salesordermodel({
+        this.id,
         this.saleOwner,
         this.leadId,
         this.companyName,
@@ -27,9 +27,13 @@ class Quationtrackermodel {
         this.discount,
         this.tax,
         this.grandTotal,
-        this.quoteStatus,
+        this.orderStatus,
+        this.isActive,
+        this.created,
+        this.v,
     });
 
+    String id;
     String saleOwner;
     String leadId;
     String companyName;
@@ -50,9 +54,13 @@ class Quationtrackermodel {
     String discount;
     String tax;
     String grandTotal;
-    String quoteStatus;
+    String orderStatus;
+    bool isActive;
+    DateTime created;
+    int v;
 
-    factory Quationtrackermodel.fromJson(Map<String, dynamic> json) => Quationtrackermodel(
+    factory Salesordermodel.fromJson(Map<String, dynamic> json) => Salesordermodel(
+        id: json["_id"],
         saleOwner: json["SaleOwner"],
         leadId: json["LeadId"],
         companyName: json["CompanyName"],
@@ -73,10 +81,14 @@ class Quationtrackermodel {
         discount: json["Discount"],
         tax: json["Tax"],
         grandTotal: json["GrandTotal"],
-        quoteStatus: json["QuoteStatus"],
+        orderStatus: json["OrderStatus"],
+        isActive: json["isActive"],
+        created: DateTime.parse(json["created"]),
+        v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
+        "_id": id,
         "SaleOwner": saleOwner,
         "LeadId": leadId,
         "CompanyName": companyName,
@@ -97,6 +109,11 @@ class Quationtrackermodel {
         "Discount": discount,
         "Tax": tax,
         "GrandTotal": grandTotal,
-        "QuoteStatus": quoteStatus,
+        "OrderStatus": orderStatus,
+        "isActive": isActive,
+        "created": created.toIso8601String(),
+        "__v": v,
     };
+
+  static fromMap(json) {}
 }

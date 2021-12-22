@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,6 +14,7 @@ import 'package:sales/view/management/sales_management/sales_flowup.dart';
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Salesreperstative extends StatefulWidget {
   const Salesreperstative({Key key}) : super(key: key);
@@ -658,6 +661,17 @@ class Saveexit extends StatefulWidget {
 
 class _SaveexitState extends State<Saveexit> {
   final formGlobalKey = GlobalKey<FormState>();
+  File imageURI;
+  File _image;
+  Future getImage() async {
+    PickedFile pickedFile =
+        // ignore: deprecated_member_use
+        await ImagePicker().getImage(source: ImageSource.camera);
+    //final image =await ImagePicker.pickImage(source:ImageSource.camera);
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -758,6 +772,44 @@ class _SaveexitState extends State<Saveexit> {
                   },
                 ))),
           ),
+           InkWell(
+                          onTap: () => {_showPicker(context)},
+                          child: Container(
+                              width: MediaQuery.of(context).size.width / 1.1,
+                              margin: EdgeInsets.only(left: 20, right: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[350],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(height: 35),
+                                    new Container(
+                                        child: new Column(children: <Widget>[
+                                      Container(
+                                        child: imageURI == null
+                                            ? Column(
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        new EdgeInsets.all(0.0),
+                                                    child: new Icon(
+                                                        Icons.add_a_photo,
+                                                        size: 70,
+                                                        color: Colors.black),
+                                                  ),
+                                                  Text(
+                                                    "upload your car washed image",
+                                                  )
+                                                ],
+                                              )
+                                            : Image.file(imageURI,
+                                                fit: BoxFit.fill),
+                                      ),
+                                      SizedBox(height: 35),
+                                    ])),
+                                  ]))),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Image", style: Texts.primary2a()),
@@ -886,5 +938,61 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  Salefollowup() {}
-}
+  _getFromCamera() async {
+    // ignore: deprecated_member_use
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      //  maxHeight: 100,    maxWidth: 100
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageURI = File(pickedFile.path);
+      });
+    }
+  }
+
+  _getFromGallery() async {
+    // ignore: deprecated_member_use
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      // maxHeight: 100,             maxWidth: 100
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageURI = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_camera),
+                      title: new Text('Camera'),
+                      onTap: () {
+                        _getFromCamera();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_library),
+                    title: new Text('Photo library'),
+                    onTap: () {
+                      _getFromGallery();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  
+  }

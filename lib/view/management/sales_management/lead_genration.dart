@@ -1,19 +1,13 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/model/leadgenrationmodel.dart';
-import 'package:sales/model/salesfollowupmodel.dart';
 import 'package:sales/utils/api.dart';
-import 'package:sales/utils/datepicker.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -49,7 +43,7 @@ class _Lead_genarationState extends State<Lead_genaration> {
     if (response.statusCode == 200) {
       return Leadmodel.fromJson(json.decode(response.body));
     } else {
-      throw Exception('failed data');
+      Text("hi");
     }
   }
 
@@ -106,19 +100,7 @@ class _Lead_genarationState extends State<Lead_genaration> {
             child: SingleChildScrollView(
                 child: Column(
           children: [
-            FutureBuilder<Leadmodel>(
-              future: futurealbum,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  // ignore: empty_statements
-                  return Text(snapshot.data.pincode);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
-              },
-            ),
+          
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: Row(
@@ -180,6 +162,27 @@ class _Lead_genarationState extends State<Lead_genaration> {
               ),
             ),
             SizedBox(height: 15),
+              FutureBuilder<Leadmodel>(
+              future: futurealbum,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  // ignore: empty_statements
+                  return Column(
+                    children: [
+                      Text(snapshot.data.mobileNumber.toString()),
+
+Text(snapshot.data.city),
+Text(snapshot.data.created),
+                      Text(snapshot.data.companyName),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                // By default, show a loading spinner.
+                return const CircularProgressIndicator();
+              },
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1088,37 +1091,40 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
-  Leadmodel leadgenrationModel = Leadmodel(
-    id: '',
-    branch: '',
-    companyName: '',
-    customerName: '',
-    mobileNumber: '',
-    emailId: '',
-    street1: '',
-    businessSector: '',
-    street2: '',
-    modeofEnquiry: '',
-    leadOwner: '',
-    serviceLocation: '',
-    city: '',
-    state: '',
-    pincode: '',
-    country: '',
-    serviceCategory: '',
-    serviceDescription: '',
-    divisonDepartment: '',
-    uom: '',
-    unitValue: '',
-    quantity: '',
-    othercost: '',
-    quoteValue: '',
-    commentsRemarks: '',
-    isActive: true,
-    v: '',
-    enquiryDate: '',
-    created: '',
-  );
+  Leadmodel leadgenrationModel = Leadmodel();
+  
+  
+  // Leadmodel(
+  //   id: '',
+  //   branch: '',
+  //   companyName: '',
+  //   customerName: '',
+  //   mobileNumber: '',
+  //   emailId: '',
+  //   street1: '',
+  //   businessSector: '',
+  //   street2: '',
+  //   modeofEnquiry: '',
+  //   leadOwner: '',
+  //   serviceLocation: '',
+  //   city: '',
+  //   state: '',
+  //   pincode: '',
+  //   country: '',
+  //   serviceCategory: '',
+  //   serviceDescription: '',
+  //   divisonDepartment: '',
+  //   uom: '',
+  //   unitValue: '',
+  //   quantity: '',
+  //   othercost: '',
+  //   quoteValue: '',
+  //   commentsRemarks: '',
+  //   isActive: true,
+  //   v: '',
+  //   enquiryDate: '',
+  //   created: '',
+  // );
   final formGlobalKey = GlobalKey<FormState>();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();

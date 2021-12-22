@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/salesordermodel.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/customerservices.dart';
@@ -14,6 +19,7 @@ import 'package:sales/view/management/sales_management/salesrepersentative.dart'
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:http/http.dart' as http;
 
 class AllSalesorder extends StatefulWidget {
   const AllSalesorder({Key key}) : super(key: key);
@@ -23,12 +29,28 @@ class AllSalesorder extends StatefulWidget {
 }
 
 class _AllSalesorderState extends State<AllSalesorder> {
+  Future<Salesordermodel> fetchPost() async {  
+    final url= APIConstants.salesorder;
+  final response = await http.get(Uri.parse(url));  
+  
+  if (response.statusCode == 200) {  
+    // If the call to the server was successful (returns OK), parse the JSON.  
+    return Salesordermodel.fromJson(json.decode(response.body));  
+  } else {  
+    // If that call was not successful (response was unexpected), it throw an error.  
+    throw Exception('Failed to load post');  
+  }  
+}  
+  
+  
   List<Employee> employees = <Employee>[];
   EmployeeDataSource employeeDataSource;
+ Future<Salesordermodel> salesorderget;
 
   @override
   void initState() {
     super.initState();
+    salesorderget=fetchPost();
     employees = getEmployeeData();
     employeeDataSource = EmployeeDataSource(employeeData: employees);
   }
@@ -126,6 +148,20 @@ class _AllSalesorderState extends State<AllSalesorder> {
               ),
             ),
             SizedBox(height: 10),
+            FutureBuilder<Salesordermodel>(  
+            future: salesorderget,  
+            builder: (context, abc) {  
+              if (abc.hasData) {  
+                return Text(abc.data.companyName);  
+              } else if (abc.hasError) {  
+                return Text("${abc.error}");  
+              }  
+  
+              // By default, it show a loading spinner.  
+              return CircularProgressIndicator();  
+            },  
+          ),  
+        
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -673,6 +709,7 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+  Salesordermodel salesordermodel=Salesordermodel();
   final formGlobalKey = GlobalKey<FormState>();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
@@ -753,8 +790,8 @@ class _SaveexitState extends State<Saveexit> {
                         }
                         return null;
                       },
-                      onSaved: (String address) {
-                        //signupmodel.address = address;
+                      onSaved: (String saleOwner ) {
+                      salesordermodel.saleOwner=saleOwner;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -806,8 +843,8 @@ class _SaveexitState extends State<Saveexit> {
                         }
                         return null;
                       },
-                      onSaved: (String address) {
-                        //signupmodel.address = address;
+                    onSaved: (leadId ) {
+                      salesordermodel.leadId=leadId;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -852,15 +889,16 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                   onSaved: (companyName) {
+                      salesordermodel.companyName=companyName;
+                      },
                   validator: (String value) {
                     if (value.isEmpty) {
                       return "Company Name is required";
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                
                 ))),
           ),
           Padding(
@@ -883,9 +921,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                 onSaved: (customerName) {
+                      salesordermodel.customerName=customerName;
+                      },
                 ))),
           ),
           Padding(
@@ -902,6 +940,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                  onSaved: (email) {
+                      salesordermodel.email=email;
+                      },
                 ))),
           ),
           Padding(
@@ -924,9 +965,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                   onSaved: (phoneNumber) {
+                      salesordermodel.phoneNumber=phoneNumber;
+                      },
                 ))),
           ),
           Padding(
@@ -968,9 +1009,9 @@ class _SaveexitState extends State<Saveexit> {
                       }
                       return null;
                     },
-                    onSaved: (String address) {
-                      //signupmodel.address = address;
-                    },
+                   onSaved: (orderDate) {
+                      salesordermodel.orderDate=orderDate;
+                      },
                   ),
                 )),
           ),
@@ -1013,9 +1054,9 @@ class _SaveexitState extends State<Saveexit> {
                       }
                       return null;
                     },
-                    onSaved: (String address) {
-                      //signupmodel.address = address;
-                    },
+                    onSaved: (deliveryDate) {
+                      salesordermodel.deliveryDate=deliveryDate;
+                      },
                   ),
                 )),
           ),
@@ -1039,9 +1080,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                 onSaved: (billingAddress) {
+                      salesordermodel.billingAddress=billingAddress;
+                      },
                 ))),
           ),
           Padding(
@@ -1064,9 +1105,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                 onSaved: (shippingAddress) {
+                      salesordermodel.shippingAddress=shippingAddress;
+                      },
                 ))),
           ),
           Padding(
@@ -1084,8 +1125,8 @@ class _SaveexitState extends State<Saveexit> {
                   child: Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: TypeAheadFormField(
-                      onSaved: (String address) {
-                        //signupmodel.address = address;
+                      onSaved: (productServiceId) {
+                      salesordermodel.productServiceId=productServiceId;
                       },
                       suggestionsCallback: (pattern) => product.where(
                         (item) =>
@@ -1136,9 +1177,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                  onSaved: (productServiceName) {
+                      salesordermodel.productServiceName=productServiceName;
+                      },
                 ))),
           ),
           Padding(
@@ -1161,9 +1202,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                   onSaved: (unitValue) {
+                      salesordermodel.unitValue=unitValue;
+                      },
                 ))),
           ),
           Padding(
@@ -1186,9 +1227,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                   onSaved: (quantity) {
+                      salesordermodel.quantity=quantity;
+                      },
                 ))),
           ),
           Padding(
@@ -1211,9 +1252,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                  onSaved: (quoteValue) {
+                      salesordermodel.quoteValue=quoteValue;
+                      },
                 ))),
           ),
           Padding(
@@ -1236,9 +1277,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                 onSaved: (otherCost) {
+                      salesordermodel.otherCost=otherCost;
+                      },
                 ))),
           ),
           Padding(
@@ -1261,9 +1302,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                 onSaved: (subTotal) {
+                      salesordermodel.subTotal=subTotal;
+                      },
                 ))),
           ),
           Padding(
@@ -1286,9 +1327,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                   onSaved: (discount) {
+                      salesordermodel.discount=discount;
+                      },
                 ))),
           ),
           Padding(
@@ -1311,9 +1352,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                onSaved: (tax) {
+                      salesordermodel.tax=tax;
+                      },
                 ))),
           ),
           Padding(
@@ -1336,9 +1377,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                  onSaved: (grandTotal) {
+                      salesordermodel.grandTotal=grandTotal;
+                      },
                 ))),
           ),
           Padding(
@@ -1369,7 +1410,7 @@ class _SaveexitState extends State<Saveexit> {
                     popupItemDisabled: (String s) => s.startsWith('I'),
                     onChanged: (value) {
                       setState(() {
-                        // signupmodel.graduted = value;
+                        salesordermodel.orderStatus = value;
                         print(value);
                       });
                     },
@@ -1390,9 +1431,41 @@ class _SaveexitState extends State<Saveexit> {
                         color: HexColor("#023781"),
                         onPressed: () {
                           if (formGlobalKey.currentState.validate()) {
-                            Get.to(Leadsummary());
-                          }
-                        },
+                            (formGlobalKey.currentState.save());
+                          showAlertDialog(context);
+                                    _loginButtonAction(
+                                        salesordermodel.saleOwner,
+                                        salesordermodel.leadId,
+                                        salesordermodel.companyName,
+                                        salesordermodel.customerName,
+                                        salesordermodel.email,
+                                        salesordermodel.phoneNumber,
+                                        salesordermodel.orderDate,
+                                        salesordermodel.deliveryDate,
+                                        salesordermodel.billingAddress,
+                                        salesordermodel.shippingAddress,
+                                        salesordermodel.productServiceId,
+                                        salesordermodel.productServiceName,
+                                        salesordermodel.unitValue,
+                                        salesordermodel.quantity,
+                                        salesordermodel.quoteValue,
+                                        salesordermodel.otherCost,
+                                        salesordermodel.subTotal,
+                                        salesordermodel.discount,
+                                        salesordermodel.tax,
+                                        salesordermodel.grandTotal,
+                                        salesordermodel.orderStatus);
+                                    print("Successful");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  } },
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -1417,5 +1490,113 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  Salefollowup() {}
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void  _loginButtonAction(String saleOwner,
+ leadId,
+ companyName,
+ customerName,
+ email,
+ phoneNumber,
+ orderDate,
+ deliveryDate,
+ billingAddress,
+ shippingAddress,
+ productServiceId,
+ productServiceName,
+ unitValue,
+ quantity,
+ quoteValue,
+ otherCost,
+ subTotal,
+ discount,
+ tax,
+ grandTotal,
+ orderStatus) async {
+    final url = APIConstants.salesorder;
+
+    var bodyvalue =
+        // json.encode(
+        {
+      'saleOwner': saleOwner,
+      'leadId': leadId,
+      'companyName': companyName,
+      'customerName': customerName,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'orderDate': orderDate,
+      'deliveryDate': deliveryDate,
+      'billingAddress': billingAddress,
+      'shippingAddress': shippingAddress,
+      'productServiceId': productServiceId,
+      'productServiceName': productServiceName,
+      'unitValue': unitValue,
+      'quantity': quantity,
+      'quoteValue': quoteValue,
+      'otherCost': otherCost,
+      'subTotal': subTotal,
+      'discount': discount,
+      'tax': tax,
+      'grandTotal': grandTotal,
+      'orderStatus': orderStatus,
+    };
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+  }
 }
