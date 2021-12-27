@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/productmodel.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -15,6 +20,7 @@ import 'package:sales/view/management/sales_management/services_sales.dart';
 import 'package:sales/view/management/sales_management/settings/mainproductgroup.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:http/http.dart' as http;
 
 class Productservice extends StatefulWidget {
   const Productservice({Key key}) : super(key: key);
@@ -24,14 +30,28 @@ class Productservice extends StatefulWidget {
 }
 
 class _ProductserviceState extends State<Productservice> {
+Future<ProductModel> fetchPost() async {  
+    final url= APIConstants.product;
+  final response = await http.get(Uri.parse(url));  
+  
+  if (response.statusCode == 200) {  
+    // If the call to the server was successful (returns OK), parse the JSON.  
+    return ProductModel.fromJson(json.decode(response.body));  
+  } else {  
+    // If that call was not successful (response was unexpected), it throw an error.  
+    throw Exception('Failed to load post');  
+  }  
+}  
+
   List<Employee> employees = <Employee>[];
   EmployeeDataSource employeeDataSource;
-
+Future<ProductModel> productmodel;
   @override
   void initState() {
     super.initState();
     employees = getEmployeeData();
     employeeDataSource = EmployeeDataSource(employeeData: employees);
+    productmodel=fetchPost();
   }
 
   @override
@@ -151,6 +171,19 @@ class _ProductserviceState extends State<Productservice> {
                         ))),
               ),
             ),
+             FutureBuilder<ProductModel>(  
+            future: productmodel,  
+            builder: (context, abc) {  
+              if (abc.hasData) {  
+                return Text(abc.data.Description);  
+              } else if (abc.hasError) {  
+                return Text("${abc.error}");  
+              }  
+  
+              // By default, it show a loading spinner.  
+              return CircularProgressIndicator();  
+            },  
+          ),  
             SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -780,7 +813,30 @@ class Saveexit extends StatefulWidget {
 class _SaveexitState extends State<Saveexit> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController textcontroler = TextEditingController();
+  ProductModel productmodel=ProductModel();
+  Future<ProductModel> fetchPostu() async {  
+    final url= APIConstants.product;
+  final response = await http.get(Uri.parse(url));  
+  
+  if (response.statusCode == 200) {  
+    // If the call to the server was successful (returns OK), parse the JSON.  
+    return ProductModel.fromJson(json.decode(response.body));  
+  } else {  
+    // If that call was not successful (response was unexpected), it throw an error.  
+    throw Exception('Failed to load post');  
+  }  
+}  
 
+  List<Employee> employees = <Employee>[];
+  EmployeeDataSource employeeDataSource;
+Future<ProductModel> promodel;
+  @override
+  void initState() {
+    super.initState();
+    //employees = getEmployeeData();
+    employeeDataSource = EmployeeDataSource(employeeData: employees);
+   Future<ProductModel> promodel;
+  }
   static const country = [
     "Afghanistan",
     "Albania",
@@ -820,6 +876,21 @@ class _SaveexitState extends State<Saveexit> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+           FutureBuilder<ProductModel>(  
+            future: promodel,  
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  // ignore: empty_statements
+                  return 
+                      Text(snapshot.data.ProductCode);
+//Text(snapshot.data.ProductName),
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+              // By default, it show a loading spinner.  
+              return CircularProgressIndicator();  
+            },  
+          ),  
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Product Group", style: Texts.primary2a()),
@@ -841,8 +912,8 @@ class _SaveexitState extends State<Saveexit> {
                         }
                         return null;
                       },
-                      onSaved: (String address) {
-                        //signupmodel.address = address;
+                      onSaved: (ProductGroup) {
+                        productmodel.ProductGroup =ProductGroup;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -864,7 +935,7 @@ class _SaveexitState extends State<Saveexit> {
                       ),
                       textFieldConfiguration: TextFieldConfiguration(
                         decoration: InputDecoration(
-                          hintText: "Select Lead ID",
+                          hintText: "Select Product group",
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                           ),
@@ -893,9 +964,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    // signupmodel.address = address;
-                  },
+                 onSaved: (ProductName) {
+                        productmodel.ProductName =ProductName;
+                      },
                 ))),
           ),
           Padding(
@@ -918,9 +989,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    // signupmodel.address = address;
-                  },
+                 onSaved: (ProductCode) {
+                        productmodel.ProductCode =ProductCode;
+                      },
                 ))),
           ),
           Padding(
@@ -937,6 +1008,7 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                  
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
                   //           return "Please enter UOM";
@@ -962,6 +1034,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                   onSaved: (UnitPrice) {
+                        productmodel.UnitPrice =UnitPrice;
+                      },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
                   //           return "Please enter unit price";
@@ -988,6 +1063,9 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   maxLength: 5,
                   decoration: Texts.Textfeild1(),
+                  onSaved: (Description) {
+                        productmodel.Description =Description;
+                      },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
                   //           return "Please enter the description";
@@ -1013,9 +1091,25 @@ class _SaveexitState extends State<Saveexit> {
                         color: HexColor("#023781"),
                         onPressed: () {
                           if (_formkey.currentState.validate()) {
-                            Get.to(Salefollowup());
-                          }
-                        },
+                            (_formkey.currentState.save());
+                              showAlertDialog(context);
+                                    _loginButtonAction(
+                                        productmodel.ProductGroup,
+                                        productmodel.ProductName,
+                                        productmodel.ProductCode,
+                                        productmodel.UnitPrice,
+                                        productmodel.Description,);
+                                    print("Successful");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  } },
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -1039,4 +1133,84 @@ class _SaveexitState extends State<Saveexit> {
       ),
     );
   }
+  
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void  _loginButtonAction(String ProductGroup,
+ ProductName,
+ ProductCode,
+ UnitPrice,
+ Description) async {
+    final url = APIConstants.product;
+
+    var bodyvalue =
+        // json.encode(
+        {
+      'ProductGroup': ProductGroup,
+      'ProductName': ProductName,
+      'ProductCode': ProductCode,
+      'UnitPrice': UnitPrice,
+      'Description': Description,
+    };
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+  }
 }
+

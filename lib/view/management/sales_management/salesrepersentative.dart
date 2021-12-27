@@ -667,18 +667,18 @@ class Saveexit extends StatefulWidget {
 class _SaveexitState extends State<Saveexit> {
   final formGlobalKey = GlobalKey<FormState>();
   Salesrespensentativemodel salesrepersentativemodel =Salesrespensentativemodel();
-  File imageURI;
-  File _image;
-  File image;
-  Future getImage() async {
-    PickedFile pickedFile =
-        // ignore: deprecated_member_use
-        await ImagePicker().getImage(source: ImageSource.camera);
-    //final image =await ImagePicker.pickImage(source:ImageSource.camera);
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-  }
+  // File imageURI;
+  // File _image;
+  // File image;
+  // Future getImage() async {
+  //   PickedFile pickedFile =
+  //       // ignore: deprecated_member_use
+  //       await ImagePicker().getImage(source: ImageSource.camera);
+  //   //final image =await ImagePicker.pickImage(source:ImageSource.camera);
+  //   setState(() {
+  //     _image = File(pickedFile.path);
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -792,7 +792,6 @@ class _SaveexitState extends State<Saveexit> {
                   },
                 ))),
           ),
-          
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Image", style: Texts.primary2a()),
@@ -891,6 +890,7 @@ class _SaveexitState extends State<Saveexit> {
                 ))),
           ),
           
+                                
           SizedBox(height: 15),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -927,7 +927,7 @@ class _SaveexitState extends State<Saveexit> {
                                         backgroundColor: Colors.red,
                                         textColor: Colors.white,
                                         fontSize: 14.0);
-                                  } },
+                                  }},
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -952,117 +952,6 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-//   _getFromCamera() async {
-//     // ignore: deprecated_member_use
-//     PickedFile pickedFile = await ImagePicker().getImage(
-//       source: ImageSource.camera,
-//       //  maxHeight: 100,    maxWidth: 100
-//     );
-//     if (pickedFile != null) {
-//       setState(() {
-//         imageURI = File(pickedFile.path);
-//       });
-//     }
-//   }
-
-//   _getFromGallery() async {
-//     // ignore: deprecated_member_use
-//     PickedFile pickedFile = await ImagePicker().getImage(
-//       source: ImageSource.gallery,
-//       // maxHeight: 100,             maxWidth: 100
-//     );
-//     if (pickedFile != null) {
-//       setState(() {
-//         imageURI = File(pickedFile.path);
-//       });
-//     }
-//   }
-  
-//   getFromCamera1() async {
-//     // ignore: deprecated_member_use
-//     PickedFile pickedFile = await ImagePicker().getImage(
-//       source: ImageSource.camera,
-//       //  maxHeight: 100,    maxWidth: 100
-//     );
-//     if (pickedFile != null) {
-//       setState(() {
-//         image = File(pickedFile.path);
-//       });
-//     }
-//   }
-
-//   getFromGallery1() async {
-//     // ignore: deprecated_member_use
-//     PickedFile pickedFile = await ImagePicker().getImage(
-//       source: ImageSource.gallery,
-//       // maxHeight: 100,             maxWidth: 100
-//     );
-//     if (pickedFile != null) {
-//       setState(() {
-//         image = File(pickedFile.path);
-//       });
-//     }
-//   }
-
-// void interiordesign(context) {
-//     showModalBottomSheet(
-//         context: context,
-//         builder: (BuildContext bc) {
-//           return SafeArea(
-//             child: Container(
-//               child: new Wrap(
-//                 children: <Widget>[
-//                   new ListTile(
-//                       leading: new Icon(Icons.photo_camera),
-//                       title: new Text('Camera'),
-//                       onTap: () {
-//                         getFromCamera1();
-//                         Navigator.of(context).pop();
-//                       }),
-//                   new ListTile(
-//                     leading: new Icon(Icons.photo_library),
-//                     title: new Text('Photo library'),
-//                     onTap: () {
-//                       getFromGallery1()();
-//                       Navigator.of(context).pop();
-//                     },
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           );
-//         });
-  // }
-
-  // void _showPicker(context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext bc) {
-  //         return SafeArea(
-  //           child: Container(
-  //             child: new Wrap(
-  //               children: <Widget>[
-  //                 new ListTile(
-  //                     leading: new Icon(Icons.photo_camera),
-  //                     title: new Text('Camera'),
-  //                     onTap: () {
-  //                       _getFromCamera();
-  //                       Navigator.of(context).pop();
-  //                     }),
-  //                 new ListTile(
-  //                   leading: new Icon(Icons.photo_library),
-  //                   title: new Text('Photo library'),
-  //                   onTap: () {
-  //                     _getFromGallery();
-  //                     Navigator.of(context).pop();
-  //                   },
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
 
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -1076,7 +965,7 @@ class _SaveexitState extends State<Saveexit> {
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context){
+      builder: (BuildContext context) {
         return alert;
       },
     );

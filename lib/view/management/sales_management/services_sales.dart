@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/servicemodel.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -16,6 +21,7 @@ import 'package:sales/view/management/sales_management/settings/mainproductgroup
 
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:http/http.dart' as http;
 
 class Service extends StatefulWidget {
   const Service({Key key}) : super(key: key);
@@ -750,6 +756,7 @@ class Saveexit extends StatefulWidget {
 class _SaveexitState extends State<Saveexit> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController textcontroler = TextEditingController();
+  ServiceModel servicemodel=ServiceModel();
 
   static const country = [
     "Afghanistan",
@@ -811,8 +818,8 @@ class _SaveexitState extends State<Saveexit> {
                         }
                         return null;
                       },
-                      onSaved: (String address) {
-                        //signupmodel.address = address;
+                      onSaved: (ProductGroup) {
+                        servicemodel.ProductGroup =ProductGroup;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -834,7 +841,7 @@ class _SaveexitState extends State<Saveexit> {
                       ),
                       textFieldConfiguration: TextFieldConfiguration(
                         decoration: InputDecoration(
-                          hintText: "Select Lead ID",
+                          hintText: "Select product group",
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                           ),
@@ -863,9 +870,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                onSaved: (ProductName) {
+                        servicemodel.ProductName =ProductName;
+                      },
                 ))),
           ),
           Padding(
@@ -888,9 +895,9 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                  onSaved: (ProductCode) {
+                        servicemodel.ProductCode =ProductCode;
+                      },
                 ))),
           ),
           Padding(
@@ -932,6 +939,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                   onSaved: (UnitPrice) {
+                        servicemodel.UnitPrice =UnitPrice;
+                      },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
                   //           return "Please enter Price";
@@ -957,6 +967,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                  onSaved: (Description) {
+                        servicemodel.Description =Description;
+                      },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
                   //           return "Please enter words";
@@ -982,9 +995,25 @@ class _SaveexitState extends State<Saveexit> {
                         color: HexColor("#023781"),
                         onPressed: () {
                           if (_formkey.currentState.validate()) {
-                            Get.to(Salesreperstative());
-                          }
-                        },
+                            (_formkey.currentState.save());
+                              showAlertDialog(context);
+                                    _loginButtonAction(
+                                      servicemodel.ProductGroup,
+                                        servicemodel.ProductName,
+                                      servicemodel.ProductCode,
+                                        servicemodel.UnitPrice,
+                                        servicemodel.Description,);
+                                    print("Successful");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  } },
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -1008,4 +1037,83 @@ class _SaveexitState extends State<Saveexit> {
       ),
     );
   }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void  _loginButtonAction(String ProductGroup,
+ ProductName,
+ ProductCode,
+ UnitPrice,
+ Description) async {
+    final url = APIConstants.services;
+
+    var bodyvalue =
+        // json.encode(
+        {
+      'ProductGroup': ProductGroup,
+      'ProductName': ProductName,
+      'ProductCode': ProductCode,
+      'UnitPrice': UnitPrice,
+      'Description': Description,
+    };
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AllSalesorder()));
+  }
 }
+
