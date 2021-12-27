@@ -1,8 +1,12 @@
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/salesrepersentative.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -15,6 +19,7 @@ import 'package:sales/view/management/sales_management/settings/mainproductgroup
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class Salesreperstative extends StatefulWidget {
   const Salesreperstative({Key key}) : super(key: key);
@@ -661,8 +666,10 @@ class Saveexit extends StatefulWidget {
 
 class _SaveexitState extends State<Saveexit> {
   final formGlobalKey = GlobalKey<FormState>();
+  Salesrespensentativemodel salesrepersentativemodel =Salesrespensentativemodel();
   File imageURI;
   File _image;
+  File image;
   Future getImage() async {
     PickedFile pickedFile =
         // ignore: deprecated_member_use
@@ -694,6 +701,10 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                    onSaved: (EmployeeName) {
+                      salesrepersentativemodel.EmployeeName=EmployeeName;
+                      },
+                 
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Employee Name is required";
@@ -717,6 +728,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                    onSaved: (EmployeeId) {
+                      salesrepersentativemodel.EmployeeId=EmployeeId;
+                      },
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Employee ID is required";
@@ -740,6 +754,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                    onSaved: (EmailId) {
+                      salesrepersentativemodel.EmailId=EmailId;
+                      },
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Email Id is required";
@@ -763,6 +780,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                    onSaved: (PhoneNumber) {
+                      salesrepersentativemodel.PhoneNumber=PhoneNumber;
+                      },
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Phone Number is required";
@@ -772,44 +792,7 @@ class _SaveexitState extends State<Saveexit> {
                   },
                 ))),
           ),
-           InkWell(
-                          onTap: () => {_showPicker(context)},
-                          child: Container(
-                              width: MediaQuery.of(context).size.width / 1.1,
-                              margin: EdgeInsets.only(left: 20, right: 20),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[350],
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(height: 35),
-                                    new Container(
-                                        child: new Column(children: <Widget>[
-                                      Container(
-                                        child: imageURI == null
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        new EdgeInsets.all(0.0),
-                                                    child: new Icon(
-                                                        Icons.add_a_photo,
-                                                        size: 70,
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    "upload your car washed image",
-                                                  )
-                                                ],
-                                              )
-                                            : Image.file(imageURI,
-                                                fit: BoxFit.fill),
-                                      ),
-                                      SizedBox(height: 35),
-                                    ])),
-                                  ]))),
+          
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Image", style: Texts.primary2a()),
@@ -824,6 +807,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                  onSaved: (Image) {
+                      salesrepersentativemodel.Image=Image;
+                      },
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Image is required";
@@ -847,6 +833,9 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                    onSaved: (Department) {
+                      salesrepersentativemodel.Department=Department;
+                      },
                   validator: (String value) {
                     if (value.isEmpty) {
                       return "Department is required";
@@ -870,15 +859,16 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
+                  onSaved: (Designation) {
+                      salesrepersentativemodel.Designation= Designation;
+                      },
                   validator: (String value) {
                     if (value.isEmpty) {
                       return "Designation is required";
                     }
                     return null;
                   },
-                  onSaved: (String address) {
-                    //signupmodel.address = address;
-                  },
+                  
                 ))),
           ),
           Padding(
@@ -893,10 +883,14 @@ class _SaveexitState extends State<Saveexit> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 child: Container(
-                    child: TextField(
+                    child: TextFormField(
+                       onSaved: (ProductName) {
+                      salesrepersentativemodel.ProductName=ProductName;
+                      },
                   decoration: Texts.Textfeild1(),
                 ))),
           ),
+          
           SizedBox(height: 15),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -911,9 +905,29 @@ class _SaveexitState extends State<Saveexit> {
                         color: HexColor("#023781"),
                         onPressed: () {
                           if (formGlobalKey.currentState.validate()) {
-                            Get.to(Quationtracker());
-                          }
-                        },
+                            (formGlobalKey.currentState.save());
+                              showAlertDialog(context);
+                                    _loginButtonAction(
+                                        salesrepersentativemodel.EmployeeName,
+                                        salesrepersentativemodel.EmployeeId,
+                                        salesrepersentativemodel.EmailId,
+                                        salesrepersentativemodel.PhoneNumber,
+                                        salesrepersentativemodel.Image,
+                                        salesrepersentativemodel.Department,
+                                        salesrepersentativemodel.Designation,
+                                        salesrepersentativemodel.ProductName,
+                                       );
+                                    print("Successful");
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter all the details",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
+                                  } },
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -938,61 +952,199 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  _getFromCamera() async {
-    // ignore: deprecated_member_use
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      //  maxHeight: 100,    maxWidth: 100
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageURI = File(pickedFile.path);
-      });
-    }
-  }
+//   _getFromCamera() async {
+//     // ignore: deprecated_member_use
+//     PickedFile pickedFile = await ImagePicker().getImage(
+//       source: ImageSource.camera,
+//       //  maxHeight: 100,    maxWidth: 100
+//     );
+//     if (pickedFile != null) {
+//       setState(() {
+//         imageURI = File(pickedFile.path);
+//       });
+//     }
+//   }
 
-  _getFromGallery() async {
-    // ignore: deprecated_member_use
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      // maxHeight: 100,             maxWidth: 100
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageURI = File(pickedFile.path);
-      });
-    }
-  }
-
-  void _showPicker(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Container(
-              child: new Wrap(
-                children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_camera),
-                      title: new Text('Camera'),
-                      onTap: () {
-                        _getFromCamera();
-                        Navigator.of(context).pop();
-                      }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_library),
-                    title: new Text('Photo library'),
-                    onTap: () {
-                      _getFromGallery();
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
+//   _getFromGallery() async {
+//     // ignore: deprecated_member_use
+//     PickedFile pickedFile = await ImagePicker().getImage(
+//       source: ImageSource.gallery,
+//       // maxHeight: 100,             maxWidth: 100
+//     );
+//     if (pickedFile != null) {
+//       setState(() {
+//         imageURI = File(pickedFile.path);
+//       });
+//     }
+//   }
   
+//   getFromCamera1() async {
+//     // ignore: deprecated_member_use
+//     PickedFile pickedFile = await ImagePicker().getImage(
+//       source: ImageSource.camera,
+//       //  maxHeight: 100,    maxWidth: 100
+//     );
+//     if (pickedFile != null) {
+//       setState(() {
+//         image = File(pickedFile.path);
+//       });
+//     }
+//   }
+
+//   getFromGallery1() async {
+//     // ignore: deprecated_member_use
+//     PickedFile pickedFile = await ImagePicker().getImage(
+//       source: ImageSource.gallery,
+//       // maxHeight: 100,             maxWidth: 100
+//     );
+//     if (pickedFile != null) {
+//       setState(() {
+//         image = File(pickedFile.path);
+//       });
+//     }
+//   }
+
+// void interiordesign(context) {
+//     showModalBottomSheet(
+//         context: context,
+//         builder: (BuildContext bc) {
+//           return SafeArea(
+//             child: Container(
+//               child: new Wrap(
+//                 children: <Widget>[
+//                   new ListTile(
+//                       leading: new Icon(Icons.photo_camera),
+//                       title: new Text('Camera'),
+//                       onTap: () {
+//                         getFromCamera1();
+//                         Navigator.of(context).pop();
+//                       }),
+//                   new ListTile(
+//                     leading: new Icon(Icons.photo_library),
+//                     title: new Text('Photo library'),
+//                     onTap: () {
+//                       getFromGallery1()();
+//                       Navigator.of(context).pop();
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//         });
+  // }
+
+  // void _showPicker(context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext bc) {
+  //         return SafeArea(
+  //           child: Container(
+  //             child: new Wrap(
+  //               children: <Widget>[
+  //                 new ListTile(
+  //                     leading: new Icon(Icons.photo_camera),
+  //                     title: new Text('Camera'),
+  //                     onTap: () {
+  //                       _getFromCamera();
+  //                       Navigator.of(context).pop();
+  //                     }),
+  //                 new ListTile(
+  //                   leading: new Icon(Icons.photo_library),
+  //                   title: new Text('Photo library'),
+  //                   onTap: () {
+  //                     _getFromGallery();
+  //                     Navigator.of(context).pop();
+  //                   },
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context){
+        return alert;
+      },
+    );
   }
+
+  void  _loginButtonAction( String EmployeeName,
+      EmployeeId,
+      EmailId,
+      PhoneNumber,
+       Image,
+      Department,
+      Designation,
+      ProductName,
+     ) async {
+    final url = APIConstants.salesrepersentative;
+
+    var bodyvalue =
+        // json.encode(
+        {
+      'EmployeeName': EmployeeName,
+      'EmployeeId': EmployeeId,
+      'EmailId': EmailId,
+      'PhoneNumber': PhoneNumber,
+      'Image': Image,
+      'Department': Department,
+      'Designation': Designation,
+      'ProductName': ProductName,
+    };
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Salesreperstative()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Salesreperstative()));
+  }
+}

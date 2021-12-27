@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
+import 'package:sales/view/management/sales_management/lead_genration.dart';
 import 'package:sales/view/management/sales_management/leadsummary.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -14,6 +15,8 @@ class Productgroup extends StatefulWidget {
 }
 
 class _ProductgroupState extends State<Productgroup> {
+  Color _iconColor = Colors.black;
+
   List<Employee> employees = <Employee>[];
   EmployeeDataSource employeeDataSource;
 
@@ -286,12 +289,17 @@ class EmployeeDataSource extends DataGridSource {
           child: Row(
             children: [
               IconButton(
+                hoverColor: Colors.green,
+                focusColor: Colors.red,
+                highlightColor: Colors.orange, 
+                disabledColor: Colors.black,
+                splashColor: Colors.white,
                 onPressed: () {
-                  print("inside the icon");
+                  Get.to(Lead_genaration());
                 },
                 icon: Icon(
-                  Icons.edit,
-                  color: Colors.black,
+                  Icons.access_alarm_outlined,
+                  color: Colors.red,
                   size: 15,
                 ),
               ),

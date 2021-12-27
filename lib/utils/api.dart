@@ -5,4 +5,6 @@ class APIConstants {
   static String leadGeneration = "http://localhost:4000/leadGenerate";
   static String Qutationtracker ="http://localhost:4000/quotationtracker"; 
   static String salesorder ="http://localhost:4000/salesorder";
+    static String salesrepersentative ="http://localhost:4000/salesRepresentive";
+
 }

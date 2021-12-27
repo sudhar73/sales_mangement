@@ -41,7 +41,7 @@ class _Lead_genarationState extends State<Lead_genaration> {
     print(response.body);
 
     if (response.statusCode == 200) {
-      return Leadmodel.fromJson(json.decode(response.body));
+      return Leadmodel.fromJson(json.decode(response.body)as Map<String, dynamic>);
     } else {
       Text("hi");
     }
@@ -161,7 +161,10 @@ class _Lead_genarationState extends State<Lead_genaration> {
                 ],
               ),
             ),
+           
+
             SizedBox(height: 15),
+           
               FutureBuilder<Leadmodel>(
               future: futurealbum,
               builder: (context, snapshot) {
@@ -171,8 +174,8 @@ class _Lead_genarationState extends State<Lead_genaration> {
                     children: [
                       Text(snapshot.data.mobileNumber.toString()),
 
-Text(snapshot.data.city),
-Text(snapshot.data.created),
+Text(snapshot.data.street1),
+Text(snapshot.data.street2),
                       Text(snapshot.data.companyName),
                     ],
                   );

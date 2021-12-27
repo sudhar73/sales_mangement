@@ -339,7 +339,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.9",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.11",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -567,7 +567,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.2",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -590,7 +590,7 @@
       "languageVersion": "2.11"
     }
   ],
-  "generated": "2021-12-22T12:43:34.779314Z",
+  "generated": "2021-12-27T04:34:50.756484Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }
