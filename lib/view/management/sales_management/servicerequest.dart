@@ -568,7 +568,7 @@ class _SaveexitState extends State<Saveexit> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-            child: Text("Request End Date", style: Texts.primary2a()),
+            child: Text("Request Date", style: Texts.primary2a()),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -601,7 +601,7 @@ class _SaveexitState extends State<Saveexit> {
                     },
                     validator: (value) {
                       if (value.isEmpty) {
-                        return "Request End Date is required";
+                        return "Request Date is required";
                       } else {
                         return null;
                       }
@@ -696,7 +696,7 @@ class _SaveexitState extends State<Saveexit> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-            child: Text("detail of Request", style: Texts.primary2a()),
+            child: Text("Detail of Request", style: Texts.primary2a()),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),

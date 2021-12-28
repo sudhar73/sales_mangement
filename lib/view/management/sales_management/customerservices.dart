@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sales/model/customerservicemodel.dart';
+import 'package:sales/utils/api.dart';
 import 'package:sales/utils/texts.dart';
 import 'package:sales/view/management/sales_management/Quationtracker.dart';
 import 'package:sales/view/management/sales_management/allsalesorder.dart';
@@ -14,6 +20,7 @@ import 'package:sales/view/management/sales_management/settings/mainproductgroup
 
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:http/http.dart' as http;
 
 class Customerservices extends StatefulWidget {
   const Customerservices({Key key}) : super(key: key);
@@ -140,7 +147,7 @@ class _CustomerservicesState extends State<Customerservices> {
                             borderRadius: BorderRadius.circular(10)),
                         onPressed: () {
                           Get.to(_addexit(context));
-                          Get.to(Servicerequest());
+                         
                         },
                         color: HexColor("#7C8EB2"),
                         child: Row(
@@ -751,190 +758,427 @@ class Saveexit extends StatefulWidget {
 }
 
 class _SaveexitState extends State<Saveexit> {
+  final formGlobalKey = GlobalKey<FormState>();
   DateTime _date = DateTime.now();
   final dateController = TextEditingController();
+  CustomerServiceModel customerservicemodel=CustomerServiceModel();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Order ID", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                decoration: Texts.Textfeild1(),
-              ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Customer Name", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                decoration: Texts.Textfeild1(),
-              ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Email", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                decoration: Texts.Textfeild1(),
-              ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Phone Number", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                decoration: Texts.Textfeild1(),
-              ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Product Name", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                decoration: Texts.Textfeild1(),
-              ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Service Request", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                  child: TextField(
-                      maxLength: 5,
-                      decoration: InputDecoration(
-                          hintStyle: TextStyle(color: HexColor("#172B4D")),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)))))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
-          child: Text("Request Date", style: Texts.primary2a()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Card(
-              shadowColor: Colors.grey,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Container(
-                child: TextField(
-                  readOnly: true,
-                  controller: dateController,
-                  decoration: InputDecoration(
-                      hintStyle: TextStyle(color: HexColor("#172B4D")),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          borderSide: BorderSide(color: Colors.transparent))),
-                  onTap: () async {
-                    var date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                        currentDate: DateTime.now());
-
-                    dateController.text = date.toString().substring(0, 10);
+    return Form(
+      key: formGlobalKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Order ID", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                  decoration: Texts.Textfeild1(),
+                  onSaved: (OrderId){
+                    customerservicemodel.OrderId=OrderId;
                   },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Order ID is required";
+                    } else {
+                      return null;
+                    }
+                  },
+                ))),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Customer Name", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                  decoration: Texts.Textfeild1(),
+                  onSaved: (CustomerName){
+                    customerservicemodel.CustomerName=CustomerName;
+                  },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Customer Name is required";
+                    } else {
+                      return null;
+                    }
+                  },
+                ))),
+          ),
+          
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Email", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                        onSaved: (Email){
+                    customerservicemodel.Email=Email;
+                  },
+                  decoration: Texts.Textfeild1(),
+                ))),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Phone number", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                       onSaved: (PhoneNumber){
+                    customerservicemodel.PhoneNumber=PhoneNumber;
+                  },
+                  decoration: Texts.Textfeild1(),
+                ))),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("product Name", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                     
+                  decoration: Texts.Textfeild1(),
+                ))),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Service Request", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextFormField(
+                      onSaved: (ServiceRequest)
+                      {
+                        customerservicemodel.ServiceRequest=ServiceRequest;
+                        },
+                  decoration: Texts.Textfeild1(),
+                ))),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Request Date", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: dateController,
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: HexColor("#172B4D")),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide(color: Colors.transparent))),
+                    onTap: () async {
+                      var date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                          currentDate: DateTime.now());
+
+                      dateController.text = date.toString().substring(0, 10);
+                    },
+                    onSaved: (RequestDate)
+                      {
+                        customerservicemodel.RequestDate=RequestDate;
+                        },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Request Date is required";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                )),
+          ),
+          SizedBox(height: 10),
+          Divider(),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Request Status", style: Texts.primary2a()),
+          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: DropdownSearch<String>(
+                    mode: Mode.MENU,
+                    items: ["Active", "pending", "Disable"],
+                    dropdownSearchDecoration: InputDecoration(
+                      hintText: "Select a request status",
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    popupItemDisabled: (String s) => s.startsWith('I'),
+                    onChanged: (value) {
+                      setState(() {
+                        // signupmodel.graduted = value;
+                        print(value);
+                      });
+                    },
+                    //  onSaved: (RequestStatus)
+                    //   {
+                    //     customerservicemodel.RequestStatus=RequestStatus;
+                    //     },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Request Status is required";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
               )),
-        ),
-        SizedBox(height: 15),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  height: 45,
-                  width: Get.width / 3.8,
-                  child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      color: HexColor("#023781"),
-                      onPressed: () {
-                        Get.to(Salefollowup());
-                      },
-                      child: Text("SUBMIT",
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 16)))),
-              Container(
-                  height: 45,
-                  width: Get.width / 3.9,
-                  child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          side:
-                              BorderSide(color: HexColor("#172B4D"), width: 1),
-                          borderRadius: BorderRadius.circular(10)),
-                      color: Colors.white,
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("Cancel",
-                          style: TextStyle(
-                              color: HexColor("#023781"), fontSize: 16)))),
-            ])
-      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Request End Date", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: dateController,
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: HexColor("#172B4D")),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide(color: Colors.transparent)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide(color: Colors.transparent))),
+                    onTap: () async {
+                      var date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                          currentDate: DateTime.now());
+
+                      dateController.text = date.toString().substring(0, 10);
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Request End Date is required";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
+            child: Text("Detail of Request", style: Texts.primary2a()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Card(
+                shadowColor: Colors.grey,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Container(
+                    child: TextField(
+                  decoration: Texts.Textfeild1(),
+                ))),
+          ),
+          SizedBox(height: 15),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    height: 45,
+                    width: Get.width / 3.8,
+                    child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: HexColor("#023781"),
+                        onPressed: () {
+                          if (formGlobalKey.currentState.validate()) {
+                          (formGlobalKey.currentState.save());
+                            _loginButtonAction(
+                              customerservicemodel.OrderId,
+                             customerservicemodel.CustomerName,
+                              customerservicemodel.Email,
+                              customerservicemodel.PhoneNumber,
+                              customerservicemodel.ServiceRequest,
+                               customerservicemodel.RequestDate,
+                              
+                              );
+                          }
+                        },
+                        child: Text("SUBMIT",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16)))),
+                Container(
+                    height: 45,
+                    width: Get.width / 3.9,
+                    child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: HexColor("#172B4D"), width: 1),
+                            borderRadius: BorderRadius.circular(10)),
+                        color: Colors.white,
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text("Cancel",
+                            style: TextStyle(
+                                color: HexColor("#023781"), fontSize: 16)))),
+              ])
+        ],
+      ),
     );
+  }
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(color: Colors.blueAccent,),
+          Container(margin: EdgeInsets.only(left: 15), child: Text("Loading")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void  _loginButtonAction( String OrderId,
+   CustomerName,
+   Email,
+   PhoneNumber,
+   ServiceRequest,
+   RequestDate,
+  )async{
+final url=APIConstants.customerservice;
+    var bodyvalue =
+        // json.encode(
+        {
+      'OrderId': OrderId,
+      'CustomerName': CustomerName,
+      'Email': Email,
+      'PhoneNumber': PhoneNumber,
+      'ServiceRequest': ServiceRequest,
+      'RequestDate': RequestDate,
+      
+      //'devicetoken': fcmToken
+    };
+    
+    print(bodyvalue);
+    final response = await http.post(Uri.parse(url), body: bodyvalue);
+    print(response.body);
+    var responseJson = json.decode(response.body);
+    print(responseJson);
+    var status = responseJson['status'];
+    var message = responseJson['message'];
+    if (status == 1) {
+      Navigator.pop(context);
+
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 14.0);
+      // navigateTologinPage(context, Login());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Quationtracker()));
+      // replacePage(context, Login());
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(
+          msg: message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor:Colors.red,
+          textColor: Colors.white,
+          fontSize: 14.0);
+    }
+  }
+
+  Future replacePage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => getPage));
+  }
+
+  Future navigateTologinPage(context, getPage) async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Quationtracker()));
   }
 }

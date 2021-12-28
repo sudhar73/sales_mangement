@@ -818,8 +818,8 @@ class _SaveexitState extends State<Saveexit> {
                         }
                         return null;
                       },
-                      onSaved: (ProductGroup) {
-                        servicemodel.ProductGroup =ProductGroup;
+                      onSaved: (ServiceGroup) {
+                        servicemodel.ServiceGroup =ServiceGroup;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -870,8 +870,8 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                onSaved: (ProductName) {
-                        servicemodel.ProductName =ProductName;
+                onSaved: (ServiceName) {
+                        servicemodel.ServiceName =ServiceName;
                       },
                 ))),
           ),
@@ -895,8 +895,8 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (ProductCode) {
-                        servicemodel.ProductCode =ProductCode;
+                  onSaved: (ServiceCode) {
+                        servicemodel.ServiceCode =ServiceCode;
                       },
                 ))),
           ),
@@ -939,8 +939,8 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
-                   onSaved: (UnitPrice) {
-                        servicemodel.UnitPrice =UnitPrice;
+                   onSaved: (Price) {
+                        servicemodel.Price =Price;
                       },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
@@ -998,10 +998,10 @@ class _SaveexitState extends State<Saveexit> {
                             (_formkey.currentState.save());
                               showAlertDialog(context);
                                     _loginButtonAction(
-                                      servicemodel.ProductGroup,
-                                        servicemodel.ProductName,
-                                      servicemodel.ProductCode,
-                                        servicemodel.UnitPrice,
+                                         servicemodel.ServiceGroup,
+                                        servicemodel.ServiceName,
+                                        servicemodel.ServiceCode,
+                                        servicemodel.Price,
                                         servicemodel.Description,);
                                     print("Successful");
                                   } else {
@@ -1013,7 +1013,7 @@ class _SaveexitState extends State<Saveexit> {
                                         backgroundColor: Colors.red,
                                         textColor: Colors.white,
                                         fontSize: 14.0);
-                                  } },
+                                  }},
                         child: Text("SUBMIT",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)))),
@@ -1056,20 +1056,20 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  void  _loginButtonAction(String ProductGroup,
- ProductName,
- ProductCode,
- UnitPrice,
+  void  _loginButtonAction(String ServiceGroup,
+ ServiceName,
+ ServiceCode,
+ Price,
  Description) async {
     final url = APIConstants.services;
 
     var bodyvalue =
-        // json.encode(
+        // json.encode(5
         {
-      'ProductGroup': ProductGroup,
-      'ProductName': ProductName,
-      'ProductCode': ProductCode,
-      'UnitPrice': UnitPrice,
+      'ServiceGroup': ServiceGroup,
+      'ServiceName': ServiceName,
+      'ServiceCode': ServiceCode,
+      'Price': Price,
       'Description': Description,
     };
     print(bodyvalue);

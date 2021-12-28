@@ -1,4 +1,4 @@
-import 'dart:convert';
+ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -747,7 +747,7 @@ class _SaveexitState extends State<Saveexit> {
                         return null;
                       },
                       onSaved: (saleOwner) {
-                        quationtrackermodel.saleOwner=saleOwner;
+                        quationtrackermodel.SaleOwner=saleOwner;
                        
                       },
                       suggestionsCallback: (pattern) => country.where(
@@ -801,7 +801,7 @@ class _SaveexitState extends State<Saveexit> {
                         return null;
                       },
                       onSaved: (leadId) {
-                        quationtrackermodel.leadId=leadId;
+                        quationtrackermodel.LeadId=leadId;
                        
                       },
                       suggestionsCallback: (pattern) => country.where(
@@ -847,7 +847,7 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                        onSaved: (companyName) {
-                        quationtrackermodel.companyName=companyName;
+                        quationtrackermodel.CompanyName=companyName;
                        
                       },
                   decoration: Texts.Textfeild1(),
@@ -875,7 +875,7 @@ class _SaveexitState extends State<Saveexit> {
                     }
                   },
                   onSaved: (customerName) {
-                        quationtrackermodel.customerName=customerName;
+                        quationtrackermodel.CustomerName=customerName;
                        
                       },
                 ))),
@@ -894,7 +894,7 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                        onSaved: (email) {
-                        quationtrackermodel.email=email;
+                        quationtrackermodel.Email=email;
                        
                       },
                   decoration: Texts.Textfeild1(),
@@ -915,7 +915,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (phoneNumber) {
-                        quationtrackermodel.phoneNumber=phoneNumber;
+                        quationtrackermodel.PhoneNumber=phoneNumber;
                       },
                   validator: (value) {
                     if (value.isEmpty) {
@@ -960,7 +960,7 @@ class _SaveexitState extends State<Saveexit> {
                       dateController.text = date.toString().substring(0, 10);
                     },
                      onSaved: (orderDate) {
-                        quationtrackermodel.orderDate=orderDate;
+                        quationtrackermodel.OrderDate=orderDate;
                       },
                   ),
                 )),
@@ -999,7 +999,7 @@ class _SaveexitState extends State<Saveexit> {
                       dateController1.text = date.toString().substring(0, 10);
                     },
                     onSaved: (deliveryDate) {
-                        quationtrackermodel.deliveryDate=deliveryDate;
+                        quationtrackermodel.DeliveryDate=deliveryDate;
                       },
                   ),
                 )),
@@ -1019,7 +1019,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                    onSaved: (billingAddress) {
-                        quationtrackermodel.billingAddress=billingAddress;
+                        quationtrackermodel.BillingAddress=billingAddress;
                       },
                 ))),
           ),
@@ -1038,7 +1038,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                    onSaved: (shippingAddress) {
-                        quationtrackermodel.shippingAddress=shippingAddress;
+                        quationtrackermodel.ShippingAddress=shippingAddress;
                       },
                 ))),
           ),
@@ -1058,7 +1058,7 @@ class _SaveexitState extends State<Saveexit> {
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: TypeAheadFormField(
                      onSaved: (productServiceId) {
-                        quationtrackermodel.productServiceId=productServiceId;
+                        quationtrackermodel.ProductServiceId=productServiceId;
                       },
                       suggestionsCallback: (pattern) => product.where(
                         (item) =>
@@ -1111,7 +1111,7 @@ class _SaveexitState extends State<Saveexit> {
                     }
                   },
                    onSaved: (productServiceName) {
-                        quationtrackermodel.productServiceName=productServiceName;
+                        quationtrackermodel.ProductServiceName=productServiceName;
                       },
                 ))),
           ),
@@ -1130,7 +1130,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (unitValue) {
-                        quationtrackermodel.unitValue=unitValue;
+                        quationtrackermodel.UnitValue=unitValue;
                       },
                 ))),
           ),
@@ -1149,7 +1149,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (quantity) {
-                        quationtrackermodel.quantity=quantity;
+                        quationtrackermodel.Quantity=quantity;
                       },
                 ))),
           ),
@@ -1168,7 +1168,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                    onSaved: (quoteValue) {
-                        quationtrackermodel.quoteValue=quoteValue;
+                        quationtrackermodel.QuoteValue=quoteValue;
                       },
                 ))),
           ),
@@ -1187,7 +1187,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                    onSaved: (otherCost) {
-                        quationtrackermodel.otherCost=otherCost;
+                        quationtrackermodel.OtherCost=otherCost;
                       },
                 ))),
           ),
@@ -1206,7 +1206,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (subTotal) {
-                        quationtrackermodel.subTotal=subTotal;
+                        quationtrackermodel.SubTotal=subTotal;
                       },
                 ))),
           ),
@@ -1225,7 +1225,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (discount) {
-                        quationtrackermodel.discount=discount;
+                        quationtrackermodel.Discount=discount;
                       },
                 ))),
           ),
@@ -1244,7 +1244,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (tax) {
-                        quationtrackermodel.tax=tax;
+                        quationtrackermodel.Tax=tax;
                       },
                 ))),
           ),
@@ -1263,7 +1263,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (grandTotal) {
-                        quationtrackermodel.grandTotal=grandTotal;
+                        quationtrackermodel.GrandTotal=grandTotal;
                       },
                 ))),
           ),
@@ -1293,7 +1293,7 @@ class _SaveexitState extends State<Saveexit> {
                     onChanged: (value) {
                       setState(() {
                         
-                        quationtrackermodel.quoteStatus=value;
+                        quationtrackermodel.QuoteStatus=value;
                      
                         // signupmodel.graduted = value;
                         print(value);
@@ -1318,27 +1318,27 @@ class _SaveexitState extends State<Saveexit> {
                           if (formGlobalKey.currentState.validate()) {
                             (formGlobalKey.currentState.save());
                             _loginButtonAction(
-                              quationtrackermodel.saleOwner,
-                              quationtrackermodel.leadId,
-                              quationtrackermodel.companyName,
-                              quationtrackermodel.customerName,
-                              quationtrackermodel.email,
-                              quationtrackermodel.phoneNumber,
-                              quationtrackermodel.orderDate,
-                              quationtrackermodel.deliveryDate,
-                              quationtrackermodel.billingAddress,
-                              quationtrackermodel.shippingAddress,
-                              quationtrackermodel.productServiceId,
-                              quationtrackermodel.productServiceName,
-                              quationtrackermodel.unitValue,
-                              quationtrackermodel.quantity,
-                              quationtrackermodel.quoteValue,
-                              quationtrackermodel.otherCost,
-                              quationtrackermodel.subTotal,
-                              quationtrackermodel.discount,
-                              quationtrackermodel.tax,
-                              quationtrackermodel.grandTotal,
-                              quationtrackermodel.quoteStatus,
+                              quationtrackermodel.SaleOwner,
+                              quationtrackermodel.LeadId,
+                              quationtrackermodel.CompanyName,
+                              quationtrackermodel.CustomerName,
+                              quationtrackermodel.Email,
+                              quationtrackermodel.PhoneNumber,
+                              quationtrackermodel.OrderDate,
+                              quationtrackermodel.DeliveryDate,
+                              quationtrackermodel.BillingAddress,
+                              quationtrackermodel.ShippingAddress,
+                              quationtrackermodel.ProductServiceId,
+                              quationtrackermodel.ProductServiceName,
+                              quationtrackermodel.UnitValue,
+                              quationtrackermodel.Quantity,
+                              quationtrackermodel.QuoteValue,
+                              quationtrackermodel.OtherCost,
+                              quationtrackermodel.SubTotal,
+                              quationtrackermodel.Discount,
+                              quationtrackermodel.Tax,
+                              quationtrackermodel.GrandTotal,
+                              quationtrackermodel.QuoteStatus,
                               );
                           }
                         },
@@ -1384,49 +1384,49 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  void  _loginButtonAction( String saleOwner,
-   leadId,
-   companyName,
-   customerName,
-   email,
-   phoneNumber,
-   orderDate,
-   deliveryDate,
-   billingAddress,
-   shippingAddress,
-   productServiceId,
-   productServiceName,
-   unitValue,
-   quantity,
-   quoteValue,
-   otherCost,
-   subTotal,
-   discount,
-   tax,
-   grandTotal,
-   quoteStatus,
+  void  _loginButtonAction( String SaleOwner,
+   LeadId,
+   CompanyName,
+   CustomerName,
+   Email,
+   PhoneNumber,
+   OrderDate,
+   DeliveryDate,
+   BillingAddress,
+   ShippingAddress,
+   ProductServiceId,
+   ProductServiceName,
+   UnitValue,
+   Quantity,
+   QuoteValue,
+   OtherCost,
+   SubTotal,
+   Discount,
+   Tax,
+   GrandTotal,
+   QuoteStatus,
 
   )async{
 final url=APIConstants.Qutationtracker;
     var bodyvalue =
         // json.encode(
         {
-      'saleOwner': saleOwner,
-      'leadId': leadId,
-      'companyName': companyName,
-      'customerName': customerName,
-      'email': email,
-      'phoneNumber': phoneNumber,
-      'orderDate': orderDate,
-      'deliveryDate': deliveryDate,
-      'billingAddress': billingAddress,
-      'shippingAddress': shippingAddress,
-      'productServiceId': productServiceId,
-      'productServiceName': productServiceName,
-      'unitValue': unitValue,
-      'quantity': quantity,
-      'quoteValue': quoteValue,
-      'otherCost': otherCost,
+      'SaleOwner': SaleOwner,
+      'LeadId': LeadId,
+      'CompanyName': CompanyName,
+      'CustomerName': CustomerName,
+      'Email': Email,
+      'PhoneNumber': PhoneNumber,
+      'OrderDate': OrderDate,
+      'DeliveryDate': DeliveryDate,
+      'BillingAddress': BillingAddress,
+      'ShippingAddress': ShippingAddress,
+      'ProductServiceId': ProductServiceId,
+      'ProductServiceName': ProductServiceName,
+      'UnitValue': UnitValue,
+      'Quantity': Quantity,
+      'QuoteValue': QuoteValue,
+      'OtherCost': OtherCost,
       //'devicetoken': fcmToken
     };
     

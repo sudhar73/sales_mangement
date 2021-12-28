@@ -1,102 +1,104 @@
+ import 'dart:convert';
 
-import 'dart:convert';
+Quationtrackermodel quationtrackermodelFromJson(String str) =>
+ Quationtrackermodel.fromJson(json.decode(str));
 
-Quationtrackermodel quationtrackermodelFromJson(String str) => Quationtrackermodel.fromJson(json.decode(str));
-
-String quationtrackermodelToJson(Quationtrackermodel data) => json.encode(data.toJson());
+String quationtrackermodelToJson(Quationtrackermodel data) =>
+ json.encode(data.toJson());
 
 class Quationtrackermodel {
-    Quationtrackermodel({
-        this.saleOwner,
-        this.leadId,
-        this.companyName,
-        this.customerName,
-        this.email,
-        this.phoneNumber,
-        this.orderDate,
-        this.deliveryDate,
-        this.billingAddress,
-        this.shippingAddress,
-        this.productServiceId,
-        this.productServiceName,
-        this.unitValue,
-        this.quantity,
-        this.quoteValue,
-        this.otherCost,
-        this.subTotal,
-        this.discount,
-        this.tax,
-        this.grandTotal,
-        this.quoteStatus,
-    });
+ Quationtrackermodel({
+ this.SaleOwner,
+ this.LeadId,
+ this.CompanyName,
+ this.CustomerName,
+ this.Email,
+ this.PhoneNumber,
+ this.OrderDate,
+ this.DeliveryDate,
+ this.BillingAddress,
+ this.ShippingAddress,
+ this.ProductServiceId,
+ this.ProductServiceName,
+ this.UnitValue,
+ this.Quantity,
+ this.QuoteValue,
+ this.OtherCost,
+ this.SubTotal,
+ this.Discount,
+ this.Tax,
+ this.GrandTotal,
+ this.QuoteStatus,
+ });
 
-    String saleOwner;
-    String leadId;
-    String companyName;
-    String customerName;
-    String email;
-    String phoneNumber;
-    String orderDate;
-    String deliveryDate;
-    String billingAddress;
-    String shippingAddress;
-    String productServiceId;
-    String productServiceName;
-    String unitValue;
-    String quantity;
-    String quoteValue;
-    String otherCost;
-    String subTotal;
-    String discount;
-    String tax;
-    String grandTotal;
-    String quoteStatus;
+ String SaleOwner;
+ String LeadId;
+ String CompanyName;
+ String CustomerName;
+ String Email;
+ String PhoneNumber;
+ String OrderDate;
+ String DeliveryDate;
+ String BillingAddress;
+ String ShippingAddress;
+ String ProductServiceId;
+ String ProductServiceName;
+ String UnitValue;
+ String Quantity;
+ String QuoteValue;
+ String OtherCost;
+ String SubTotal;
+ String Discount;
+ String Tax;
+ String GrandTotal;
+ String QuoteStatus;
 
-    factory Quationtrackermodel.fromJson(Map<String, dynamic> json) => Quationtrackermodel(
-        saleOwner: json["SaleOwner"],
-        leadId: json["LeadId"],
-        companyName: json["CompanyName"],
-        customerName: json["CustomerName"],
-        email: json["Email"],
-        phoneNumber: json["PhoneNumber"],
-        orderDate: json["OrderDate"],
-        deliveryDate: json["DeliveryDate"],
-        billingAddress: json["BillingAddress"],
-        shippingAddress: json["ShippingAddress"],
-        productServiceId: json["ProductServiceId"],
-        productServiceName: json["ProductServiceName"],
-        unitValue: json["UnitValue"],
-        quantity: json["Quantity"],
-        quoteValue: json["QuoteValue"],
-        otherCost: json["OtherCost"],
-        subTotal: json["SubTotal"],
-        discount: json["Discount"],
-        tax: json["Tax"],
-        grandTotal: json["GrandTotal"],
-        quoteStatus: json["QuoteStatus"],
-    );
+ factory Quationtrackermodel.fromJson(Map<String, dynamic> json) =>
+ Quationtrackermodel(
+ SaleOwner: json["SaleOwner"],
+ LeadId: json["LeadId"],
+ CompanyName: json["CompanyName"],
+ CustomerName: json["CustomerName"],
+ Email: json["Email"],
+ PhoneNumber: json["PhoneNumber"],
+ OrderDate: json["OrderDate"],
+ DeliveryDate: json["DeliveryDate"],
+ BillingAddress: json["BillingAddress"],
+ ShippingAddress: json["ShippingAddress"],
+ ProductServiceId: json["ProductServiceId"],
+ ProductServiceName: json["ProductServiceName"],
+ UnitValue: json["UnitValue"],
+ Quantity: json["Quantity"],
+ QuoteValue: json["QuoteValue"],
+ OtherCost: json["OtherCost"],
+ SubTotal: json["SubTotal"],
+ Discount: json["Discount"],
+ Tax: json["Tax"],
+ GrandTotal: json["GrandTotal"],
+ QuoteStatus: json["QuoteStatus"],
+ );
 
-    Map<String, dynamic> toJson() => {
-        "SaleOwner": saleOwner,
-        "LeadId": leadId,
-        "CompanyName": companyName,
-        "CustomerName": customerName,
-        "Email": email,
-        "PhoneNumber": phoneNumber,
-        "OrderDate": orderDate,
-        "DeliveryDate": deliveryDate,
-        "BillingAddress": billingAddress,
-        "ShippingAddress": shippingAddress,
-        "ProductServiceId": productServiceId,
-        "ProductServiceName": productServiceName,
-        "UnitValue": unitValue,
-        "Quantity": quantity,
-        "QuoteValue": quoteValue,
-        "OtherCost": otherCost,
-        "SubTotal": subTotal,
-        "Discount": discount,
-        "Tax": tax,
-        "GrandTotal": grandTotal,
-        "QuoteStatus": quoteStatus,
-    };
+ Map<String, dynamic> toJson() => {
+ "SaleOwner": SaleOwner,
+ "LeadId": LeadId,
+ "CompanyName": CompanyName,
+ "CustomerName": CustomerName,
+ "Email": Email,
+ "PhoneNumber": PhoneNumber,
+ "OrderDate": OrderDate,
+ "DeliveryDate": DeliveryDate,
+ "BillingAddress": BillingAddress,
+ "ShippingAddress": ShippingAddress,
+ "ProductServiceId": ProductServiceId,
+ "ProductServiceName": ProductServiceName,
+ "UnitValue": UnitValue,
+ "Quantity": Quantity,
+ "QuoteValue": QuoteValue,
+ "OtherCost": OtherCost,
+ "SubTotal": SubTotal,
+ "Discount": Discount,
+ "Tax": Tax,
+ "GrandTotal": GrandTotal,
+ "QuoteStatus": QuoteStatus,
+ };
 }

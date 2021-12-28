@@ -7,39 +7,39 @@ String servicemodelToJson(ServiceModel data) => json.encode(data.toJson());
 
 class ServiceModel {
     ServiceModel({
-        this.ProductGroup,
-        this.ProductName,
-        this.ProductCode,
-        this.UnitPrice,
+        this.ServiceGroup,
+        this.ServiceName,
+        this.ServiceCode,
+        this.Price,
         this.Description,
         this.isActive,
         this.created,
       
     });
 
-    String ProductGroup;
-    String ProductName;
-    String ProductCode;
-    String UnitPrice;
+    String ServiceGroup;
+    String ServiceName;
+    String ServiceCode;
+    String Price;
     String Description;
     String isActive;
     String created;
 
     factory ServiceModel.fromJson(Map<String, dynamic> json) => ServiceModel(
-        ProductGroup: json["ProductGroup"],
-        ProductName: json["ProductName"],
-        ProductCode: json["ProductCode"],
-        UnitPrice: json["UnitPrice"],
+        ServiceGroup: json["ServiceGroup"],
+        ServiceName: json["ServiceName"],
+        ServiceCode: json["ServiceCode"],
+        Price: json["Price"],
         Description: json["Description"],
         isActive: json["isActive"],
         created: json["created"],
     );
 
     Map<String, dynamic> toJson() => {
-        "ProductGroup": ProductGroup,
-        "ProductName": ProductName,
-        "ProductCode": ProductCode,
-        "UnitPrice": UnitPrice,
+        "ServiceGroup": ServiceGroup,
+        "ServiceName": ServiceName,
+        "ServiceCode": ServiceCode,
+        "Price": Price,
         "Description": Description,
         "isActive": isActive,
         "created": created,
