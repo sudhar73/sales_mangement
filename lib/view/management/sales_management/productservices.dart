@@ -288,7 +288,7 @@ Future<ProductModel> productmodel;
 //                     ),
 // ),
 
-            Padding(
+             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 elevation: 5,
@@ -331,13 +331,25 @@ Future<ProductModel> productmodel;
                                     style: Texts.whit1e(),
                                   ))),
                           GridColumn(
+                              columnName: 'code',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Product ID',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
                               columnName: 'name',
                               label: Container(
                                   color: HexColor("#023781"),
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
+                                    'Product Group',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -345,24 +357,68 @@ Future<ProductModel> productmodel;
                               columnName: 'designation',
                               label: Container(
                                   color: HexColor("#023781"),
-                                  padding: EdgeInsets.all(1.0),
+                                  padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Product Name',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
                                   ))),
                           GridColumn(
-                              width: 500,
                               columnName: 'salary',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Product Code',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'uom',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Unit of Measurement',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),        
+                          GridColumn(
+                              columnName: 'price',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Unit Price',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
+                              columnName: 'description',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Description',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
                                   ))),
                         ],
                       ),
@@ -372,6 +428,7 @@ Future<ProductModel> productmodel;
               ),
             ),
             SizedBox(height: 10),
+
 
 //  Row(
 //    mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -726,27 +783,29 @@ Future<ProductModel> productmodel;
     );
   }
 
+  
   List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee(1, 'PRO123', 'Cleaning', 'MF Cloth', 'CLGMFC01', 25000,25,
+          'Product', 'Edit Delete'),
+      Employee(2, 'PRO123', 'Electrical', 'PL Lamp', 'ELEPL02', 30000,25,
+          'Product', 'Edit Delete'),
+      Employee(3, 'PRO123', 'Medical', 'Paracetamol', 'MEDPL03', 27000,25,
+                'Product', 'Edit Delete'),
+      Employee(1, 'PRO123', 'Cleaning', 'MF Cloth', 'CLGMFC01', 25000,25,
+          'Product', 'Edit Delete'),
+      Employee(2, 'PRO123', 'Electrical', 'PL Lamp', 'ELEPL02', 30000,25,
+          'Product', 'Edit Delete'),
+      Employee(3, 'PRO123', 'Medical', 'Paracetamol', 'MEDPL03', 27000,25,
+          'Product', 'Edit Delete'),
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(this.id, this.code, this.name, this.designation, this.salary,this.uom,
+      this.price, this.act, this.description);
 
   /// Id of an employee.
   final int id;
@@ -759,6 +818,22 @@ class Employee {
 
   /// Salary of an employee.
   final String salary;
+
+  /// Unit Price
+  final int price;
+
+  /// Action
+  final String act;
+
+  /// Description
+  final String description;
+
+  /// Product ID
+  final String code;
+
+  /// UOM
+  final int uom;
+
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -769,10 +844,16 @@ class EmployeeDataSource extends DataGridSource {
     _employeeData = employeeData
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: e.id),
+              DataGridCell<String>(columnName: 'code', value: e.code),
               DataGridCell<String>(columnName: 'name', value: e.name),
               DataGridCell<String>(
                   columnName: 'designation', value: e.designation),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<int>(columnName: 'uom', value: e.uom),
+              DataGridCell<int>(columnName: 'price', value: e.price),
+              DataGridCell<String>(columnName: 'act', value: e.act),
+              DataGridCell<String>(
+                  columnName: 'description', value: e.description),
             ]))
         .toList();
   }
@@ -802,6 +883,7 @@ class EmployeeDataSource extends DataGridSource {
         }).toList());
   }
 }
+
 
 class Saveexit extends StatefulWidget {
   const Saveexit({Key key}) : super(key: key);
@@ -880,15 +962,20 @@ Future<ProductModel> promodel;
             future: promodel,  
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  // ignore: empty_statements
+                  
                   return 
-                      Text(snapshot.data.ProductCode);
-//Text(snapshot.data.ProductName),
+                      Column(
+                        children: [
+                          Text("hi"),
+                          Text(snapshot.data.ProductCode),
+                        ],
+                      );
+
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
               // By default, it show a loading spinner.  
-              return CircularProgressIndicator();  
+              return CircularProgressIndicator(color: Colors.red,);  
             },  
           ),  
           Padding(

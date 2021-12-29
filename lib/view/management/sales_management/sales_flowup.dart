@@ -237,7 +237,7 @@ class _SalefollowupState extends State<Salefollowup> {
 //                     ),
 // ),
 
-            Padding(
+              Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 elevation: 5,
@@ -286,10 +286,33 @@ class _SalefollowupState extends State<Salefollowup> {
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
+                                    'Lead ID',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
+                           GridColumn(
+                              columnName: 'emp',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Employee ID',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                           GridColumn(
+                              columnName: 'empname',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Employee Name',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),             
+
                           GridColumn(
                               columnName: 'designation',
                               label: Container(
@@ -297,19 +320,131 @@ class _SalefollowupState extends State<Salefollowup> {
                                   padding: EdgeInsets.all(1.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Customer Name',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
                                   ))),
                           GridColumn(
-                              width: 500,
                               columnName: 'salary',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Email',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'number',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Phone Number',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'date',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Current Date',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
+                              columnName: 'time',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Current Time',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                           GridColumn(
+                              columnName: 'service',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Product/Service Name',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),        
+                          GridColumn(
+                              columnName: 'details',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Call Details',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
+                              columnName: 'result',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Call Results',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                          GridColumn(
+                              columnName: 'call',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Next Folow Up Date/Time',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'follow',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Follow Up Date',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                           GridColumn(
+                              columnName: 'update',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Follow Up Update',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),        
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
+                                  color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -625,28 +760,33 @@ class _SalefollowupState extends State<Salefollowup> {
       ),
     );
   }
-
-  List<Employee> getEmployeeData() {
+List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee(1,'LD001','EMP01','Prakash','Suresh','suresh@gmail.com',9876543210,22-04-2020,'10;20 PM','Cleaning','Details','Intrest','Yes',28-04-2020,'Call Confirmed','Edit Delete'),
+          
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(
+      this.id,
+      this.name,
+      this.emp,
+      this.empname, 
+      this.designation,
+      this.salary,
+      this.number,
+      this.date,
+      this.time,
+      this.service,
+      this.details,
+      this.result,
+      this.call,
+      this.follow,
+      this.update,
+      this.act);
 
   /// Id of an employee.
   final int id;
@@ -654,11 +794,47 @@ class Employee {
   /// Name of an employee.
   final String name;
 
+  /// Employee ID
+  final String emp ;
+
+  /// Employee Name
+  final String empname;
+  
   /// Designation of an employee.
   final String designation;
 
   /// Salary of an employee.
   final String salary;
+
+  /// Phone Number
+  final int number;
+
+  /// Current date
+  final int date;
+
+  /// Current time
+  final String time;
+
+  /// Product/Service Name
+  final String service;
+
+  /// Call Details
+  final String details;
+
+  /// Call Results
+  final String result;
+
+  /// Follow Up Call Required
+  final String call;
+
+  /// Follow Up Date
+  final int follow;
+
+  /// Follow Up Update
+  final String update;
+
+  ///Action
+  final String act;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -670,9 +846,20 @@ class EmployeeDataSource extends DataGridSource {
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: e.id),
               DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'emp', value: e.emp),
+              DataGridCell<String>(columnName: 'empname', value: e.empname),
+              DataGridCell<String>(columnName: 'designation', value: e.designation),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<int>(columnName: 'number', value: e.number),
+              DataGridCell<int>(columnName: 'date', value: e.date),
+              DataGridCell<String>(columnName: 'time', value: e.time),
+              DataGridCell<String>(columnName: 'service', value: e.service),
+              DataGridCell<String>(columnName: 'details', value: e.details),
+              DataGridCell<String>(columnName: 'result', value: e.result),
+              DataGridCell<String>(columnName: 'call', value: e.call),
+              DataGridCell<int>(columnName: 'follow', value: e.follow),
+              DataGridCell<String>(columnName: 'update', value: e.update),
+              DataGridCell<String>(columnName: 'act', value: e.act),
             ]))
         .toList();
   }
@@ -701,6 +888,7 @@ class EmployeeDataSource extends DataGridSource {
         }).toList());
   }
 }
+
 
 class Saveexit extends StatefulWidget {
   const Saveexit({Key key}) : super(key: key);

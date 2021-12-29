@@ -231,7 +231,7 @@ class _ServiceState extends State<Service> {
 //                     ),
 // ),
 
-            Padding(
+             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 elevation: 5,
@@ -280,7 +280,7 @@ class _ServiceState extends State<Service> {
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
+                                    'Service Group',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -291,22 +291,60 @@ class _ServiceState extends State<Service> {
                                   padding: EdgeInsets.all(1.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Service Name',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
                                   ))),
                           GridColumn(
-                              width: 500,
                               columnName: 'salary',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Service Code',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
+                          GridColumn(
+                              columnName: 'uom',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Unit of measurement',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),        
+                          GridColumn(
+                              columnName: 'price',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Unit Price',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'description',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Description',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  )))
                         ],
                       ),
                     ),
@@ -669,27 +707,19 @@ class _ServiceState extends State<Service> {
     );
   }
 
+  
   List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee(1, 'Cleaning', 'MF Cloth', 'CLGMFC01', 25000, 25,'Product',
+          'Edit Delete'),
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(this.id, this.name, this.designation, this.salary,this.uom, this.price,
+      this.description, this.act);
 
   /// Id of an employee.
   final int id;
@@ -702,6 +732,19 @@ class Employee {
 
   /// Salary of an employee.
   final String salary;
+
+  /// Unit of Measurement
+  final int uom;
+
+
+  /// Unit Price
+  final int price;
+
+  /// Action
+  final String act;
+
+  /// Description
+  final String description;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -713,9 +756,13 @@ class EmployeeDataSource extends DataGridSource {
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: e.id),
               DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'designation', value: e.designation),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<int>(columnName: 'uom', value: e.uom),
+              DataGridCell<int>(columnName: 'price', value: e.price),
+              DataGridCell<String>(
+                  columnName: 'description', value: e.description),
+              DataGridCell<String>(columnName: 'act', value: e.act),
             ]))
         .toList();
   }
@@ -757,6 +804,13 @@ class _SaveexitState extends State<Saveexit> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController textcontroler = TextEditingController();
   ServiceModel servicemodel=ServiceModel();
+  Future<ServiceModel> post;  
+  
+  @override  
+  void initState() {  
+    super.initState();  
+    post = fetchPost();  
+  }  
 
   static const country = [
     "Afghanistan",
@@ -789,6 +843,18 @@ class _SaveexitState extends State<Saveexit> {
     "Finland",
     "France",
   ];
+  Future<ServiceModel> fetchPost() async {  
+    String url=APIConstants.services; 
+  final response = await http.get(Uri.parse(url));  
+  
+  if (response.statusCode == 200) {  
+    // If the server returns an OK response, then parse the JSON.  
+    return ServiceModel.fromJson(json.decode(response.body));  
+  } else {  
+    // If the response was umexpected, throw an error.  
+    throw Exception('Failed to load post');  
+  }  
+}  
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -797,6 +863,19 @@ class _SaveexitState extends State<Saveexit> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          FutureBuilder<ServiceModel>(  
+  future: post,  
+  builder: (context, abc) {  
+    if (abc.hasData) {  
+      return Text(abc.data.ServiceGroup);  
+    } else if (abc.hasError) {  
+      return Text("${abc.error}");  
+    }  
+  
+    // By default, it show a loading spinner.  
+    return CircularProgressIndicator();  
+  },  
+),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Services Group", style: Texts.primary2a()),
@@ -870,8 +949,8 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                onSaved: (ServiceName) {
-                        servicemodel.ServiceName =ServiceName;
+                onSaved: (ProductName) {
+                        servicemodel.ServiceName =ProductName;
                       },
                 ))),
           ),
@@ -895,8 +974,8 @@ class _SaveexitState extends State<Saveexit> {
                     }
                     return null;
                   },
-                  onSaved: (ServiceCode) {
-                        servicemodel.ServiceCode =ServiceCode;
+                  onSaved: (ProductCode) {
+                        servicemodel.ServiceCode =ProductCode;
                       },
                 ))),
           ),
@@ -939,8 +1018,8 @@ class _SaveexitState extends State<Saveexit> {
                 child: Container(
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
-                   onSaved: (Price) {
-                        servicemodel.Price =Price;
+                   onSaved: (UnitPrice) {
+                        servicemodel.Price =UnitPrice;
                       },
                   // validator: (String? value) {
                   //         if (value!.isEmpty) {
@@ -998,9 +1077,9 @@ class _SaveexitState extends State<Saveexit> {
                             (_formkey.currentState.save());
                               showAlertDialog(context);
                                     _loginButtonAction(
-                                         servicemodel.ServiceGroup,
+                                      servicemodel.ServiceGroup,
                                         servicemodel.ServiceName,
-                                        servicemodel.ServiceCode,
+                                      servicemodel.ServiceCode,
                                         servicemodel.Price,
                                         servicemodel.Description,);
                                     print("Successful");

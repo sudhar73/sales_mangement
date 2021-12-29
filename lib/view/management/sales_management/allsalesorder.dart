@@ -152,7 +152,7 @@ class _AllSalesorderState extends State<AllSalesorder> {
             future: salesorderget,  
             builder: (context, abc) {  
               if (abc.hasData) {  
-                return Text(abc.data.companyName);  
+                return Text(abc.data.CompanyName);  
               } else if (abc.hasError) {  
                 return Text("${abc.error}");  
               }  
@@ -791,7 +791,7 @@ class _SaveexitState extends State<Saveexit> {
                         return null;
                       },
                       onSaved: (String saleOwner ) {
-                      salesordermodel.saleOwner=saleOwner;
+                      salesordermodel.SaleOwner=saleOwner;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -844,7 +844,7 @@ class _SaveexitState extends State<Saveexit> {
                         return null;
                       },
                     onSaved: (leadId ) {
-                      salesordermodel.leadId=leadId;
+                      salesordermodel.LeadId=leadId;
                       },
                       suggestionsCallback: (pattern) => country.where(
                         (item) =>
@@ -890,7 +890,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                    onSaved: (companyName) {
-                      salesordermodel.companyName=companyName;
+                      salesordermodel.CompanyName=companyName;
                       },
                   validator: (String value) {
                     if (value.isEmpty) {
@@ -922,7 +922,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                  onSaved: (customerName) {
-                      salesordermodel.customerName=customerName;
+                      salesordermodel.CustomerName=customerName;
                       },
                 ))),
           ),
@@ -941,7 +941,7 @@ class _SaveexitState extends State<Saveexit> {
                     child: TextFormField(
                   decoration: Texts.Textfeild1(),
                   onSaved: (email) {
-                      salesordermodel.email=email;
+                      salesordermodel.Email=email;
                       },
                 ))),
           ),
@@ -966,7 +966,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                    onSaved: (phoneNumber) {
-                      salesordermodel.phoneNumber=phoneNumber;
+                      salesordermodel.PhoneNumber=phoneNumber;
                       },
                 ))),
           ),
@@ -1010,7 +1010,7 @@ class _SaveexitState extends State<Saveexit> {
                       return null;
                     },
                    onSaved: (orderDate) {
-                      salesordermodel.orderDate=orderDate;
+                      salesordermodel.OrderDate=orderDate;
                       },
                   ),
                 )),
@@ -1055,7 +1055,7 @@ class _SaveexitState extends State<Saveexit> {
                       return null;
                     },
                     onSaved: (deliveryDate) {
-                      salesordermodel.deliveryDate=deliveryDate;
+                      salesordermodel.DeliveryDate=deliveryDate;
                       },
                   ),
                 )),
@@ -1081,7 +1081,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                  onSaved: (billingAddress) {
-                      salesordermodel.billingAddress=billingAddress;
+                      salesordermodel.BillingAddress=billingAddress;
                       },
                 ))),
           ),
@@ -1106,7 +1106,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                  onSaved: (shippingAddress) {
-                      salesordermodel.shippingAddress=shippingAddress;
+                      salesordermodel.ShippingAddress=shippingAddress;
                       },
                 ))),
           ),
@@ -1126,7 +1126,7 @@ class _SaveexitState extends State<Saveexit> {
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: TypeAheadFormField(
                       onSaved: (productServiceId) {
-                      salesordermodel.productServiceId=productServiceId;
+                      salesordermodel.ProductServiceId=productServiceId;
                       },
                       suggestionsCallback: (pattern) => product.where(
                         (item) =>
@@ -1178,7 +1178,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                   onSaved: (productServiceName) {
-                      salesordermodel.productServiceName=productServiceName;
+                      salesordermodel.ProductServiceName=productServiceName;
                       },
                 ))),
           ),
@@ -1203,7 +1203,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                    onSaved: (unitValue) {
-                      salesordermodel.unitValue=unitValue;
+                      salesordermodel.UnitValue=unitValue;
                       },
                 ))),
           ),
@@ -1228,7 +1228,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                    onSaved: (quantity) {
-                      salesordermodel.quantity=quantity;
+                      salesordermodel.Quantity=quantity;
                       },
                 ))),
           ),
@@ -1253,7 +1253,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                   onSaved: (quoteValue) {
-                      salesordermodel.quoteValue=quoteValue;
+                      salesordermodel.QuoteValue=quoteValue;
                       },
                 ))),
           ),
@@ -1278,7 +1278,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                  onSaved: (otherCost) {
-                      salesordermodel.otherCost=otherCost;
+                      salesordermodel.OtherCost=otherCost;
                       },
                 ))),
           ),
@@ -1303,7 +1303,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                  onSaved: (subTotal) {
-                      salesordermodel.subTotal=subTotal;
+                      salesordermodel.SubTotal=subTotal;
                       },
                 ))),
           ),
@@ -1328,7 +1328,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                    onSaved: (discount) {
-                      salesordermodel.discount=discount;
+                      salesordermodel.Discount=discount;
                       },
                 ))),
           ),
@@ -1353,7 +1353,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                 onSaved: (tax) {
-                      salesordermodel.tax=tax;
+                      salesordermodel.Tax=tax;
                       },
                 ))),
           ),
@@ -1378,7 +1378,7 @@ class _SaveexitState extends State<Saveexit> {
                     return null;
                   },
                   onSaved: (grandTotal) {
-                      salesordermodel.grandTotal=grandTotal;
+                      salesordermodel.GrandTotal=grandTotal;
                       },
                 ))),
           ),
@@ -1410,7 +1410,7 @@ class _SaveexitState extends State<Saveexit> {
                     popupItemDisabled: (String s) => s.startsWith('I'),
                     onChanged: (value) {
                       setState(() {
-                        salesordermodel.orderStatus = value;
+                        salesordermodel.OrderStatus = value;
                         print(value);
                       });
                     },
@@ -1434,27 +1434,27 @@ class _SaveexitState extends State<Saveexit> {
                             (formGlobalKey.currentState.save());
                           showAlertDialog(context);
                                     _loginButtonAction(
-                                        salesordermodel.saleOwner,
-                                        salesordermodel.leadId,
-                                        salesordermodel.companyName,
-                                        salesordermodel.customerName,
-                                        salesordermodel.email,
-                                        salesordermodel.phoneNumber,
-                                        salesordermodel.orderDate,
-                                        salesordermodel.deliveryDate,
-                                        salesordermodel.billingAddress,
-                                        salesordermodel.shippingAddress,
-                                        salesordermodel.productServiceId,
-                                        salesordermodel.productServiceName,
-                                        salesordermodel.unitValue,
-                                        salesordermodel.quantity,
-                                        salesordermodel.quoteValue,
-                                        salesordermodel.otherCost,
-                                        salesordermodel.subTotal,
-                                        salesordermodel.discount,
-                                        salesordermodel.tax,
-                                        salesordermodel.grandTotal,
-                                        salesordermodel.orderStatus);
+                                        salesordermodel.SaleOwner,
+                                        salesordermodel.LeadId,
+                                        salesordermodel.CompanyName,
+                                        salesordermodel.CustomerName,
+                                        salesordermodel.Email,
+                                        salesordermodel.PhoneNumber,
+                                        salesordermodel.OrderDate,
+                                        salesordermodel.DeliveryDate,
+                                        salesordermodel.BillingAddress,
+                                        salesordermodel.ShippingAddress,
+                                        salesordermodel.ProductServiceId,
+                                        salesordermodel.ProductServiceName,
+                                        salesordermodel.UnitValue,
+                                        salesordermodel.Quantity,
+                                        salesordermodel.QuoteValue,
+                                        salesordermodel.OtherCost,
+                                        salesordermodel.SubTotal,
+                                        salesordermodel.Discount,
+                                        salesordermodel.Tax,
+                                        salesordermodel.GrandTotal,
+                                        salesordermodel.OrderStatus);
                                     print("Successful");
                                   } else {
                                     Fluttertoast.showToast(
@@ -1508,53 +1508,53 @@ class _SaveexitState extends State<Saveexit> {
     );
   }
 
-  void  _loginButtonAction(String saleOwner,
- leadId,
- companyName,
- customerName,
- email,
- phoneNumber,
- orderDate,
- deliveryDate,
- billingAddress,
- shippingAddress,
- productServiceId,
- productServiceName,
- unitValue,
- quantity,
- quoteValue,
- otherCost,
- subTotal,
- discount,
- tax,
- grandTotal,
- orderStatus) async {
+  void  _loginButtonAction(String SaleOwner,
+ LeadId,
+ CompanyName,
+ CustomerName,
+ Email,
+ PhoneNumber,
+ OrderDate,
+ DeliveryDate,
+ BillingAddress,
+ ShippingAddress,
+ ProductServiceId,
+ ProductServiceName,
+ UnitValue,
+ Quantity,
+ QuoteValue,
+ OtherCost,
+ SubTotal,
+ Discount,
+ Tax,
+ GrandTotal,
+ OrderStatus) async {
     final url = APIConstants.salesorder;
 
     var bodyvalue =
         // json.encode(
         {
-      'saleOwner': saleOwner,
-      'leadId': leadId,
-      'companyName': companyName,
-      'customerName': customerName,
-      'email': email,
-      'phoneNumber': phoneNumber,
-      'orderDate': orderDate,
-      'deliveryDate': deliveryDate,
-      'billingAddress': billingAddress,
-      'shippingAddress': shippingAddress,
-      'productServiceId': productServiceId,
-      'productServiceName': productServiceName,
-      'unitValue': unitValue,
-      'quantity': quantity,
-      'quoteValue': quoteValue,
-      'otherCost': otherCost,
-      'subTotal': subTotal,
-      'discount': discount,
-      'tax': tax,
-      'grandTotal': grandTotal,
-      'orderStatus': orderStatus,
+      'SaleOwner': SaleOwner,
+      'LeadId': LeadId,
+      'CompanyName': CompanyName,
+      'CustomerName': CustomerName,
+      'Email': Email,
+      'PhoneNumber': PhoneNumber,
+      'OrderDate': OrderDate,
+      'DeliveryDate': DeliveryDate,
+      'BillingAddress': BillingAddress,
+      'ShippingAddress': ShippingAddress,
+      'ProductServiceId': ProductServiceId,
+      'ProductServiceName': ProductServiceName,
+      'UnitValue': UnitValue,
+      'Quantity': Quantity,
+      'QuoteValue': QuoteValue,
+      'OtherCost': OtherCost,
+      'SubTotal': SubTotal,
+      'Discount': Discount,
+      'Tax': Tax,
+      'GrandTotal': GrandTotal,
+      'OrderStatus': OrderStatus,
     };
     print(bodyvalue);
     final response = await http.post(Uri.parse(url), body: bodyvalue);
