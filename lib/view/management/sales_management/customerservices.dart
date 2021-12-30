@@ -274,7 +274,7 @@ class _CustomerservicesState extends State<Customerservices> {
                                   alignment: Alignment.center,
                                   color: HexColor("#023781"),
                                   child: Text(
-                                    'S.No',
+                                    'Order ID',
                                     style: Texts.whit1e(),
                                   ))),
                           GridColumn(
@@ -284,33 +284,101 @@ class _CustomerservicesState extends State<Customerservices> {
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
+                                    'Customer Name',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
                           GridColumn(
-                              columnName: 'designation',
+                              columnName: 'mail',
                               label: Container(
                                   color: HexColor("#023781"),
                                   padding: EdgeInsets.all(1.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Email ID',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
                                   ))),
-                          GridColumn(
-                              width: 500,
-                              columnName: 'salary',
+                         GridColumn(
+                              columnName: 'number',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Phone Number',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
+                          GridColumn(
+                              columnName: 'product',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Product Name',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'request',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Service Request',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'date',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Request Date',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),    
+                         GridColumn(
+                              columnName: 'status',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Request Status',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),  
+                         GridColumn(
+                              columnName: 'enddate',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Request EndDate',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),   
+                          GridColumn(
+                              columnName: 'details',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Details of Request',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),                         
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  )))
                         ],
                       ),
                     ),
@@ -319,6 +387,7 @@ class _CustomerservicesState extends State<Customerservices> {
               ),
             ),
             SizedBox(height: 10),
+
 
 //  Row(
 //    mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -672,40 +741,50 @@ class _CustomerservicesState extends State<Customerservices> {
       ),
     );
   }
-
-  List<Employee> getEmployeeData() {
+ List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee('UI007654V', 'Rajesh', 'rajesh@gmail.com', 9566275091,'MF Cloth', 'Cleaning',20-3-2020,'Pending',01-04-2020,'Product is Well Packed', 'Edit Delete' ),
+      
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(this.id, this.name, this.mail, this.number,this.product, this.request,this.date,this.status,this.enddate,this.details,this.act);
 
   /// Id of an employee.
-  final int id;
+  final String id;
 
   /// Name of an employee.
   final String name;
 
-  /// Designation of an employee.
-  final String designation;
+  /// Email Id
+  final String mail;
 
-  /// Salary of an employee.
-  final String salary;
+  /// Customer Number
+  final int number;
+
+  /// Product Name
+  final String product;
+
+  /// Service Request
+  final String request;
+
+  /// Request Date
+  final int date;
+
+  /// Request Status
+  final String status;
+
+  /// Request End Date
+  final int enddate;
+
+  /// Details of Request
+  final String details;
+
+  ///Action
+  final String act;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -715,11 +794,17 @@ class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource({List<Employee> employeeData}) {
     _employeeData = employeeData
         .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
+              DataGridCell<String>(columnName: 'id', value: e.id),
               DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
-              DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<String>(columnName: 'mail', value: e.mail),
+              DataGridCell<int>(columnName: 'number', value: e.number),
+              DataGridCell<String>(columnName: 'product', value: e.product),
+              DataGridCell<String>(columnName: 'request', value: e.request),
+              DataGridCell<int>(columnName: 'date', value: e.date),
+              DataGridCell<String>(columnName: 'status', value: e.status),
+              DataGridCell<int>(columnName: 'enddate', value: e.enddate),
+              DataGridCell<String>(columnName: 'details', value: e.details),
+              DataGridCell<String>(columnName: 'act', value: e.act)
             ]))
         .toList();
   }

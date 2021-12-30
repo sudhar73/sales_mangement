@@ -972,19 +972,14 @@ class Employee {
   /// Id of an employee.
   /// Name of an employee.
   final String name;
-
   /// Enquiry Date
   final int date;
-
   /// Branch
   final String branch;
-
   /// Company Name
   final String company;
-
   /// Customer Name
   final String customer;
-
   final int number;
   final String mail;
   final String street;
@@ -994,18 +989,14 @@ class Employee {
   final String state;
   final int pincode;
   final String enquiry;
-
   /// Designation of an employee.
   final String designation;
   final String location;
-
   /// Salary of an employee.
   final String salary;
-
   /// Description
   final String servicedescription;
   final String sector;
-
   /// Department
   final String department;
   final String uom;
@@ -1014,7 +1005,6 @@ class Employee {
   final int cost;
   final int quote;
   final String comments;
-
   /// Action
   final String action;
 }
@@ -1041,16 +1031,12 @@ class EmployeeDataSource extends DataGridSource {
               DataGridCell<String>(columnName: 'state', value: e.state),
               DataGridCell<int>(columnName: 'pincode', value: e.pincode),
               DataGridCell<String>(columnName: 'enquiry', value: e.enquiry),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'designation', value: e.designation),
               DataGridCell<String>(columnName: 'location', value: e.location),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
-              DataGridCell<String>(
-                  columnName: 'servicedescription',
-                  value: e.servicedescription),
+              DataGridCell<String>(columnName: 'servicedescription',value: e.servicedescription),
               DataGridCell<String>(columnName: 'sector', value: e.sector),
-              DataGridCell<String>(
-                  columnName: 'department', value: e.department),
+              DataGridCell<String>(columnName: 'department', value: e.department),
               DataGridCell<String>(columnName: 'uom', value: e.uom),
               DataGridCell<int>(columnName: 'value', value: e.value),
               DataGridCell<int>(columnName: 'quantity', value: e.quantity),
@@ -1074,7 +1060,6 @@ class EmployeeDataSource extends DataGridSource {
         return Colors.grey[100];
       }
     }
-
     return DataGridRowAdapter(
         color: backgroundcolor(),
         cells: row.getCells().map<Widget>((e) {
@@ -1086,17 +1071,12 @@ class EmployeeDataSource extends DataGridSource {
         }).toList());
   }
 }
-
 class Saveexit extends StatefulWidget {
   const Saveexit({Key key}) : super(key: key);
   @override
   _SaveexitState createState() => _SaveexitState();
-}
-
-class _SaveexitState extends State<Saveexit> {
+}class _SaveexitState extends State<Saveexit> {
   Leadmodel leadgenrationModel = Leadmodel();
-  
-  
   // Leadmodel(
   //   id: '',
   //   branch: '',
@@ -1142,6 +1122,45 @@ class _SaveexitState extends State<Saveexit> {
   static const leadowner = ["ramesh", "ramki", "ryan", "pulto"];
   static const service = ["security", "park", "peat", "coco"];
   static const department = ["security", "manger", "developer", "bot"];
+//   Future<Leadmodel> fetchAlbum() async {
+//   final response = await http
+//       .get(Uri.parse('http://localhost:4000/leadGenerate'));
+
+//   if (response.statusCode == 200) {
+//     // If the server did return a 200 OK response,
+//     // then parse the JSON.
+//     return Leadmodel.fromJson(jsonDecode(response.body));
+//   } else {
+//     // If the server did not return a 200 OK response,
+//     // then throw an exception.
+//     throw Exception('Failed to load album');
+//   }
+// }
+Future <List<Leadmodel>> fetchData() async {
+  var url=APIConstants.leadGeneration;
+  final response =
+      await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((data) => Leadmodel.fromJson(data)).toList();
+  } else {
+    throw Exception('Unexpected error occured!');
+  }
+}
+Future <List<Leadmodel>> futureData;
+
+  @override
+  void initState() {
+    super.initState();
+    futureData = fetchData();
+  }
+  // Future<Leadmodel> futureAlbum;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   futureAlbum = fetchAlbum();
+  // }
   static const country = [
     "Afghanistan",
     "Albania",
@@ -1182,6 +1201,30 @@ class _SaveexitState extends State<Saveexit> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          FutureBuilder <List<Leadmodel>>(
+            future: futureData,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Leadmodel> data = snapshot.data;
+                return 
+                ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 75,
+                    color: Colors.white,
+                    child: Center(child: Text(data[index].enquiryDate),
+                  ),);
+                }
+              );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+        
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
             child: Text("Enquiry Date", style: Texts.primary2a()),
@@ -1215,7 +1258,6 @@ class _SaveexitState extends State<Saveexit> {
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
                           currentDate: DateTime.now());
-
                       dateController.text = date.toString().substring(0, 10);
                     },
                     validator: (value) {
@@ -1233,13 +1275,12 @@ class _SaveexitState extends State<Saveexit> {
             child: Text("Branch", style: Texts.primary2a()),
           ),
           Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+              padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
               child: Card(
                   shadowColor: Colors.grey,
                   elevation: 5,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(15)),
                   child: Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: TypeAheadFormField(
@@ -1430,6 +1471,7 @@ class _SaveexitState extends State<Saveexit> {
                     borderRadius: BorderRadius.circular(15)),
                 child: Container(
                     child: TextFormField(
+                  // ignore: non_constant_identifier_names
                   onSaved: (City) {
                     leadgenrationModel.city = City;
                   },

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
@@ -164,7 +165,7 @@ class _LeadsummaryState extends State<Leadsummary> {
 //                         ),), ),
 // ),
 
-            Padding(
+             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 elevation: 5,
@@ -185,7 +186,6 @@ class _LeadsummaryState extends State<Leadsummary> {
                         headerColor: HexColor("#023781"),
                       ),
                       child: SfDataGrid(
-                        key: _key,
                         selectionMode: SelectionMode.multiple,
                         frozenColumnsCount: 2,
                         allowSorting: true,
@@ -214,7 +214,7 @@ class _LeadsummaryState extends State<Leadsummary> {
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
+                                    'Lead ID',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -225,22 +225,72 @@ class _LeadsummaryState extends State<Leadsummary> {
                                   padding: EdgeInsets.all(1.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Company Name',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
                                   ))),
                           GridColumn(
-                              width: 500,
                               columnName: 'salary',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Lead Owner',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
+                          GridColumn(
+                              columnName: 'date',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Created On',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'time',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Modified On',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'amount',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Lead Value',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'value',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Status',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'perform',
+                              label: Container(
+                                color: HexColor("#023781"),
+                                  padding: EdgeInsets.all(1.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                                     
                         ],
                       ),
                     ),
@@ -534,40 +584,40 @@ class _LeadsummaryState extends State<Leadsummary> {
           ),
         ));
   }
-
   List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee(1, 'LD001', 'Ocean Softwares', 'Suresh', '12 - 12 - 2020', '14 - 02 - 2021', '20000', 'Approved', ''),
+      Employee(1, 'LD001', 'Ocean Softwares', 'Suresh', '12 - 12 - 2020', '14 - 02 - 2021', '20000', 'Approved', ''),
+    Employee(1, 'LD001', 'Ocean Softwares', 'Suresh', '12 - 12 - 2020', '14 - 02 - 2021', '20000', 'Approved', ''),
+    Employee(1, 'LD001', 'Ocean Softwares', 'Suresh', '12 - 12 - 2020', '14 - 02 - 2021', '20000', 'Approved', ''),
+    Employee(1, 'LD001', 'Ocean Softwares', 'Suresh', '12 - 12 - 2020', '14 - 02 - 2021', '20000', 'Approved', ''),
+  
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
-
+  Employee(this.id, this.name, this.designation, this.salary, this.date,
+      this.time, this.amount, this.value, this.perform);
   /// Id of an employee.
   final int id;
-
   /// Name of an employee.
   final String name;
-
   /// Designation of an employee.
   final String designation;
-
   /// Salary of an employee.
   final String salary;
+  /// Date of creation.
+  final String date;
+  /// Date of Modified
+  final String time;
+  /// Lead Value
+  final String amount;
+  /// Status
+  final String value;
+  /// Action
+  final String perform;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -579,9 +629,13 @@ class EmployeeDataSource extends DataGridSource {
         .map<DataGridRow>((e) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: e.id),
               DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'designation', value: e.designation),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<String>(columnName: 'date', value: e.date),
+              DataGridCell<String>(columnName: 'time', value: e.time),
+              DataGridCell<String>(columnName: 'amount', value: e.amount),
+              DataGridCell<String>(columnName: 'value', value: e.value),
+              DataGridCell<String>(columnName: 'perform', value: e.perform)
             ]))
         .toList();
   }
@@ -590,7 +644,7 @@ class EmployeeDataSource extends DataGridSource {
   List<DataGridRow> get rows => _employeeData;
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {
-    Color backgroundcolor() {
+   Color backgroundcolor() {
       int index = effectiveRows.indexOf(row);
       if (index % 2 == 0) {
         return Colors.white;
@@ -599,14 +653,88 @@ class EmployeeDataSource extends DataGridSource {
       }
     }
 
-    return DataGridRowAdapter(
-        color: backgroundcolor(),
-        cells: row.getCells().map<Widget>((e) {
-          return Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(8.0),
-            child: Text(e.value.toString()),
-          );
-        }).toList());
+    return DataGridRowAdapter(color: backgroundcolor(), cells: [
+      Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[0].value.toString()),
+      ),
+      Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[1].value),
+      ),
+       Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[2].value),
+      ), Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[3].value),
+      ),
+       Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[4].value),
+      ), Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[5].value),
+      ),Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[6].value),
+      ),
+      Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Text(row.getCells()[7].value),
+      ),
+     Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: _getFAB())
+    ]);
+  }
+  Widget _getFAB() {
+        return Container(height:30,width:30,
+          child: Center(
+            child: Align( 
+              alignment: Alignment.center,
+              child: SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                animatedIconTheme: IconThemeData(size: 15),
+                backgroundColor: HexColor("#023781"),
+                visible: true,
+                curve: Curves.bounceOut,
+                children: [
+                      SpeedDialChild(
+                      child: Icon(Icons.edit,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () { /* do anything */ },
+                      label: 'Edit',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                      labelBackgroundColor: HexColor("#023781")),
+                   
+                      SpeedDialChild(
+                      child: Icon(Icons.delete,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () {
+                      },
+                      label: 'Delete',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                     labelBackgroundColor: HexColor("#023781")),
+                ],
+              ),
+            ),
+          ),
+        );
   }
 }

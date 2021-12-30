@@ -223,17 +223,7 @@ class _SalesreperstativeState extends State<Salesreperstative> {
                         headerGridLinesVisibility: GridLinesVisibility.vertical,
                         source: employeeDataSource,
                         columns: <GridColumn>[
-                          GridColumn(
-                              allowEditing: true,
-                              columnName: 'id',
-                              label: Container(
-                                  padding: EdgeInsets.all(16.0),
-                                  alignment: Alignment.center,
-                                  color: HexColor("#023781"),
-                                  child: Text(
-                                    'S.No',
-                                    style: Texts.whit1e(),
-                                  ))),
+                         
                           GridColumn(
                               columnName: 'name',
                               label: Container(
@@ -252,19 +242,79 @@ class _SalesreperstativeState extends State<Salesreperstative> {
                                   padding: EdgeInsets.all(1.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Role',
+                                    'Employee ID',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.ellipsis,
                                   ))),
-                          GridColumn(
-                              width: 500,
+                           GridColumn(
+                              allowEditing: true,
+                              columnName: 'mail',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Email ID',
+                                    style: Texts.whit1e(),
+                                  ))),     
+                            GridColumn(
                               columnName: 'salary',
                               label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Responsibilities',
+                                    'Phone Number',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                           GridColumn(
+                              columnName: 'img',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Image',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),        
+                          GridColumn(
+                              columnName: 'dep',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Department',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'des',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Designation',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'salary',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Product Name',
+                                    style: Texts.whit1e(),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
+                                  padding: EdgeInsets.all(8.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Action',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -581,40 +631,49 @@ class _SalesreperstativeState extends State<Salesreperstative> {
       ),
     );
   }
-
-  List<Employee> getEmployeeData() {
+ List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+      Employee('Prakash', 'Emp001', 'prakash@gmail.com', 9876543210,'Image', 'Quality',
+          'Suppliers', 'Mobile', 'Edit Delete'),
+      
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(this.name, this.designation, this.mail, this.number,this.img, 
+      this.dep, this.des, this.salary, this.act);
 
-  /// Id of an employee.
-  final int id;
-
+  
   /// Name of an employee.
   final String name;
 
   /// Designation of an employee.
   final String designation;
 
+  /// Email Id
+  final String mail;
+
+    /// Phone Number
+  final int number;
+
+    /// Image
+  final String img;
+
+  /// Department
+  final String dep;
+
+  /// Designation
+  final String des;
+
+  
   /// Salary of an employee.
   final String salary;
+
+
+  /// Action
+  final String act;
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -624,11 +683,15 @@ class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource({List<Employee> employeeData}) {
     _employeeData = employeeData
         .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
               DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'designation', value: e.designation),
+              DataGridCell<String>(columnName: 'mail', value: e.mail),
+              DataGridCell<int>(columnName: 'number', value: e.number),
+               DataGridCell<String>(columnName: 'img', value: e.img),
+              DataGridCell<String>(columnName: 'dep', value: e.dep),
+              DataGridCell<String>(columnName: 'des', value: e.des),
               DataGridCell<String>(columnName: 'salary', value: e.salary),
+              DataGridCell<String>(columnName: 'act', value: e.act),
             ]))
         .toList();
   }
@@ -657,6 +720,7 @@ class EmployeeDataSource extends DataGridSource {
         }).toList());
   }
 }
+  
 
 class Saveexit extends StatefulWidget {
   const Saveexit({Key key}) : super(key: key);

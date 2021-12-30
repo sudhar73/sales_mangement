@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -6,6 +7,8 @@ import 'package:sales/view/management/sales_management/lead_genration.dart';
 import 'package:sales/view/management/sales_management/leadsummary.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
 
 class Productgroup extends StatefulWidget {
   const Productgroup({Key key}) : super(key: key);
@@ -185,6 +188,7 @@ class _ProductgroupState extends State<Productgroup> {
                             ))),
                   ),
                 ),
+       
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Center(
@@ -286,26 +290,48 @@ class EmployeeDataSource extends DataGridSource {
       Container(
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              IconButton(
-                hoverColor: Colors.green,
-                focusColor: Colors.red,
-                highlightColor: Colors.orange, 
-                disabledColor: Colors.black,
-                splashColor: Colors.white,
-                onPressed: () {
-                  Get.to(Lead_genaration());
-                },
-                icon: Icon(
-                  Icons.access_alarm_outlined,
-                  color: Colors.red,
-                  size: 15,
-                ),
-              ),
-              //Text(row.getCells()[3].value)
-            ],
-          ))
+          child: _getFAB())
     ]);
   }
+  Widget _getFAB() {
+        return Container(height:30,width:30,
+          child: Center(
+            child: Align( 
+              alignment: Alignment.center,
+              child: SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                animatedIconTheme: IconThemeData(size: 15),
+                backgroundColor: HexColor("#023781"),
+                visible: true,
+                curve: Curves.bounceOut,
+                children: [
+                      SpeedDialChild(
+                      child: Icon(Icons.edit,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () { /* do anything */ },
+                      label: 'Edit',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                      labelBackgroundColor: HexColor("#023781")),
+                   
+                      SpeedDialChild(
+                      child: Icon(Icons.delete,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () {
+                      },
+                      label: 'Delete',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                     labelBackgroundColor: HexColor("#023781")),
+                ],
+              ),
+            ),
+          ),
+        );
+  }
 }
+

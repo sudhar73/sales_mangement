@@ -237,7 +237,7 @@ class _AllSalesorderState extends State<AllSalesorder> {
 //                         ),), ),
 // ),
 
-            Padding(
+          Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 elevation: 5,
@@ -270,46 +270,242 @@ class _AllSalesorderState extends State<AllSalesorder> {
                         columns: <GridColumn>[
                           GridColumn(
                               allowEditing: true,
+                              columnName: 'owner',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Sales Owner',
+                                    style: Texts.whit1e(),
+                                  ))),
+                            GridColumn(
+                              allowEditing: true,
                               columnName: 'id',
                               label: Container(
                                   padding: EdgeInsets.all(16.0),
                                   alignment: Alignment.center,
                                   color: HexColor("#023781"),
                                   child: Text(
-                                    'S.No',
+                                    'Lead ID',
+                                    style: Texts.whit1e(),
+                                  ))),      
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'company',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Company Name',
+                                    style: Texts.whit1e(),
+                                  ))),  
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'customer',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Customer Name',
+                                    style: Texts.whit1e(),
+                                  ))),     
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'mail',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Email ID',
                                     style: Texts.whit1e(),
                                   ))),
-                          GridColumn(
-                              columnName: 'name',
+                                GridColumn(
+                              allowEditing: true,
+                              columnName: 'number',
                               label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
                                   color: HexColor("#023781"),
+                                  child: Text(
+                                    'Mobile Number',
+                                    style: Texts.whit1e(),
+                                  ))),
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'date',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Order Date',
+                                    style: Texts.whit1e(),
+                                  ))),      
+                             GridColumn(
+                              allowEditing: true,
+                              columnName: 'deldate',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Delivery Date',
+                                    style: Texts.whit1e(),
+                                  ))),  
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'bill',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Billing Address',
+                                    style: Texts.whit1e(),
+                                  ))),        
+                               GridColumn(
+                              allowEditing: true,
+                              columnName: 'ship',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Shipping Address',
+                                    style: Texts.whit1e(),
+                                  ))),        
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'serviceid',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Product Service ID',
+                                    style: Texts.whit1e(),
+                                  ))),
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'servicename',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Product Service Name',
+                                    style: Texts.whit1e(),
+                                  ))),      
+                             GridColumn(
+                              allowEditing: true,
+                              columnName: 'value',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Unit Value',
+                                    style: Texts.whit1e(),
+                                  ))), 
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'quantity',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Quantity',
+                                    style: Texts.whit1e(),
+                                  ))),   
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'quote',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Quote Value',
+                                    style: Texts.whit1e(),
+                                  ))),       
+                               GridColumn(
+                              allowEditing: true,
+                              columnName: 'cost',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Other Cost',
+                                    style: Texts.whit1e(),
+                                  ))),   
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'subtotal',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Sub Total',
+                                    style: Texts.whit1e(),
+                                  ))),             
+                              GridColumn(
+                              allowEditing: true,
+                              columnName: 'discount',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Discount',
+                                    style: Texts.whit1e(),
+                                  ))),     
+                               GridColumn(
+                              allowEditing: true,
+                              columnName: 'tax',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Tax',
+                                    style: Texts.whit1e(),
+                                  ))),     
+                            GridColumn(
+                              allowEditing: true,
+                              columnName: 'grandtotal',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Grand Total',
+                                    style: Texts.whit1e(),
+                                  ))),   
+                               GridColumn(
+                              allowEditing: true,
+                              columnName: 'status',
+                              label: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  alignment: Alignment.center,
+                                  color: HexColor("#023781"),
+                                  child: Text(
+                                    'Order Status',
+                                    style: Texts.whit1e(),
+                                  ))),  
+                          GridColumn(
+                              columnName: 'act',
+                              label: Container(
                                   padding: EdgeInsets.all(8.0),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Employee Name',
-                                    style: Texts.whit1e(),
-                                    textAlign: TextAlign.center,
-                                  ))),
-                          GridColumn(
-                              columnName: 'designation',
-                              label: Container(
-                                  color: HexColor("#023781"),
-                                  padding: EdgeInsets.all(1.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Role',
-                                    style: Texts.whit1e(),
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ))),
-                          GridColumn(
-                              width: 500,
-                              columnName: 'salary',
-                              label: Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Responsibilities',
+                                    'Action',
                                     style: Texts.whit1e(),
                                     textAlign: TextAlign.center,
                                   ))),
@@ -626,39 +822,84 @@ class _AllSalesorderState extends State<AllSalesorder> {
     );
   }
 
-  List<Employee> getEmployeeData() {
+   List<Employee> getEmployeeData() {
     return [
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
-      Employee(1, 'Rajesh', 'CEO',
-          'CEO is the head of the organization. For Organisation Chart, addition of CEO is required'),
-      Employee(
-          2, 'Ram', 'HR ADMIN', 'HR Admins permissions apply to all employees'),
-      Employee(3, 'Priya', 'HR ',
-          'View all employee profile information (Non-payroll) View sensitive employee information (such as PAN Card, IDs, DOB etc)'),
+       Employee('Karthik','LD001','Ocean','Prakash','Prakash@gmail.com',9876543210,12-12-2020,18-12-2020,'Chennai','Chennai','SER001','Cleaning',25,2,50,20,90,10,5,100,'Approved','Edit Delete'),
     ];
   }
 }
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Employee(this.owner, this.id, this.company, this.customer, this.mail, this.number, this.date,this.deldate, 
+this.bill, this.ship, this.serviceid, this.servicename,this.value, this.quantity, this.quote, this.cost, 
+this.subtotal, this.discount,this.tax, this.grandtotal, this.status, this.act);
 
-  /// Id of an employee.
-  final int id;
+  /// Sales Owner
+  final String owner;
+  
+  /// Lead ID
+  final String id;
 
-  /// Name of an employee.
-  final String name;
+  /// Company Name
+  final String company;
 
-  /// Designation of an employee.
-  final String designation;
+  /// Customer Name
+  final String customer;
 
-  /// Salary of an employee.
-  final String salary;
+  /// Email ID
+  final String mail;
+
+  /// Phone Number
+  final int number;
+
+  /// Order Date
+  final int date;
+
+  /// Delivery Date
+  final int deldate;
+
+  /// Billing Address
+  final String bill;
+
+  /// Shipping Address
+  final String ship;
+
+  /// Product Service ID
+  final String serviceid;
+
+  /// Product Service Name
+  final String servicename;
+
+  /// Unit Value
+  final int value;
+
+  /// Quantity
+  final int quantity;
+
+  /// Quote Value
+  final int quote;
+
+  /// Other Cost
+  final int cost;
+
+  /// Subtotal
+  final int subtotal;
+
+  /// Discount
+  final int discount;
+
+  /// Tax
+  final int tax;
+
+  /// Grand Total
+  final int grandtotal;
+
+  /// Order Status
+  final String status;
+
+  /// Action
+  final String act; 
 }
 
 /// An object to set the employee collection data source to the datagrid. This
@@ -668,11 +909,28 @@ class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource({List<Employee> employeeData}) {
     _employeeData = employeeData
         .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
-              DataGridCell<String>(columnName: 'name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
-              DataGridCell<String>(columnName: 'salary', value: e.salary),
+             DataGridCell<String>(columnName: 'owner', value: e.owner),
+              DataGridCell<String>(columnName: 'id', value: e.id),
+              DataGridCell<String>(columnName: 'company', value: e.company),
+              DataGridCell<String>(columnName: 'customer', value: e.customer),
+              DataGridCell<String>(columnName: 'mail', value: e.mail),
+              DataGridCell<int>(columnName: 'number', value: e.number),
+              DataGridCell<int>(columnName: 'date', value: e.date),
+              DataGridCell<int>(columnName: 'deldate', value: e.deldate),
+              DataGridCell<String>(columnName: 'bill', value: e.bill),
+              DataGridCell<String>(columnName: 'ship', value: e.ship),
+              DataGridCell<String>(columnName: 'serviceid', value: e.serviceid),
+              DataGridCell<String>(columnName: 'servicename', value: e.servicename),
+              DataGridCell<int>(columnName: 'value', value: e.value),
+              DataGridCell<int>(columnName: 'quantity', value: e.quantity),
+              DataGridCell<int>(columnName: 'quote', value: e.quote),
+              DataGridCell<int>(columnName: 'cost', value: e.cost),
+              DataGridCell<int>(columnName: 'subtotal', value: e.subtotal),
+              DataGridCell<int>(columnName: 'discount', value: e.discount),
+              DataGridCell<int>(columnName: 'tax', value: e.tax),
+              DataGridCell<int>(columnName: 'grandtotal', value: e.grandtotal),
+              DataGridCell<String>(columnName: 'status', value: e.status),           
+              DataGridCell<String>(columnName: 'act', value: e.act)
             ]))
         .toList();
   }

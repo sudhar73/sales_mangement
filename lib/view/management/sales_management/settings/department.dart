@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sales/utils/texts.dart';
@@ -278,24 +279,50 @@ class EmployeeDataSource extends DataGridSource {
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Text(row.getCells()[1].value),
       ),
-      Container(
+     Container(
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  print("inside the icon");
-                },
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ),
-              //Text(row.getCells()[3].value)
-            ],
-          ))
+          child: _getFAB())
     ]);
+  }
+  Widget _getFAB() {
+        return Container(height:30,width:30,
+          child: Center(
+            child: Align( 
+              alignment: Alignment.center,
+              child: SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                animatedIconTheme: IconThemeData(size: 15),
+                backgroundColor: HexColor("#023781"),
+                visible: true,
+                curve: Curves.bounceOut,
+                children: [
+                      SpeedDialChild(
+                      child: Icon(Icons.edit,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () { /* do anything */ },
+                      label: 'Edit',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                      labelBackgroundColor: HexColor("#023781")),
+                   
+                      SpeedDialChild(
+                      child: Icon(Icons.delete,color:Colors.white),
+                      backgroundColor: HexColor("#023781"),
+                      onTap: () {
+                      },
+                      label: 'Delete',
+                      labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          fontSize: 16.0),
+                     labelBackgroundColor: HexColor("#023781")),
+                ],
+              ),
+            ),
+          ),
+        );
   }
 }

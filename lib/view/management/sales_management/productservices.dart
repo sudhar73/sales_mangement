@@ -871,7 +871,6 @@ class EmployeeDataSource extends DataGridSource {
         return Colors.grey[100];
       }
     }
-
     return DataGridRowAdapter(
         color: backgroundcolor(),
         cells: row.getCells().map<Widget>((e) {
@@ -887,11 +886,9 @@ class EmployeeDataSource extends DataGridSource {
 
 class Saveexit extends StatefulWidget {
   const Saveexit({Key key}) : super(key: key);
-
   @override
   _SaveexitState createState() => _SaveexitState();
 }
-
 class _SaveexitState extends State<Saveexit> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController textcontroler = TextEditingController();
@@ -908,7 +905,6 @@ class _SaveexitState extends State<Saveexit> {
     throw Exception('Failed to load post');  
   }  
 }  
-
   List<Employee> employees = <Employee>[];
   EmployeeDataSource employeeDataSource;
 Future<ProductModel> promodel;
@@ -962,7 +958,6 @@ Future<ProductModel> promodel;
             future: promodel,  
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  
                   return 
                       Column(
                         children: [
@@ -970,7 +965,6 @@ Future<ProductModel> promodel;
                           Text(snapshot.data.ProductCode),
                         ],
                       );
-
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
